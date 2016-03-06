@@ -14,6 +14,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let URL = NSURL(string: "https://github.com/szk-atmosphere/SAHistoryNavigationViewController")!
+        OGDataProvider.sharedInstance.fetchOGData(URL: URL) { ogData, error in
+            print(ogData)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,4 +27,3 @@ class ViewController: UIViewController {
 
 
 }
-
