@@ -9,6 +9,7 @@
 import Foundation
 
 struct OGData {
+    //MARK: Inner enum
     private enum PropertyName: String {
         case Description = "og:description"
         case Image       = "og:image"
@@ -18,6 +19,7 @@ struct OGData {
         case Url         = "og:url"
     }
     
+    //MARKL - Properties
     private(set) var siteName        : String = ""
     private(set) var pageType        : String = ""
     private(set) var url             : String = ""
@@ -31,20 +33,15 @@ struct OGData {
         self.URL = URL
     }
     
-    mutating func setProperty(metaTagData metaTagData: OGMetaTagData) {
-        guard let propertyName = PropertyName(rawValue: metaTagData.property) else { return }
+    mutating func setValue(property property: String, content: String) {
+        guard let propertyName = PropertyName(rawValue: property) else { return }
         switch propertyName  {
-        case .SiteName    : siteName        = metaTagData.content
-        case .Type        : pageType        = metaTagData.content
-        case .Title       : pageTitle       = metaTagData.content
-        case .Image       : imageUrl        = metaTagData.content
-        case .Url         : url             = metaTagData.content
-        case .Description : pageDescription = metaTagData.content
+        case .SiteName    : siteName        = content
+        case .Type        : pageType        = content
+        case .Title       : pageTitle       = content
+        case .Image       : imageUrl        = content
+        case .Url         : url             = content
+        case .Description : pageDescription = content
         }
     }
-}
-
-struct OGMetaTagData {
-    var property: String = ""
-    var content: String = ""
 }

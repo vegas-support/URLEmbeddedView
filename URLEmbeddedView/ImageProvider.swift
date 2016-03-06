@@ -9,8 +9,10 @@
 import Foundation
 
 class ImageProvider {
+    //MARK: - Static constants
     static let sharedInstance = ImageProvider()
     
+    //MARK: - Properties
     private let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
     
     func loadImage(url: String, completion: ((UIImage?, NSError?) -> Void)? = nil) {
