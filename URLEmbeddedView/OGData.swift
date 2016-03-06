@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct OGData {
+struct OGData {
     private enum PropertyName: String {
         case Description = "og:description"
         case Image       = "og:image"
@@ -24,6 +24,12 @@ public struct OGData {
     private(set) var pageTitle       : String = ""
     private(set) var imageUrl        : String = ""
     private(set) var pageDescription : String = ""
+    
+    private let URL: NSURL
+    
+    init(URL: NSURL) {
+        self.URL = URL
+    }
     
     mutating func setProperty(metaTagData metaTagData: OGMetaTagData) {
         guard let propertyName = PropertyName(rawValue: metaTagData.property) else { return }

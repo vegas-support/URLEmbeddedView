@@ -11,13 +11,13 @@ import URLEmbeddedView
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var embeddedView: URLEmbeddedView!
+    @IBOutlet weak var textView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let URL = NSURL(string: "https://github.com/szk-atmosphere/SAHistoryNavigationViewController")!
-        OGDataProvider.sharedInstance.fetchOGData(URL: URL) { ogData, error in
-            print(ogData)
-        }
+        textView.text = "https://github.com/szk-atmosphere"
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,5 +25,8 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func didTapLoadButton(sender: AnyObject) {
+        guard let urlString = textView.text else { return }
+        embeddedView.loadURL(urlString)
+    }
 }
