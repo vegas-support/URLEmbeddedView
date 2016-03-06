@@ -1,0 +1,20 @@
+PODS:
+  - Kanna (1.0.5)
+  - MisterFusion (0.8.0)
+  - URLEmbeddedView (0.1.0):
+    - Kanna (~> 1.0)
+    - MisterFusion
+
+DEPENDENCIES:
+  - URLEmbeddedView (from `../`)
+
+EXTERNAL SOURCES:
+  URLEmbeddedView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Kanna: 1df5cd995dc1f3a282e3dcf7521cfef2f069ac4d
+  MisterFusion: 3b20851bc79eeaba59070922102f1bd2866dfe02
+  URLEmbeddedView: 7eb69f3ee6f54e8103f87f63505feb337387cfa9
+
+COCOAPODS: 0.39.0
