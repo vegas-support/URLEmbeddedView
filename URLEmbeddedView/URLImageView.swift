@@ -1,8 +1,8 @@
 //
 //  URLImageView.swift
-//  Pods
+//  URLEmbeddedView
 //
-//  Created by 鈴木大貴 on 2016/03/07.
+//  Created by Taiki Suzuki on 2016/03/07.
 //
 //
 
@@ -31,9 +31,9 @@ class URLImageView: UIImageView {
         )
     }
     
-    func loadImage(url: String, completion: ((UIImage?, NSError?) -> Void)? = nil) {
+    override func loadImage(url: String, completion: ((UIImage?, NSError?) -> Void)? = nil) {
         activityView.startAnimating()
-        ImageProvider.sharedInstance.loadImage(url) { [weak self] image, error in
+        super.loadImage(url) { [weak self] image, error in
             if let error = error {
                 completion?(nil, error)
                 return
@@ -46,3 +46,4 @@ class URLImageView: UIImageView {
         }
     }
 }
+

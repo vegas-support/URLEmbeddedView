@@ -2,7 +2,7 @@
 //  OGData.swift
 //  URLEmbeddedView
 //
-//  Created by 鈴木大貴 on 2016/03/07.
+//  Created by Taiki Suzuki on 2016/03/07.
 //
 //
 

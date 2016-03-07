@@ -10,44 +10,24 @@ import UIKit
 import MisterFusion
 
 public class URLEmbeddedView: UIView {
+    private typealias ATP = AttributedTextProvider
+    //MARK: - Static constants
+    private static let FaviconURL = "http://www.google.com/s2/favicons?domain="
+    
     //MARK: - Properties
-    private var URL: NSURL?
+    private let domainConainter = UIView()
     private let privateImageView = URLImageView()
     public var imageView: UIImageView {
         return privateImageView
     }
-    public let mainTextLabel = UILabel()
-    public let subTextLabel = UILabel()
+    public let titleLabel = UILabel()
+    public let descriptionLabel = UILabel()
+    public let domainLabel = UILabel()
+    public let domainImageView = UIImageView()
     public let activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
-    @IBInspectable public var cornerRaidus: CGFloat {
-        set {
-            layer.masksToBounds = newValue > 0
-            layer.cornerRadius = newValue
-        }
-        get {
-            return layer.cornerRadius
-        }
-    }
-    @IBInspectable public var borderColor: UIColor? {
-        set {
-            layer.borderColor = newValue?.CGColor
-            privateImageView.layer.borderColor = layer.borderColor
-        }
-        get {
-            guard let cgColor = layer.borderColor else { return nil }
-            return UIColor(CGColor: cgColor)
-        }
-    }
-    @IBInspectable public var borderWidth: CGFloat {
-        set {
-            layer.borderWidth = newValue
-            privateImageView.layer.borderWidth = layer.borderWidth
-        }
-        get {
-            return layer.borderWidth
-        }
-    }
+    private var URL: NSURL?
+    private let textProvider = AttributedTextProvider.sharedInstance
     
     public convenience init(url: String) {
         self.init(url: url, frame: .zero)
@@ -80,14 +60,6 @@ public class URLEmbeddedView: UIView {
         setNeedsDisplay()
         layoutIfNeeded()
         
-        activityView.hidesWhenStopped = true
-        addLayoutSubview(activityView, andConstraints:
-            activityView.Width |=| 30,
-            activityView.Height |=| 30,
-            activityView.CenterX,
-            activityView.CenterY
-        )
-        
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
         addLayoutSubview(imageView, andConstraints:
@@ -95,6 +67,56 @@ public class URLEmbeddedView: UIView {
             imageView.Left,
             imageView.Bottom,
             imageView.Width |==| imageView.Height
+        )
+        
+        titleLabel.numberOfLines = textProvider[.Title].numberOfLines
+        //titleLabel.backgroundColor = .grayColor()
+        addLayoutSubview(titleLabel, andConstraints:
+            titleLabel.Top    |+| 8,
+            titleLabel.Right  |-| 12,
+            titleLabel.Left   |==| imageView.Right |+| 12,
+            titleLabel.Height |>=| textProvider[.Title].font.lineHeight
+        )
+        
+        //domainConainter.backgroundColor = .grayColor()
+        addLayoutSubview(domainConainter, andConstraints:
+            domainConainter.Right  |-| 12,
+            domainConainter.Bottom |-| 10,
+            domainConainter.Left   |==| imageView.Right |+| 12,
+            domainConainter.Height |=|  textProvider[.Domain].font.lineHeight
+        )
+        
+        descriptionLabel.numberOfLines = textProvider[.Description].numberOfLines
+        //descriptionLabel.backgroundColor = .grayColor()
+        addLayoutSubview(descriptionLabel, andConstraints:
+            descriptionLabel.Right  |-| 12,
+            descriptionLabel.Height |>=| 0,
+            descriptionLabel.Top    |==| titleLabel.Bottom   |+| 2,
+            descriptionLabel.Bottom |<=| domainConainter.Top |+| 4,
+            descriptionLabel.Left   |==| imageView.Right     |+| 12
+        )
+        
+        domainConainter.addLayoutSubview(domainImageView, andConstraints:
+            domainImageView.Top,
+            domainImageView.Left,
+            domainImageView.Bottom,
+            domainImageView.Width |==| domainConainter.Height
+        )
+        
+        domainLabel.numberOfLines = textProvider[.Domain].numberOfLines
+        domainConainter.addLayoutSubview(domainLabel, andConstraints:
+            domainLabel.Top,
+            domainLabel.Right,
+            domainLabel.Bottom,
+            domainLabel.Left |==| domainImageView.Right |+| (textProvider[.Domain].font.lineHeight / 5)
+        )
+        
+        activityView.hidesWhenStopped = true
+        addLayoutSubview(activityView, andConstraints:
+            activityView.CenterX,
+            activityView.CenterY,
+            activityView.Width  |=| 30,
+            activityView.Height |=| 30
         )
     }
 }
@@ -112,8 +134,19 @@ extension URLEmbeddedView {
         OGDataProvider.sharedInstance.fetchOGData(URL: URL) { [weak self] ogData, error in
             dispatch_async(dispatch_get_main_queue()) {
                 self?.activityView.stopAnimating()
+                if let _ = error {
+                    self?.titleLabel.attributedText = self?.textProvider[.Title].attributedText(URL.absoluteString)
+                    self?.descriptionLabel.attributedText = nil
+                    self?.domainLabel.attributedText = self?.textProvider[.Domain].attributedText(URL.host ?? "")
+                    return
+                }
+                self?.titleLabel.attributedText = self?.textProvider[.Title].attributedText(ogData.pageTitle)
+                self?.descriptionLabel.attributedText = self?.textProvider[.Description].attributedText(ogData.pageDescription)
                 if !ogData.imageUrl.isEmpty {
-                    self?.privateImageView.loadImage(ogData.imageUrl)
+                    self?.privateImageView.loadImage(ogData.imageUrl, completion: nil)
+                    let host = URL.host ?? ""
+                    self?.domainLabel.attributedText = self?.textProvider[.Domain].attributedText(host)
+                    self?.domainImageView.loadImage(URLEmbeddedView.FaviconURL + host, completion: nil)
                 }
             }
         }

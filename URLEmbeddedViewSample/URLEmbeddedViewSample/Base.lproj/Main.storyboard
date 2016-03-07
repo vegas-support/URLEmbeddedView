@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ecA-ce-e5K">
-                                <rect key="frame" x="500" y="210" width="80" height="30"/>
+                                <rect key="frame" x="500" y="208" width="80" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="6FM-3S-sPh"/>
                                     <constraint firstAttribute="width" constant="80" id="CJH-DF-K4C"/>
@@ -29,14 +29,14 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CwK-2N-JO7" customClass="URLEmbeddedView" customModule="URLEmbeddedView">
-                                <rect key="frame" x="20" y="252" width="560" height="96"/>
+                                <rect key="frame" x="20" y="250" width="560" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="96" id="hWv-0m-kSj"/>
+                                    <constraint firstAttribute="height" constant="100" id="hWv-0m-kSj"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="saZ-IN-eVQ">
-                                <rect key="frame" x="40" y="64" width="448" height="176"/>
+                                <rect key="frame" x="40" y="64" width="448" height="174"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
