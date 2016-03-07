@@ -18,6 +18,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         textView.text = "https://github.com/szk-atmosphere"
+        
+        embeddedView.textProvider[.Title].font = .boldSystemFontOfSize(20)
     }
 
     override func didReceiveMemoryWarning() {

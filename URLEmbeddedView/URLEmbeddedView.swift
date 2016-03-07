@@ -15,19 +15,22 @@ public class URLEmbeddedView: UIView {
     private static let FaviconURL = "http://www.google.com/s2/favicons?domain="
     
     //MARK: - Properties
+    let imageView = URLImageView()
+    private var imageViewWidthConstraint: NSLayoutConstraint?
+    
+    private let titleLabel = UILabel()
+    private let descriptionLabel = UILabel()
+    
     private let domainConainter = UIView()
-    private let privateImageView = URLImageView()
-    public var imageView: UIImageView {
-        return privateImageView
-    }
-    public let titleLabel = UILabel()
-    public let descriptionLabel = UILabel()
-    public let domainLabel = UILabel()
-    public let domainImageView = UIImageView()
-    public let activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    private let domainLabel = UILabel()
+    private let domainImageView = UIImageView()
+    private var domainImageViewToDomainLabelConstraint: NSLayoutConstraint?
+    private var domainImageViewWidthConstraint: NSLayoutConstraint?
+    
+    private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
     private var URL: NSURL?
-    private let textProvider = AttributedTextProvider.sharedInstance
+    public let textProvider = AttributedTextProvider.sharedInstance
     
     public convenience init(url: String) {
         self.init(url: url, frame: .zero)
@@ -60,6 +63,19 @@ public class URLEmbeddedView: UIView {
         setNeedsDisplay()
         layoutIfNeeded()
         
+        textProvider.didChangeValue = { [weak self] style, attribute, value in
+            switch style {
+            case .Title: break
+            case .Domain: break
+            case .Description: break
+            case .NoDataTitle: break
+            }
+            
+            print("style = \(style)")
+            print("attribute = \(attribute)")
+            print("value = \(value)")
+        }
+        
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
         addLayoutSubview(imageView, andConstraints:
@@ -70,7 +86,7 @@ public class URLEmbeddedView: UIView {
         )
         
         titleLabel.numberOfLines = textProvider[.Title].numberOfLines
-        //titleLabel.backgroundColor = .grayColor()
+        titleLabel.backgroundColor = .grayColor()
         addLayoutSubview(titleLabel, andConstraints:
             titleLabel.Top    |+| 8,
             titleLabel.Right  |-| 12,
@@ -78,7 +94,7 @@ public class URLEmbeddedView: UIView {
             titleLabel.Height |>=| textProvider[.Title].font.lineHeight
         )
         
-        //domainConainter.backgroundColor = .grayColor()
+        domainConainter.backgroundColor = .grayColor()
         addLayoutSubview(domainConainter, andConstraints:
             domainConainter.Right  |-| 12,
             domainConainter.Bottom |-| 10,
@@ -87,7 +103,7 @@ public class URLEmbeddedView: UIView {
         )
         
         descriptionLabel.numberOfLines = textProvider[.Description].numberOfLines
-        //descriptionLabel.backgroundColor = .grayColor()
+        descriptionLabel.backgroundColor = .grayColor()
         addLayoutSubview(descriptionLabel, andConstraints:
             descriptionLabel.Right  |-| 12,
             descriptionLabel.Height |>=| 0,
@@ -135,7 +151,7 @@ extension URLEmbeddedView {
             dispatch_async(dispatch_get_main_queue()) {
                 self?.activityView.stopAnimating()
                 if let _ = error {
-                    self?.titleLabel.attributedText = self?.textProvider[.Title].attributedText(URL.absoluteString)
+                    self?.titleLabel.attributedText = self?.textProvider[.NoDataTitle].attributedText(URL.absoluteString)
                     self?.descriptionLabel.attributedText = nil
                     self?.domainLabel.attributedText = self?.textProvider[.Domain].attributedText(URL.host ?? "")
                     return
@@ -143,10 +159,10 @@ extension URLEmbeddedView {
                 self?.titleLabel.attributedText = self?.textProvider[.Title].attributedText(ogData.pageTitle)
                 self?.descriptionLabel.attributedText = self?.textProvider[.Description].attributedText(ogData.pageDescription)
                 if !ogData.imageUrl.isEmpty {
-                    self?.privateImageView.loadImage(ogData.imageUrl, completion: nil)
+                    self?.imageView.loadImage(ogData.imageUrl, completion: nil)
                     let host = URL.host ?? ""
                     self?.domainLabel.attributedText = self?.textProvider[.Domain].attributedText(host)
-                    self?.domainImageView.loadImage(URLEmbeddedView.FaviconURL + host, completion: nil)
+                    self?.domainImageView.loadImage((self?.dynamicType.FaviconURL ?? "") + host, completion: nil)
                 }
             }
         }

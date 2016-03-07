@@ -12,6 +12,7 @@
 		2BD30577E7D147524479E43C0F5721E2 /* CSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E30B2C54AA88AA57BF85B3DDA642A /* CSS.swift */; };
 		33AFFE0825E74D085585A5444E3A05EC /* Kanna-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9DB174F715800F70C4BB79E2B9DDC2 /* Kanna-dummy.m */; };
 		36028F85A1038429FB9AC23E5F58121D /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78F844BFC8F795DDA3C9BF75132AAA39 /* Kanna.framework */; };
+		374E3B9D1C8DF98300812A24 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374E3B9B1C8DF92D00812A24 /* AttributeManager.swift */; };
 		377AF0751C8DEFF5008A3BE2 /* UIImageView+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377AF0731C8DEFC9008A3BE2 /* UIImageView+Load.swift */; };
 		385A55867E0A479D55E47D2D48854612 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1505475177DD9A1E4E1A2BFD4098C85 /* UIKit.framework */; };
 		395EB90F99C1B4455D5473D35CC5BD5E /* Kanna-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 49DD3EC26402F9FD091A997E9C7A0809 /* Kanna-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -85,6 +86,7 @@
 		202D17DC73067E4983F747C56C69CCF1 /* MisterFusion-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MisterFusion-dummy.m"; sourceTree = "<group>"; };
 		26001C324568868385DF06CF4A812822 /* libxmlHTMLDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = libxmlHTMLDocument.swift; path = Source/libxml/libxmlHTMLDocument.swift; sourceTree = "<group>"; };
 		2BCC458FDD5F692BBB2BFC64BB5701FC /* Pods-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-umbrella.h"; sourceTree = "<group>"; };
+		374E3B9B1C8DF92D00812A24 /* AttributeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeManager.swift; sourceTree = "<group>"; };
 		377AF0731C8DEFC9008A3BE2 /* UIImageView+Load.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Load.swift"; sourceTree = "<group>"; };
 		399B58B2654F34E63530F89C65876916 /* MisterFusion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MisterFusion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F79E67C5F833B64703708BA62DA72A5 /* MisterFusion.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MisterFusion.xcconfig; sourceTree = "<group>"; };
@@ -229,14 +231,15 @@
 		57AFC84D06E13D74193C1954FA37E235 /* URLEmbeddedView */ = {
 			isa = PBXGroup;
 			children = (
+				374E3B9B1C8DF92D00812A24 /* AttributeManager.swift */,
 				FA427ED2DBC0C0E525C3D5649914D2C3 /* AttributedTextProvider.swift */,
 				4E49DDACA961C659C24F6464B1CA938E /* ImageProvider.swift */,
 				611E4DB96D38888A19EF058F26015A6D /* OGData.swift */,
 				B63CBFCEEA63F4B4C9B6B40A393383B1 /* OGDataProvider.swift */,
+				377AF0731C8DEFC9008A3BE2 /* UIImageView+Load.swift */,
+				70C09001B9CA4CA2676A832678D57878 /* URLImageView.swift */,
 				F183AFD53AB36ACA396C1770292BA060 /* URLEmbeddedView.swift */,
 				A276FEE4125D51AB933F05DDC820438D /* URLEmbeddedView+Inspectable.swift */,
-				70C09001B9CA4CA2676A832678D57878 /* URLImageView.swift */,
-				377AF0731C8DEFC9008A3BE2 /* UIImageView+Load.swift */,
 			);
 			path = URLEmbeddedView;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				7461C5A6DCEF8C214E85C98D8A1173BB /* OGDataProvider.swift in Sources */,
 				A77F2D5D097A95B138B4E2A5098DAB98 /* URLEmbeddedView+Inspectable.swift in Sources */,
 				9DA64D7B72149EF40313564D4BDFCF2B /* URLEmbeddedView-dummy.m in Sources */,
+				374E3B9D1C8DF98300812A24 /* AttributeManager.swift in Sources */,
 				377AF0751C8DEFF5008A3BE2 /* UIImageView+Load.swift in Sources */,
 				D0658F8B0F7670705B5E30C8AD908EA7 /* URLEmbeddedView.swift in Sources */,
 				1606D835FFD90129719F9B792FC81D70 /* URLImageView.swift in Sources */,

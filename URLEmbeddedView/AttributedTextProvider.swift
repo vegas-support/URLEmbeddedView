@@ -8,55 +8,37 @@
 
 import Foundation
 
-class AttributedTextProvider {
+public class AttributedTextProvider {
     static let sharedInstance = AttributedTextProvider()
     
-    private let TitleAttributeTextManager       = AttributedTextManager(attribute: .Title)
-    private let DescriptionAttributeTextManager = AttributedTextManager(attribute: .Description)
-    private let DomainAttributeTextManager      = AttributedTextManager(attribute: .Domain)
+    private let TitleAttributeManager       = AttributeManager(style: .Title)
+    private let DomainAttributeManager      = AttributeManager(style: .Domain)
+    private let DescriptionAttributeManager = AttributeManager(style: .Description)
+    private let NoDataTitleAttributeManager = AttributeManager(style: .NoDataTitle)
     
-    subscript(attribute: AttributedTextManager.Attribute) -> AttributedTextManager {
-        switch attribute {
-        case .Title       : return TitleAttributeTextManager
-        case .Description : return DescriptionAttributeTextManager
-        case .Domain      : return DomainAttributeTextManager
+    var didChangeValue: ((AttributeManager.Style, AttributeManager.Attribute, Any) -> Void)?
+    
+    private init() {
+        self[.Title].didChangeValue       = { [weak self] in self?.didChangeValue?($0, $1, $2) }
+        self[.Domain].didChangeValue      = { [weak self] in self?.didChangeValue?($0, $1, $2) }
+        self[.Description].didChangeValue = { [weak self] in self?.didChangeValue?($0, $1, $2) }
+        self[.NoDataTitle].didChangeValue = { [weak self] in self?.didChangeValue?($0, $1, $2) }
+    }
+    
+    public subscript(style: AttributeManager.Style) -> AttributeManager {
+        switch style {
+        case .Title       : return TitleAttributeManager
+        case .Domain      : return DomainAttributeManager
+        case .Description : return DescriptionAttributeManager
+        case .NoDataTitle : return NoDataTitleAttributeManager
         }
+    }
+    
+    func didChangeValue(closure: ((AttributeManager.Style, AttributeManager.Attribute, Any) -> Void)?) {
+        self[.Title].didChangeValue       = { closure?($0, $1, $2) }
+        self[.Domain].didChangeValue      = { closure?($0, $1, $2) }
+        self[.Description].didChangeValue = { closure?($0, $1, $2) }
+        self[.NoDataTitle].didChangeValue = { closure?($0, $1, $2) }
     }
 }
 
-class AttributedTextManager {
-    enum Attribute {
-        case Title, Description, Domain
-        
-        var font: UIFont {
-            switch self {
-            case .Title:       return .boldSystemFontOfSize(16)
-            case .Description: return .systemFontOfSize(14)
-            case .Domain:      return .systemFontOfSize(10)
-            }
-        }
-        
-        var numberOfLines: Int {
-            switch self {
-            case .Title:       return 2
-            case .Description: return 1
-            case .Domain:      return 1
-            }
-        }
-    }
-    
-    var font: UIFont
-    var numberOfLines: Int
-    
-    private init(attribute: Attribute) {
-        font = attribute.font
-        numberOfLines = attribute.numberOfLines
-    }
-    
-    func attributedText(string: String) -> NSAttributedString {
-        let attributes: [String : AnyObject] = [
-            NSFontAttributeName : font
-        ]
-        return NSAttributedString(string: string, attributes: attributes)
-    }
-}
