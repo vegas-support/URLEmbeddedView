@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 import URLEmbeddedView
 
 class ViewController: UIViewController {
@@ -17,9 +18,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        textView.text = "https://github.com/szk-atmosphere"
+        textView.text = "https://github.com/szk-atmosphere/URLEmbeddedView"
         
         embeddedView.textProvider[.Title].font = .boldSystemFontOfSize(20)
+        
+        embeddedView.didTapHandler = { [weak self] embeddedView, URL in
+            guard let URL = URL else { return }
+            self?.presentViewController(SFSafariViewController(URL: URL), animated: true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
