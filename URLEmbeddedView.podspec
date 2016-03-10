@@ -30,13 +30,13 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'URLEmbeddedView/*.{swift}'
-  s.resources    = 'Resources/*.pdf'
+  s.resources    = 'Resources/*.{pdf,xcdatamodeld}'
   #s.resource_bundles = {
   #  'Resources' => ['Resources/*.pdf']
   #}
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  s.frameworks = 'UIKit'
+  s.frameworks = 'UIKit', 'CoreData', 'CoreGraphics'
   s.dependency 'MisterFusion'
   s.dependency 'Kanna', '~> 1.0'
 end

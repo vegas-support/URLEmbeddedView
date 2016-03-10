@@ -1,14 +1,14 @@
 //
 //  LinkIconView.swift
-//  Pods
+//  URLEmbeddedView
 //
-//  Created by 鈴木大貴 on 2016/03/10.
+//  Created by Taiki Suzuki on 2016/03/10.
 //
 //
 
 import UIKit
 
-class LinkIconView: UIView {
+final class LinkIconView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class AttributedTextProvider {
+public final class AttributedTextProvider {
     static let sharedInstance = AttributedTextProvider()
     
     private let TitleAttributeManager       = AttributeManager(style: .Title)

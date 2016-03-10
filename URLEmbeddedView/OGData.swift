@@ -1,15 +1,15 @@
 //
 //  OGData.swift
-//  URLEmbeddedView
+//  Pods
 //
-//  Created by Taiki Suzuki on 2016/03/07.
+//  Created by 鈴木大貴 on 2016/03/11.
 //
 //
 
 import Foundation
+import CoreData
 
-struct OGData {
-    //MARK: Inner enum
+public final class OGData: NSManagedObject {
     private enum PropertyName: String {
         case Description = "og:description"
         case Image       = "og:image"
@@ -19,21 +19,27 @@ struct OGData {
         case Url         = "og:url"
     }
     
-    //MARKL - Properties
-    private(set) var siteName        : String = ""
-    private(set) var pageType        : String = ""
-    private(set) var url             : String = ""
-    private(set) var pageTitle       : String = ""
-    private(set) var imageUrl        : String = ""
-    private(set) var pageDescription : String = ""
-    
-    private let URL: NSURL
-    
-    init(URL: NSURL) {
-        self.URL = URL
+    private lazy var URL: NSURL? = {
+        return NSURL(string: self.sourceUrl)
+    }()
+
+    class func fetchOrInsertOGData(url url: String) -> OGData {
+        let managedObjectContext = OGDataCacheManager.sharedInstance.mainManagedObjectContext
+        let fetchRequest = NSFetchRequest()
+        fetchRequest.entity = NSEntityDescription.entityForName("OGData", inManagedObjectContext: managedObjectContext)
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "sourceUrl = %@", url)
+        guard let fetchedList = (try? managedObjectContext.executeFetchRequest(fetchRequest)) as? [OGData], ogData = fetchedList.first else {
+            let newOGData = NSEntityDescription.insertNewObjectForEntityForName("OGData", inManagedObjectContext: managedObjectContext) as! OGData
+            let date = NSDate()
+            newOGData.createDate = date
+            newOGData.updateDate = date
+            return newOGData
+        }
+        return ogData
     }
     
-    mutating func setValue(property property: String, content: String) {
+    func setValue(property property: String, content: String) {
         guard let propertyName = PropertyName(rawValue: property) else { return }
         switch propertyName  {
         case .SiteName    : siteName        = content
@@ -43,5 +49,10 @@ struct OGData {
         case .Url         : url             = content
         case .Description : pageDescription = content
         }
+    }
+    
+    func save() {
+        updateDate = NSDate()
+        OGDataCacheManager.sharedInstance.saveContext(nil)
     }
 }

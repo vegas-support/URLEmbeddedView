@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ImageProvider {
+final class ImageProvider {
     //MARK: - Static constants
     static let sharedInstance = ImageProvider()
     

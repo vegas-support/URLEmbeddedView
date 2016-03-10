@@ -10,7 +10,7 @@ import Foundation
 import Kanna
 import WebKit
 
-class OGDataProvider {
+final class OGDataProvider {
     //MARK: Static constants
     static let sharedInstance = OGDataProvider()
     private static let UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Safari/601.1.42"
@@ -23,11 +23,16 @@ class OGDataProvider {
     private let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
     
     func fetchOGData(URL URL: NSURL, completion: ((OGData, NSError?) -> Void)? = nil) {
+        let url = URL.absoluteString
+        let ogData = OGData.fetchOrInsertOGData(url: url)
+        if !ogData.sourceUrl.isEmpty {
+            completion?(ogData, nil)
+        }
+        ogData.sourceUrl = url
         let request = NSMutableURLRequest(URL: URL)
         request.setValue(self.dynamicType.UserAgent, forHTTPHeaderField: "User-Agent")
         request.timeoutInterval = 5
         session.dataTaskWithRequest(request) { data, response, error in
-            var ogData = OGData(URL: URL)
             if let error = error {
                 completion?(ogData, error)
                 return
@@ -47,6 +52,7 @@ class OGDataProvider {
                 }
                 ogData.setValue(property: property, content: content)
             }
+            ogData.save()
             completion?(ogData, nil)
         }.resume()
     }
