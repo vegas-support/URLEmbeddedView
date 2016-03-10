@@ -30,8 +30,9 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'URLEmbeddedView/*.{swift}'
+  s.resources    = 'Resources/*.pdf'
   #s.resource_bundles = {
-  #  'URLEmbeddedView' => ['Pod/Assets/*.png']
+  #  'Resources' => ['Resources/*.pdf']
   #}
 
   # s.public_header_files = 'Pod/Classes/**/*.h'

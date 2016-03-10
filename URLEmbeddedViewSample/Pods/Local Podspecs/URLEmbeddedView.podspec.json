@@ -18,6 +18,7 @@
   },
   "requires_arc": true,
   "source_files": "URLEmbeddedView/*.{swift}",
+  "resources": "Resources/*.pdf",
   "frameworks": "UIKit",
   "dependencies": {
     "MisterFusion": [

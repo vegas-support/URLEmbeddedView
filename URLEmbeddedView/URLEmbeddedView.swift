@@ -32,6 +32,7 @@ public class URLEmbeddedView: UIView {
     private var domainImageViewWidthConstraint: NSLayoutConstraint?
     
     private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    private var linkIconView: LinkIconView?
     
     private var URL: NSURL?
     public let textProvider = AttributedTextProvider.sharedInstance
@@ -81,6 +82,17 @@ public class URLEmbeddedView: UIView {
             print("attribute = \(attribute)")
             print("value = \(value)")
         }
+        
+        let linkIconView = LinkIconView(frame: bounds)
+        addLayoutSubview(linkIconView, andConstraints:
+            linkIconView.Top,
+            linkIconView.Left,
+            linkIconView.Bottom,
+            linkIconView.Width |==| linkIconView.Height
+        )
+        linkIconView.clipsToBounds = true
+        linkIconView.hidden = true
+        self.linkIconView = linkIconView
         
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
@@ -242,11 +254,13 @@ extension URLEmbeddedView {
                     self?.changeDomainImageViewWidthConstraint(0)
                     self?.changeDomainImageViewToDomainLabelConstraint(0)
                     self?.changeImageViewWidthConstrain(nil)
+                    self?.linkIconView?.hidden = false
                     self?.layoutIfNeeded()
                     completion?(error)
                     return
                 }
                 
+                self?.linkIconView?.hidden = true
                 if ogData.pageTitle.isEmpty {
                     self?.titleLabel.attributedText = self?.textProvider[.NoDataTitle].attributedText(URL.absoluteString)
                 } else {
