@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImageView {
     func loadImage(url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) {
-        OGImageProvider.sharedInstance.loadImage(url, uuidString: uuidString) { [weak self] image, uuidString, error in
+        OGImageProvider.sharedInstance.loadImage(url: url, uuidString: uuidString) { [weak self] image, uuidString, error in
             dispatch_async(dispatch_get_main_queue()) {
                 if let error = error {
                     self?.image = nil

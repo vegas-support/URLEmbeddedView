@@ -21,7 +21,7 @@ public final class OGImageProvider: NSObject {
 }
 
 extension OGImageProvider {
-    public func loadImage(url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) {
+    public func loadImage(url url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) {
         guard let URL = NSURL(string: url) else {
             completion?(nil, uuidString, NSError(domain: "can not create NSURL with \(url)", code: 9999, userInfo: nil))
             return
