@@ -268,12 +268,18 @@ extension URLEmbeddedView {
                 }
                 self?.descriptionLabel.attributedText = self?.textProvider[.Description].attributedText(ogData.pageDescription)
                 if !ogData.imageUrl.isEmpty {
-                    self?.imageView.loadImage(ogData.imageUrl) { image, error in
-                        if let _ = image where error == nil {
+                    self?.imageView.loadImage(ogData.imageUrl, uuidString: ogData.imageUUID) {
+                        if let _ = $0 where $2 == nil {
                             self?.changeImageViewWidthConstrain(nil)
                         } else {
                             self?.changeImageViewWidthConstrain(0)
-                            self?.imageView.image = nil
+                        }
+                        self?.layoutIfNeeded()
+                        let uuidString = $1
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                            if ogData.imageUUID == uuidString { return }
+                            ogData.imageUUID = uuidString
+                            ogData.save()
                         }
                     }
                 } else {
@@ -282,9 +288,23 @@ extension URLEmbeddedView {
                 }
                 let host = URL.host ?? ""
                 self?.domainLabel.attributedText = self?.textProvider[.Domain].attributedText(host)
-                self?.domainImageView.loadImage((self?.dynamicType.FaviconURL ?? "") + host, completion: nil)
-                self?.changeDomainImageViewWidthConstraint(nil)
-                self?.changeDomainImageViewToDomainLabelConstraint(nil)
+                let faciconURL = (self?.dynamicType.FaviconURL ?? "") + host
+                self?.domainImageView.loadImage(faciconURL, uuidString: ogData.faviconImageUUID) {
+                    if let _ = $0 where $2 == nil {
+                        self?.changeDomainImageViewWidthConstraint(nil)
+                        self?.changeDomainImageViewToDomainLabelConstraint(nil)
+                    } else {
+                        self?.changeDomainImageViewWidthConstraint(0)
+                        self?.changeDomainImageViewToDomainLabelConstraint(0)
+                    }
+                    self?.layoutIfNeeded()
+                    let uuidString = $1
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                        if ogData.faviconImageUUID == uuidString { return }
+                        ogData.faviconImageUUID = uuidString
+                        ogData.save()
+                    }
+                }
                 self?.layoutIfNeeded()
                 completion?(nil)
             }

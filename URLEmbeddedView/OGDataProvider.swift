@@ -10,9 +10,9 @@ import Foundation
 import Kanna
 import WebKit
 
-final class OGDataProvider {
+public final class OGDataProvider {
     //MARK: Static constants
-    static let sharedInstance = OGDataProvider()
+    public static let sharedInstance = OGDataProvider()
     private static let UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Safari/601.1.42"
     private static let MetaTagKey = "meta"
     private static let PropertyKey = "property"
@@ -22,7 +22,7 @@ final class OGDataProvider {
     //MARK: - Properties
     private let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
     
-    func fetchOGData(URL URL: NSURL, completion: ((OGData, NSError?) -> Void)? = nil) {
+    public func fetchOGData(URL URL: NSURL, completion: ((OGData, NSError?) -> Void)? = nil) {
         let url = URL.absoluteString
         let ogData = OGData.fetchOrInsertOGData(url: url)
         if !ogData.sourceUrl.isEmpty {

@@ -12,10 +12,10 @@ class ImageCacheManager: NSObject {
     static let sharedInstance = ImageCacheManager()
     
     private let fileManager = NSFileManager()
-    private lazy var applicationDocumentsDirectory: NSURL = {
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        print(urls)
-        return urls[urls.count-1]
+    private lazy var memoryCache: NSCache = {
+        let cache = NSCache()
+        cache.countLimit = 30
+        return cache
     }()
     private lazy var cacheDirectory: String = {
         let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
@@ -52,7 +52,7 @@ extension ImageCacheManager {
                 let exists = fileManager.fileExistsAtPath(directoryName, isDirectory: &isDirectory)
                 if exists && isDirectory { continue }
                 do {
-                    try fileManager.createDirectoryAtPath(cacheDirectory, withIntermediateDirectories: true, attributes: nil)
+                    try fileManager.createDirectoryAtPath(directoryName, withIntermediateDirectories: true, attributes: nil)
                 } catch {
                     continue
                 }
@@ -61,20 +61,45 @@ extension ImageCacheManager {
     }
 }
 
+//MARK: - Read and write
 extension ImageCacheManager {
-    func pathForUUIDString(uuidString: String) -> String {
+    private func pathForUUIDString(uuidString: String) -> String {
         if uuidString.characters.count < 2 { return "" }
         return cacheDirectory + "/" +  uuidString.substringToIndex(uuidString.startIndex.advancedBy(2)) + "/" + uuidString
     }
     
     func cachedImage(uuidString uuidString: String) -> UIImage? {
-        let image = UIImage(contentsOfFile: pathForUUIDString(uuidString))
-        
-        return image
+        if let image = memoryCache.objectForKey(uuidString) as? UIImage {
+            return image
+        }
+        if let image = UIImage(contentsOfFile: pathForUUIDString(uuidString)) {
+            memoryCache.setObject(image, forKey: uuidString)
+            return image
+        }
+        return nil
     }
     
-    func storeImage(image: UIImage, data: NSData, uuidString: String) -> Bool {
-        let path = pathForUUIDString(uuidString)
-        return data.writeToFile(path, atomically: false)
+    func storeImage(image: UIImage, data: NSData, uuidString: String) {
+        memoryCache.setObject(image, forKey: uuidString)
+        data.writeToFile(pathForUUIDString(uuidString), atomically: false)
+    }
+}
+
+//MARK: - Cache clear
+extension ImageCacheManager {
+    func clearMemoryCache() {
+        memoryCache.removeAllObjects()
+    }
+    
+    func clearAllCache() {
+        clearMemoryCache()
+        if !fileManager.fileExistsAtPath(cacheDirectory) {
+            createDirectoriesIfNeeded()
+            return
+        }
+        do {
+            try fileManager.removeItemAtPath(cacheDirectory)
+            createDirectoriesIfNeeded()
+        } catch {}
     }
 }

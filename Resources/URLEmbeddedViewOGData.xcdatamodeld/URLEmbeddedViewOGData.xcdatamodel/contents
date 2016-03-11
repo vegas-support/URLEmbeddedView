@@ -2,6 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Xcode 7.0">
     <entity name="OGData" representedClassName=".OGData" syncable="YES">
         <attribute name="createDate" optional="YES" attributeType="Date" defaultDateTimeInterval="-978339600" syncable="YES"/>
+        <attribute name="faviconImageUUID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageUUID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pageDescription" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,6 +14,6 @@
         <attribute name="url" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="OGData" positionX="-63" positionY="-18" width="128" height="195"/>
+        <element name="OGData" positionX="-63" positionY="-18" width="128" height="210"/>
     </elements>
 </model>

@@ -9,15 +9,16 @@
 import UIKit
 
 extension UIImageView {
-    func loadImage(url: String, completion: ((UIImage?, NSError?) -> Void)? = nil) {
-        ImageProvider.sharedInstance.loadImage(url) { [weak self] image, error in
-            if let error = error {
-                completion?(nil, error)
-                return
-            }
+    func loadImage(url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) {
+        ImageProvider.sharedInstance.loadImage(url, uuidString: uuidString) { [weak self] image, uuidString, error in
             dispatch_async(dispatch_get_main_queue()) {
+                if let error = error {
+                    self?.image = nil
+                    completion?(nil, uuidString, error)
+                    return
+                }
                 self?.image = image
-                completion?(image, nil)
+                completion?(image, uuidString, nil)
             }
         }
     }

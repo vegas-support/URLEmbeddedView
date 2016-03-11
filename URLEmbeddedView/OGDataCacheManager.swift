@@ -14,13 +14,11 @@ final class OGDataCacheManager: NSObject {
     
     lazy var applicationDocumentsDirectory: NSURL = {
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        print(urls)
         return urls[urls.count-1]
     }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         let modelURL = NSBundle(forClass: self.dynamicType).URLForResource("URLEmbeddedViewOGData", withExtension: "momd")!
-        print(modelURL)
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
     

@@ -31,18 +31,11 @@ final class URLImageView: UIImageView {
         )
     }
     
-    override func loadImage(url: String, completion: ((UIImage?, NSError?) -> Void)? = nil) {
+    override func loadImage(url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) {
         activityView.startAnimating()
-        super.loadImage(url) { [weak self] image, error in
-            if let error = error {
-                completion?(nil, error)
-                return
-            }
-            dispatch_async(dispatch_get_main_queue()) {
-                self?.activityView.stopAnimating()
-                self?.image = image
-                completion?(image, nil)
-            }
+        super.loadImage(url, uuidString: uuidString) { [weak self] in
+            self?.activityView.stopAnimating()
+            completion?($0, $1, $2)
         }
     }
 }
