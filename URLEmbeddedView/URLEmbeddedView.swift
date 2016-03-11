@@ -71,16 +71,7 @@ public class URLEmbeddedView: UIView {
         layoutIfNeeded()
         
         textProvider.didChangeValue = { [weak self] style, attribute, value in
-            switch style {
-            case .Title: self?.changeDomainContainerHeightConstraint()
-            case .Domain: break
-            case .Description: break
-            case .NoDataTitle: break
-            }
-            
-            print("style = \(style)")
-            print("attribute = \(attribute)")
-            print("value = \(value)")
+            self?.handleTextProviderChanged(style, attribute: attribute, value: value)
         }
         
         let linkIconView = LinkIconView(frame: bounds)
@@ -227,6 +218,49 @@ extension URLEmbeddedView {
             removeConstraint(constraint)
         }
         domainContainerHeightConstraint = addLayoutConstraint(domainConainter.Height |=| constant)
+    }
+}
+
+extension URLEmbeddedView {
+    private func handleTextProviderChanged(style: AttributeManager.Style, attribute: AttributeManager.Attribute, value: Any) {
+        switch style {
+        case .Title:       didChangeTitleAttirbute(attribute, value: value)
+        case .Domain:      didChangeDomainAttirbute(attribute, value: value)
+        case .Description: didChangeDescriptionAttirbute(attribute, value: value)
+        case .NoDataTitle: didChangeNoDataTitleAttirbute(attribute, value: value)
+        }
+    }
+    
+    private func didChangeTitleAttirbute(attribute: AttributeManager.Attribute, value: Any) {
+        switch attribute {
+        case .Font: changeDomainContainerHeightConstraint()
+        case .FontColor: break
+        case .NumberOfLines: break
+        }
+    }
+    
+    private func didChangeDomainAttirbute(attribute: AttributeManager.Attribute, value: Any) {
+        switch attribute {
+        case .Font: changeDomainContainerHeightConstraint()
+        case .FontColor: break
+        case .NumberOfLines: break
+        }
+    }
+    
+    private func didChangeDescriptionAttirbute(attribute: AttributeManager.Attribute, value: Any) {
+        switch attribute {
+        case .Font: break
+        case .FontColor: break
+        case .NumberOfLines: break
+        }
+    }
+    
+    private func didChangeNoDataTitleAttirbute(attribute: AttributeManager.Attribute, value: Any) {
+        switch attribute {
+        case .Font: changeTitleLabelHeightConstraint()
+        case .FontColor: break
+        case .NumberOfLines: break
+        }
     }
 }
 

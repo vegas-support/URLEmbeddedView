@@ -28,10 +28,17 @@ public final class AttributeManager {
             case .Domain              : return 1
             }
         }
+        
+        var fontColor: UIColor {
+            switch self {
+            case .Description, .Domain, .NoDataTitle, .Title:
+                return .blackColor()
+            }
+        }
     }
     
     enum Attribute {
-        case Font, NumberOfLines
+        case Font, NumberOfLines,FontColor
     }
     
     var didChangeValue: ((Style, Attribute, Any) -> Void)?
@@ -44,15 +51,21 @@ public final class AttributeManager {
         didSet { didChangeValue?(style, .NumberOfLines, numberOfLines) }
     }
     
+    public var fontColor: UIColor {
+        didSet { didChangeValue?(style, .FontColor, fontColor) }
+    }
+    
     init(style: Style) {
         self.style = style
         self.font = style.font
         self.numberOfLines = style.numberOfLines
+        self.fontColor = style.fontColor
     }
     
     func attributedText(string: String) -> NSAttributedString {
         let attributes: [String : AnyObject] = [
-            NSFontAttributeName : font
+            NSFontAttributeName : font,
+            NSForegroundColorAttributeName : fontColor
         ]
         return NSAttributedString(string: string, attributes: attributes)
     }

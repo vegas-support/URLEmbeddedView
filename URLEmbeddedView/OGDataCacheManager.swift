@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-final class OGDataCacheManager: NSObject {
+final class OGDataCacheManager {
     static let sharedInstance = OGDataCacheManager()
     
     lazy var applicationDocumentsDirectory: NSURL = {

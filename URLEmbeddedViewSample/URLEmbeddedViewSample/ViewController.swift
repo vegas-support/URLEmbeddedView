@@ -20,7 +20,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         textView.text = "https://github.com/szk-atmosphere/URLEmbeddedView"
         
-        embeddedView.textProvider[.Title].font = .boldSystemFontOfSize(20)
+        embeddedView.textProvider[.Title].font = .boldSystemFontOfSize(18)
+        embeddedView.textProvider[.Description].fontColor = .lightGrayColor()
+        embeddedView.textProvider[.Domain].fontColor = .lightGrayColor()
         
         embeddedView.didTapHandler = { [weak self] embeddedView, URL in
             guard let URL = URL else { return }

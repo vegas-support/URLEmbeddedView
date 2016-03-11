@@ -14,16 +14,16 @@ import CoreData
 
 extension OGData {
 
-    @NSManaged var createDate: NSDate
-    @NSManaged var imageUrl: String
-    @NSManaged var imageUUID: String
-    @NSManaged var pageDescription: String
-    @NSManaged var pageTitle: String
-    @NSManaged var pageType: String
-    @NSManaged var siteName: String
-    @NSManaged var sourceUrl: String
-    @NSManaged var updateDate: NSDate
-    @NSManaged var url: String
-    @NSManaged var faviconImageUUID: String
+    @NSManaged public var createDate: NSDate
+    @NSManaged public var imageUrl: String
+    @NSManaged public var imageUUID: String
+    @NSManaged public var pageDescription: String
+    @NSManaged public var pageTitle: String
+    @NSManaged public var pageType: String
+    @NSManaged public var siteName: String
+    @NSManaged public var sourceUrl: String
+    @NSManaged public var updateDate: NSDate
+    @NSManaged public var url: String
+    @NSManaged public var faviconImageUUID: String
 
 }

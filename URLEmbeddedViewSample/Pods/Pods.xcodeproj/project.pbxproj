@@ -23,7 +23,7 @@
 		5705D790F72EB6F75990B3326D375EDD /* Kanna.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADF80BF1D7451622FB9832BB021AA7 /* Kanna.swift */; };
 		61CE950A43A2AD005C3AB5697F4BB753 /* OGDataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6AD512680E8E4A0D5E0AD607824613 /* OGDataCacheManager.swift */; };
 		64F4546C4CD18BB14FA0098B55FECA50 /* libxmlHTMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26001C324568868385DF06CF4A812822 /* libxmlHTMLDocument.swift */; };
-		70CA36EAA7589D81F06B85A3C2D0D268 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1717FAEB8CCCA7B84E21D3419E541961 /* ImageProvider.swift */; };
+		70CA36EAA7589D81F06B85A3C2D0D268 /* OGImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1717FAEB8CCCA7B84E21D3419E541961 /* OGImageProvider.swift */; };
 		74D62A76910EE0F115D855608B963BFB /* URLEmbeddedViewOGData.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 19329215937B2A4FC6FBA53BB810B7CD /* URLEmbeddedViewOGData.xcdatamodeld */; };
 		75639B00C0F6092AAEDBA47EB89E5D52 /* URLEmbeddedView+Inspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89772F2074F0CD4D65C9772025212761 /* URLEmbeddedView+Inspectable.swift */; };
 		76939409E7995E95FAD3D834329CFEAF /* Pods-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BCC458FDD5F692BBB2BFC64BB5701FC /* Pods-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -39,7 +39,7 @@
 		B2AC28704B5159D1E6C0642B3FEA19ED /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAB981AA5232B3EE3D7D39F6C4E3935 /* UIKit.framework */; };
 		BF5B9F014832A6F35E6DF4993C19525C /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 894E5DA93A9F359521A89826BE6DA777 /* Pods-dummy.m */; };
 		C4AC0E1F322556A840FD9015C56CCDDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1A010F6ECDD35DB78C1C44FEDAF7C4 /* Foundation.framework */; };
-		CEFCF344B25A3164EAFB6996C382E9F4 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6604DD11531F410CB6C705D84A0143 /* ImageCacheManager.swift */; };
+		CEFCF344B25A3164EAFB6996C382E9F4 /* OGImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6604DD11531F410CB6C705D84A0143 /* OGImageCacheManager.swift */; };
 		E19B96D012E35B0ADFA7F711D74F8F58 /* OGDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA909F0B92513E72ACC0027115A516E /* OGDataProvider.swift */; };
 		E54F251BE5BB8283683A6A9815841D65 /* MisterFusion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C523D36077AFC43E63B71292157D35 /* MisterFusion.framework */; };
 		E97A332AFCB13BB4E1857CA5BCB2A357 /* MisterFusion-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D1FD5059B7EDC22A0404B46A092526D /* MisterFusion-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -93,7 +93,7 @@
 		0D1FD5059B7EDC22A0404B46A092526D /* MisterFusion-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MisterFusion-umbrella.h"; sourceTree = "<group>"; };
 		0EF0E48937EF4669D6CA2D79D9F8E1FE /* URLEmbeddedView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = URLEmbeddedView.swift; sourceTree = "<group>"; };
 		108AB4CAB2705020A67CA763B32CE3E6 /* URLEmbeddedView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = URLEmbeddedView.xcconfig; sourceTree = "<group>"; };
-		1717FAEB8CCCA7B84E21D3419E541961 /* ImageProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
+		1717FAEB8CCCA7B84E21D3419E541961 /* OGImageProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OGImageProvider.swift; sourceTree = "<group>"; };
 		202D17DC73067E4983F747C56C69CCF1 /* MisterFusion-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MisterFusion-dummy.m"; sourceTree = "<group>"; };
 		25559B275ABE28E5AE46DF28D236C830 /* OGData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OGData.swift; sourceTree = "<group>"; };
 		26001C324568868385DF06CF4A812822 /* libxmlHTMLDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = libxmlHTMLDocument.swift; path = Source/libxml/libxmlHTMLDocument.swift; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 		A0E7633936FD55B3C1BD4D5AC1948FE9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		A4C523D36077AFC43E63B71292157D35 /* MisterFusion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MisterFusion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6DC4F0D2459DB4A7B1D7120BFFE1C7C /* libxmlParserOption.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = libxmlParserOption.swift; path = Source/libxml/libxmlParserOption.swift; sourceTree = "<group>"; };
-		AE6604DD11531F410CB6C705D84A0143 /* ImageCacheManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		AE6604DD11531F410CB6C705D84A0143 /* OGImageCacheManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OGImageCacheManager.swift; sourceTree = "<group>"; };
 		B1EEBC3E23132DD4FDF69557783530AE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5D0CFC01F0BA884F20FEF7D34099F69 /* Kanna-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kanna-prefix.pch"; sourceTree = "<group>"; };
 		B7F252D41137B23E023A6E5C68555F25 /* Kanna.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kanna.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -277,8 +277,8 @@
 			children = (
 				CD9F9ECB9E4C917CDBAFBBC3BBA0F9C5 /* AttributedTextProvider.swift */,
 				36740A6ECE7554C8FE34DACC62DDAE84 /* AttributeManager.swift */,
-				AE6604DD11531F410CB6C705D84A0143 /* ImageCacheManager.swift */,
-				1717FAEB8CCCA7B84E21D3419E541961 /* ImageProvider.swift */,
+				AE6604DD11531F410CB6C705D84A0143 /* OGImageCacheManager.swift */,
+				1717FAEB8CCCA7B84E21D3419E541961 /* OGImageProvider.swift */,
 				BEDB1A23F7C4702A1A15A7BAE448FA21 /* LinkIconView.swift */,
 				25559B275ABE28E5AE46DF28D236C830 /* OGData.swift */,
 				981D5DD677744EB01B92E2555D8F9519 /* OGData+CoreDataProperties.swift */,
@@ -553,8 +553,8 @@
 			files = (
 				562FE0709AD532FEA853A1D30EB99A30 /* AttributedTextProvider.swift in Sources */,
 				FDDB15BA2113EA07FB0350DF20D2C279 /* AttributeManager.swift in Sources */,
-				CEFCF344B25A3164EAFB6996C382E9F4 /* ImageCacheManager.swift in Sources */,
-				70CA36EAA7589D81F06B85A3C2D0D268 /* ImageProvider.swift in Sources */,
+				CEFCF344B25A3164EAFB6996C382E9F4 /* OGImageCacheManager.swift in Sources */,
+				70CA36EAA7589D81F06B85A3C2D0D268 /* OGImageProvider.swift in Sources */,
 				F1B301E406B7A6B10F3536311769F4E6 /* LinkIconView.swift in Sources */,
 				810F0D11F09764A7CF391049B310B6C6 /* OGData+CoreDataProperties.swift in Sources */,
 				1508846EF8516DC0A21F01324DF79E97 /* OGData.swift in Sources */,

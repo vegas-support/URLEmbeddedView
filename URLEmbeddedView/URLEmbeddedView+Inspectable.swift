@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension URLEmbeddedView {
+extension URLEmbeddedView {
     @IBInspectable public var cornerRaidus: CGFloat {
         set {
             layer.masksToBounds = newValue > 0

@@ -1,5 +1,5 @@
 //
-//  ImageProvider.swift
+//  OGImageProvider.swift
 //  URLEmbeddedView
 //
 //  Created by Taiki Suzuki on 2016/03/07.
@@ -8,22 +8,26 @@
 
 import Foundation
 
-public final class ImageProvider {
+public final class OGImageProvider: NSObject {
     //MARK: - Static constants
-    public static let sharedInstance = ImageProvider()
+    public static let sharedInstance = OGImageProvider()
     
     //MARK: - Properties
     private let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+    
+    private override init() {
+        super.init()
+    }
 }
 
-extension ImageProvider {
+extension OGImageProvider {
     public func loadImage(url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) {
         guard let URL = NSURL(string: url) else {
             completion?(nil, uuidString, NSError(domain: "can not create NSURL with \(url)", code: 9999, userInfo: nil))
             return
         }
         if !uuidString.isEmpty {
-            if let image = ImageCacheManager.sharedInstance.cachedImage(uuidString: uuidString) {
+            if let image = OGImageCacheManager.sharedInstance.cachedImage(uuidString: uuidString) {
                 completion?(image, uuidString, nil)
                 return
             }
@@ -42,16 +46,16 @@ extension ImageProvider {
                 return
             }
             let newUUIDString = uuidString.isEmpty ? NSUUID().UUIDString : uuidString
-            ImageCacheManager.sharedInstance.storeImage(image, data: data, uuidString: newUUIDString)
+            OGImageCacheManager.sharedInstance.storeImage(image, data: data, uuidString: newUUIDString)
             completion?(image, newUUIDString, nil)
         }.resume()
     }
     
     public func clearMemoryCache() {
-        ImageCacheManager.sharedInstance.clearMemoryCache()
+        OGImageCacheManager.sharedInstance.clearMemoryCache()
     }
     
     public func clearAllCache() {
-        ImageCacheManager.sharedInstance.clearAllCache()
+        OGImageCacheManager.sharedInstance.clearAllCache()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ImageCacheManager.swift
+//  OGImageCacheManager.swift
 //  URLEmbeddedView
 //
 //  Created by Taiki Suzuki on 2016/03/11.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ImageCacheManager: NSObject {
-    static let sharedInstance = ImageCacheManager()
+class OGImageCacheManager {
+    static let sharedInstance = OGImageCacheManager()
     
     private let fileManager = NSFileManager()
     private lazy var memoryCache: NSCache = {
@@ -22,14 +22,13 @@ class ImageCacheManager: NSObject {
         return (paths[paths.count-1] as NSString).stringByAppendingPathComponent("images")
     }()
     
-    private override init() {
-        super.init()
+    private init() {
         createDirectoriesIfNeeded()
     }
 }
 
 //MARK: - Create directories
-extension ImageCacheManager {
+extension OGImageCacheManager {
     private func createDirectoriesIfNeeded() {
         createRootDirectoryIfNeeded()
         createSubDirectoriesIfNeeded()
@@ -62,7 +61,7 @@ extension ImageCacheManager {
 }
 
 //MARK: - Read and write
-extension ImageCacheManager {
+extension OGImageCacheManager {
     private func pathForUUIDString(uuidString: String) -> String {
         if uuidString.characters.count < 2 { return "" }
         return cacheDirectory + "/" +  uuidString.substringToIndex(uuidString.startIndex.advancedBy(2)) + "/" + uuidString
@@ -86,7 +85,7 @@ extension ImageCacheManager {
 }
 
 //MARK: - Cache clear
-extension ImageCacheManager {
+extension OGImageCacheManager {
     func clearMemoryCache() {
         memoryCache.removeAllObjects()
     }
