@@ -26,6 +26,22 @@ class ViewController: UIViewController {
             guard let URL = URL else { return }
             self?.presentViewController(SFSafariViewController(URL: URL), animated: true, completion: nil)
         }
+
+        
+        var dict: [String : String] = [:]
+        (0..<10000).forEach { i in
+            let a = NSUUID().UUIDString as String
+            dict[a.substringToIndex(a.startIndex.advancedBy(2))] = a
+        }
+        
+        print(Array(dict.keys).count)
+        
+        (0..<16).forEach { i in
+            (0..<16).forEach { j in
+                let directoryName = String(format: "%x%x", i, j)
+                print(directoryName)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
