@@ -62,6 +62,11 @@ final class OGDataCacheManager {
 }
 
 extension OGDataCacheManager {
+    func delete(object: NSManagedObject, completion: ((NSError?) -> Void)?) {
+        object.managedObjectContext?.deleteObject(object)
+        saveContext(completion)
+    }
+    
     func saveContext (completion: ((NSError?) -> Void)?) {
         saveContext(updateManagedObjectContext, success: { [weak self] in
             guard let mainManagedObjectContext = self?.mainManagedObjectContext else {

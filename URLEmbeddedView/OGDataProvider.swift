@@ -62,4 +62,16 @@ extension OGDataProvider {
             completion?(ogData, nil)
         }.resume()
     }
+    
+    public func deleteOGData(URL URL: NSURL, completion: ((NSError?) -> Void)? = nil) {
+        guard let ogData = OGData.fetchOGData(url: URL.absoluteString) else {
+            completion?(NSError(domain: "no object matches with \"\(URL.absoluteString)\"", code: 9999, userInfo: nil))
+            return
+        }
+        deleteOGData(ogData, completion: completion)
+    }
+    
+    public func deleteOGData(ogData: OGData, completion: ((NSError?) -> Void)? = nil) {
+        OGDataCacheManager.sharedInstance.delete(ogData, completion: completion)
+    }
 }

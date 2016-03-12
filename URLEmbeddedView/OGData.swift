@@ -24,12 +24,8 @@ public final class OGData: NSManagedObject {
     }()
 
     class func fetchOrInsertOGData(url url: String) -> OGData {
-        let managedObjectContext = OGDataCacheManager.sharedInstance.mainManagedObjectContext
-        let fetchRequest = NSFetchRequest()
-        fetchRequest.entity = NSEntityDescription.entityForName("OGData", inManagedObjectContext: managedObjectContext)
-        fetchRequest.fetchLimit = 1
-        fetchRequest.predicate = NSPredicate(format: "sourceUrl = %@", url)
-        guard let fetchedList = (try? managedObjectContext.executeFetchRequest(fetchRequest)) as? [OGData], ogData = fetchedList.first else {
+        guard let ogData = fetchOGData(url: url) else {
+            let managedObjectContext = OGDataCacheManager.sharedInstance.mainManagedObjectContext
             let newOGData = NSEntityDescription.insertNewObjectForEntityForName("OGData", inManagedObjectContext: managedObjectContext) as! OGData
             let date = NSDate()
             newOGData.createDate = date
@@ -37,6 +33,16 @@ public final class OGData: NSManagedObject {
             return newOGData
         }
         return ogData
+    }
+    
+    class func fetchOGData(url url: String) -> OGData? {
+        let managedObjectContext = OGDataCacheManager.sharedInstance.mainManagedObjectContext
+        let fetchRequest = NSFetchRequest()
+        fetchRequest.entity = NSEntityDescription.entityForName("OGData", inManagedObjectContext: managedObjectContext)
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "sourceUrl = %@", url)
+        let fetchedList = (try? managedObjectContext.executeFetchRequest(fetchRequest)) as? [OGData]
+        return fetchedList?.first
     }
     
     func setValue(property property: String, content: String) {
