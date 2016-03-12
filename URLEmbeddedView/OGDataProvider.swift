@@ -28,13 +28,16 @@ public final class OGDataProvider: NSObject {
 }
 
 extension OGDataProvider {
-    public func fetchOGData(URL URL: NSURL, completion: ((OGData, NSError?) -> Void)? = nil) {
-        let url = URL.absoluteString
+    public func fetchOGData(url url: String, completion: ((OGData, NSError?) -> Void)? = nil) {
         let ogData = OGData.fetchOrInsertOGData(url: url)
         if !ogData.sourceUrl.isEmpty {
             completion?(ogData, nil)
         }
         ogData.sourceUrl = url
+        guard let URL = NSURL(string: url) else {
+            completion?(ogData, NSError(domain: "can not create NSURL with \"\(url)\"", code: 9999, userInfo: nil))
+            return
+        }
         let request = NSMutableURLRequest(URL: URL)
         request.setValue(self.dynamicType.UserAgent, forHTTPHeaderField: "User-Agent")
         request.timeoutInterval = 5
@@ -63,9 +66,9 @@ extension OGDataProvider {
         }.resume()
     }
     
-    public func deleteOGData(URL URL: NSURL, completion: ((NSError?) -> Void)? = nil) {
-        guard let ogData = OGData.fetchOGData(url: URL.absoluteString) else {
-            completion?(NSError(domain: "no object matches with \"\(URL.absoluteString)\"", code: 9999, userInfo: nil))
+    public func deleteOGData(urlString urlString: String, completion: ((NSError?) -> Void)? = nil) {
+        guard let ogData = OGData.fetchOGData(url: urlString) else {
+            completion?(NSError(domain: "no object matches with \"\(urlString)\"", code: 9999, userInfo: nil))
             return
         }
         deleteOGData(ogData, completion: completion)

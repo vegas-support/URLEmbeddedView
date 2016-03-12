@@ -32,7 +32,9 @@ public class URLEmbeddedView: UIView {
     private var domainImageViewWidthConstraint: NSLayoutConstraint?
     
     private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    private var linkIconView: LinkIconView?
+    private lazy var linkIconView: LinkIconView = {
+        return LinkIconView(frame: self.bounds)
+    }()
     
     private var URL: NSURL?
     public let textProvider = AttributedTextProvider.sharedInstance
@@ -60,6 +62,14 @@ public class URLEmbeddedView: UIView {
         configureViews()
     }
     
+    public func prepareViewsForReuse() {
+        imageView.image = nil
+        titleLabel.attributedText = nil
+        descriptionLabel.attributedText = nil
+        domainLabel.attributedText = nil
+        domainImageView.image = nil
+    }
+    
     private func setInitialiValues() {
         borderColor = .lightGrayColor()
         borderWidth = 1
@@ -74,7 +84,6 @@ public class URLEmbeddedView: UIView {
             self?.handleTextProviderChanged(style, attribute: attribute, value: value)
         }
         
-        let linkIconView = LinkIconView(frame: bounds)
         addLayoutSubview(linkIconView, andConstraints:
             linkIconView.Top,
             linkIconView.Left,
@@ -83,7 +92,6 @@ public class URLEmbeddedView: UIView {
         )
         linkIconView.clipsToBounds = true
         linkIconView.hidden = true
-        self.linkIconView = linkIconView
         
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
@@ -277,7 +285,8 @@ extension URLEmbeddedView {
     public func load(completion: ((NSError?) -> Void)? = nil) {
         guard let URL = URL else { return }
         activityView.startAnimating()
-        OGDataProvider.sharedInstance.fetchOGData(URL: URL) { [weak self] ogData, error in
+        prepareViewsForReuse()
+        OGDataProvider.sharedInstance.fetchOGData(url: URL.absoluteString) { [weak self] ogData, error in
             dispatch_async(dispatch_get_main_queue()) {
                 self?.activityView.stopAnimating()
                 if let error = error {
@@ -288,13 +297,13 @@ extension URLEmbeddedView {
                     self?.changeDomainImageViewWidthConstraint(0)
                     self?.changeDomainImageViewToDomainLabelConstraint(0)
                     self?.changeImageViewWidthConstrain(nil)
-                    self?.linkIconView?.hidden = false
+                    self?.linkIconView.hidden = false
                     self?.layoutIfNeeded()
                     completion?(error)
                     return
                 }
                 
-                self?.linkIconView?.hidden = true
+                self?.linkIconView.hidden = true
                 if ogData.pageTitle.isEmpty {
                     self?.titleLabel.attributedText = self?.textProvider[.NoDataTitle].attributedText(URL.absoluteString)
                 } else {
