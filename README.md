@@ -15,7 +15,7 @@
 - [x] Automatically caching Open Graph Image
 - [x] Tap handleable
 - [x] Clearable image cache
-- [ ] Clearable data cache
+- [x] Clearable data cache
 
 ## Usage
 
@@ -53,13 +53,15 @@ embeddedView.textProvider[.Title].numberOfLines = 2
 You can get Open Graph Data with `OGDataProvider`.
 
 ```swift
-OGDataProvider.sharedInstance.fetchOGData(URL: NSURL, completion: ((OGData, NSError?) -> Void)? = nil)
+OGDataProvider.sharedInstance.fetchOGData(url: String, completion: ((OGData, NSError?) -> Void)? = nil) -> NSURLSessionDataTask?
 ```
 
 You can get UIImage with `OGImageProvider`.
 
 ```swift
-OGImageProvider.sharedInstance.loadImage(url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil)
+OGImageProvider.sharedInstance.loadImage(url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) -> NSURLSessionDataTask?
+OGImageProvider.sharedInstance.clearMemoryCache()
+OGImageProvider.sharedInstance.clearAllCache()
 ```
 
 ## Installation
