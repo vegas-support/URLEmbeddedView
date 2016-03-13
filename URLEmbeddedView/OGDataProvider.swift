@@ -28,7 +28,7 @@ public final class OGDataProvider: NSObject {
 }
 
 extension OGDataProvider {
-    public func fetchOGData(url url: String, completion: ((OGData, NSError?) -> Void)? = nil) {
+    public func fetchOGData(url url: String, completion: ((OGData, NSError?) -> Void)? = nil) -> NSURLSessionDataTask? {
         let ogData = OGData.fetchOrInsertOGData(url: url)
         if !ogData.sourceUrl.isEmpty {
             completion?(ogData, nil)
@@ -36,12 +36,12 @@ extension OGDataProvider {
         ogData.sourceUrl = url
         guard let URL = NSURL(string: url) else {
             completion?(ogData, NSError(domain: "can not create NSURL with \"\(url)\"", code: 9999, userInfo: nil))
-            return
+            return nil
         }
         let request = NSMutableURLRequest(URL: URL)
         request.setValue(self.dynamicType.UserAgent, forHTTPHeaderField: "User-Agent")
         request.timeoutInterval = 5
-        session.dataTaskWithRequest(request) { data, response, error in
+        let task = session.dataTaskWithRequest(request) { data, response, error in
             if let error = error {
                 completion?(ogData, error)
                 return
@@ -63,7 +63,9 @@ extension OGDataProvider {
             }
             ogData.save()
             completion?(ogData, nil)
-        }.resume()
+        }
+        task.resume()
+        return task
     }
     
     public func deleteOGData(urlString urlString: String, completion: ((NSError?) -> Void)? = nil) {

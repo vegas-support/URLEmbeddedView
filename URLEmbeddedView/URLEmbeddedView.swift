@@ -27,7 +27,7 @@ public class URLEmbeddedView: UIView {
     private let domainConainter = UIView()
     private var domainContainerHeightConstraint: NSLayoutConstraint?
     private let domainLabel = UILabel()
-    private let domainImageView = UIImageView()
+    private let domainImageView = URLImageView()
     private var domainImageViewToDomainLabelConstraint: NSLayoutConstraint?
     private var domainImageViewWidthConstraint: NSLayoutConstraint?
     
@@ -37,6 +37,7 @@ public class URLEmbeddedView: UIView {
     }()
     
     private var URL: NSURL?
+    private var task: NSURLSessionDataTask?
     public let textProvider = AttributedTextProvider.sharedInstance
     
     public var didTapHandler: ((URLEmbeddedView, NSURL?) -> Void)?
@@ -63,11 +64,13 @@ public class URLEmbeddedView: UIView {
     }
     
     public func prepareViewsForReuse() {
+        cancelLoad()
         imageView.image = nil
         titleLabel.attributedText = nil
         descriptionLabel.attributedText = nil
         domainLabel.attributedText = nil
         domainImageView.image = nil
+        linkIconView.hidden = true
     }
     
     private func setInitialiValues() {
@@ -126,6 +129,7 @@ public class URLEmbeddedView: UIView {
             descriptionLabel.Left   |==| imageView.Right     |+| 12
         )
         
+        domainImageView.activityViewHidden = true
         domainConainter.addLayoutSubview(domainImageView, andConstraints:
             domainImageView.Top,
             domainImageView.Left,
@@ -284,9 +288,9 @@ extension URLEmbeddedView {
     
     public func load(completion: ((NSError?) -> Void)? = nil) {
         guard let URL = URL else { return }
-        activityView.startAnimating()
         prepareViewsForReuse()
-        OGDataProvider.sharedInstance.fetchOGData(url: URL.absoluteString) { [weak self] ogData, error in
+        activityView.startAnimating()
+        task = OGDataProvider.sharedInstance.fetchOGData(url: URL.absoluteString) { [weak self] ogData, error in
             dispatch_async(dispatch_get_main_queue()) {
                 self?.activityView.stopAnimating()
                 if let error = error {
@@ -352,5 +356,13 @@ extension URLEmbeddedView {
                 completion?(nil)
             }
         }
+    }
+    
+    public func cancelLoad() {
+        task?.cancel()
+        task = nil
+        domainImageView.cancelLoadImage()
+        imageView.cancelLoadImage()
+        activityView.stopAnimating()
     }
 }

@@ -17,7 +17,6 @@
 		395EB90F99C1B4455D5473D35CC5BD5E /* Kanna-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 49DD3EC26402F9FD091A997E9C7A0809 /* Kanna-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41991729992F400DBBFC9C0467DB9282 /* URLEmbeddedView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEFE614735D6C066C2834D6C5D985E0 /* URLEmbeddedView-dummy.m */; };
 		42F4E211797B732182248D4A9E23011B /* URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF0E48937EF4669D6CA2D79D9F8E1FE /* URLEmbeddedView.swift */; };
-		4A4CAB93CCC208E5AFA36CA59854C7BF /* UIImageView+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328D2B6D9B3926A3763861E8CF007885 /* UIImageView+Load.swift */; };
 		53EE8DE41682CE1D265BE8B60ED69A11 /* Array+MisterFusion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F455C610E7EBA8A1EAA17001AEA8A380 /* Array+MisterFusion.swift */; };
 		562FE0709AD532FEA853A1D30EB99A30 /* AttributedTextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9F9ECB9E4C917CDBAFBBC3BBA0F9C5 /* AttributedTextProvider.swift */; };
 		5705D790F72EB6F75990B3326D375EDD /* Kanna.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADF80BF1D7451622FB9832BB021AA7 /* Kanna.swift */; };
@@ -99,7 +98,6 @@
 		26001C324568868385DF06CF4A812822 /* libxmlHTMLDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = libxmlHTMLDocument.swift; path = Source/libxml/libxmlHTMLDocument.swift; sourceTree = "<group>"; };
 		2BCC458FDD5F692BBB2BFC64BB5701FC /* Pods-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-umbrella.h"; sourceTree = "<group>"; };
 		2E6AD512680E8E4A0D5E0AD607824613 /* OGDataCacheManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OGDataCacheManager.swift; sourceTree = "<group>"; };
-		328D2B6D9B3926A3763861E8CF007885 /* UIImageView+Load.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImageView+Load.swift"; sourceTree = "<group>"; };
 		36740A6ECE7554C8FE34DACC62DDAE84 /* AttributeManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AttributeManager.swift; sourceTree = "<group>"; };
 		3BAB981AA5232B3EE3D7D39F6C4E3935 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		3F79E67C5F833B64703708BA62DA72A5 /* MisterFusion.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MisterFusion.xcconfig; sourceTree = "<group>"; };
@@ -284,7 +282,6 @@
 				981D5DD677744EB01B92E2555D8F9519 /* OGData+CoreDataProperties.swift */,
 				2E6AD512680E8E4A0D5E0AD607824613 /* OGDataCacheManager.swift */,
 				6EA909F0B92513E72ACC0027115A516E /* OGDataProvider.swift */,
-				328D2B6D9B3926A3763861E8CF007885 /* UIImageView+Load.swift */,
 				0EF0E48937EF4669D6CA2D79D9F8E1FE /* URLEmbeddedView.swift */,
 				89772F2074F0CD4D65C9772025212761 /* URLEmbeddedView+Inspectable.swift */,
 				99C3BBA6132E91B91CCCD8822A9905F9 /* URLImageView.swift */,
@@ -560,7 +557,6 @@
 				1508846EF8516DC0A21F01324DF79E97 /* OGData.swift in Sources */,
 				61CE950A43A2AD005C3AB5697F4BB753 /* OGDataCacheManager.swift in Sources */,
 				E19B96D012E35B0ADFA7F711D74F8F58 /* OGDataProvider.swift in Sources */,
-				4A4CAB93CCC208E5AFA36CA59854C7BF /* UIImageView+Load.swift in Sources */,
 				75639B00C0F6092AAEDBA47EB89E5D52 /* URLEmbeddedView+Inspectable.swift in Sources */,
 				41991729992F400DBBFC9C0467DB9282 /* URLEmbeddedView-dummy.m in Sources */,
 				42F4E211797B732182248D4A9E23011B /* URLEmbeddedView.swift in Sources */,

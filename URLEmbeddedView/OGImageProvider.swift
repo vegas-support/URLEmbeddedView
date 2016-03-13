@@ -21,18 +21,18 @@ public final class OGImageProvider: NSObject {
 }
 
 extension OGImageProvider {
-    public func loadImage(url url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) {
+    public func loadImage(url url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) -> NSURLSessionDataTask? {
         guard let URL = NSURL(string: url) else {
             completion?(nil, uuidString, NSError(domain: "can not create NSURL with \(url)", code: 9999, userInfo: nil))
-            return
+            return nil
         }
         if !uuidString.isEmpty {
             if let image = OGImageCacheManager.sharedInstance.cachedImage(uuidString: uuidString) {
                 completion?(image, uuidString, nil)
-                return
+                return nil
             }
         }
-        session.dataTaskWithURL(URL) { data, response, error in
+        let task = session.dataTaskWithURL(URL) { data, response, error in
             if let error = error {
                 completion?(nil, uuidString, error)
                 return
@@ -48,7 +48,9 @@ extension OGImageProvider {
             let newUUIDString = uuidString.isEmpty ? NSUUID().UUIDString : uuidString
             OGImageCacheManager.sharedInstance.storeImage(image, data: data, uuidString: newUUIDString)
             completion?(image, newUUIDString, nil)
-        }.resume()
+        }
+        task.resume()
+        return task
     }
     
     public func clearMemoryCache() {
