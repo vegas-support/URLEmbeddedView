@@ -53,7 +53,7 @@ public final class OGData: NSManagedObject {
         case .Title       : pageTitle       = content
         case .Image       : imageUrl        = content
         case .Url         : url             = content
-        case .Description : pageDescription = content
+        case .Description : pageDescription = content.stringByReplacingOccurrencesOfString("\n", withString: " ")
         }
     }
     
