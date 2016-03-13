@@ -25,7 +25,7 @@ public final class OGData: NSManagedObject {
 
     class func fetchOrInsertOGData(url url: String) -> OGData {
         guard let ogData = fetchOGData(url: url) else {
-            let managedObjectContext = OGDataCacheManager.sharedInstance.mainManagedObjectContext
+            let managedObjectContext = OGDataCacheManager.sharedInstance.updateManagedObjectContext
             let newOGData = NSEntityDescription.insertNewObjectForEntityForName("OGData", inManagedObjectContext: managedObjectContext) as! OGData
             let date = NSDate()
             newOGData.createDate = date
@@ -36,7 +36,7 @@ public final class OGData: NSManagedObject {
     }
     
     class func fetchOGData(url url: String) -> OGData? {
-        let managedObjectContext = OGDataCacheManager.sharedInstance.mainManagedObjectContext
+        let managedObjectContext = OGDataCacheManager.sharedInstance.updateManagedObjectContext
         let fetchRequest = NSFetchRequest()
         fetchRequest.entity = NSEntityDescription.entityForName("OGData", inManagedObjectContext: managedObjectContext)
         fetchRequest.fetchLimit = 1
