@@ -5,7 +5,8 @@
 [![Version](https://img.shields.io/cocoapods/v/URLEmbeddedView.svg?style=flat)](http://cocoapods.org/pods/URLEmbeddedView)
 [![License](https://img.shields.io/cocoapods/l/URLEmbeddedView.svg?style=flat)](http://cocoapods.org/pods/URLEmbeddedView)
 
-![](./SampleImages/sample.gif)
+![](./SampleImages/sample2.gif) ![](./SampleImages/sample.gif)
+
 
 ## Features
 

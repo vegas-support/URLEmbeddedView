@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '59A083E4D9EEC0094822AAAC'
+               BlueprintIdentifier = '9FE7AABA378D4083A3C7879F'
                BlueprintName = 'URLEmbeddedView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'URLEmbeddedView.framework'>

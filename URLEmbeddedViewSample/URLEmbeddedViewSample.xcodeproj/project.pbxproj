@@ -9,10 +9,13 @@
 /* Begin PBXBuildFile section */
 		374E3BA01C8F467800812A24 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374E3B9F1C8F467800812A24 /* SafariServices.framework */; };
 		377AF0371C8BE037008A3BE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377AF0361C8BE037008A3BE2 /* AppDelegate.swift */; };
-		377AF0391C8BE037008A3BE2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377AF0381C8BE037008A3BE2 /* ViewController.swift */; };
+		377AF0391C8BE037008A3BE2 /* OGSampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377AF0381C8BE037008A3BE2 /* OGSampleViewController.swift */; };
 		377AF03C1C8BE037008A3BE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377AF03A1C8BE037008A3BE2 /* Main.storyboard */; };
 		377AF03E1C8BE037008A3BE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377AF03D1C8BE037008A3BE2 /* Assets.xcassets */; };
 		377AF0411C8BE037008A3BE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377AF03F1C8BE037008A3BE2 /* LaunchScreen.storyboard */; };
+		37C1B4681C97155A0036AD9E /* OGListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C1B4671C97155A0036AD9E /* OGListViewController.swift */; };
+		37C1B46B1C9718560036AD9E /* OGListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C1B4691C9718560036AD9E /* OGListCell.swift */; };
+		37C1B46C1C9718560036AD9E /* OGListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37C1B46A1C9718560036AD9E /* OGListCell.xib */; };
 		3F29141586A4F8EAAF89EA1E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94933F0C197F28CE21239575 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,11 +23,14 @@
 		374E3B9F1C8F467800812A24 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		377AF0331C8BE037008A3BE2 /* URLEmbeddedViewSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = URLEmbeddedViewSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		377AF0361C8BE037008A3BE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		377AF0381C8BE037008A3BE2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		377AF0381C8BE037008A3BE2 /* OGSampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGSampleViewController.swift; sourceTree = "<group>"; };
 		377AF03B1C8BE037008A3BE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		377AF03D1C8BE037008A3BE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		377AF0401C8BE037008A3BE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		377AF0421C8BE037008A3BE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37C1B4671C97155A0036AD9E /* OGListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGListViewController.swift; sourceTree = "<group>"; };
+		37C1B4691C9718560036AD9E /* OGListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGListCell.swift; sourceTree = "<group>"; };
+		37C1B46A1C9718560036AD9E /* OGListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OGListCell.xib; sourceTree = "<group>"; };
 		94933F0C197F28CE21239575 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40DB547267F1FF3B2610414 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DE24628DAE0BDAF2D6D1717A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -65,7 +71,10 @@
 			isa = PBXGroup;
 			children = (
 				377AF0361C8BE037008A3BE2 /* AppDelegate.swift */,
-				377AF0381C8BE037008A3BE2 /* ViewController.swift */,
+				377AF0381C8BE037008A3BE2 /* OGSampleViewController.swift */,
+				37C1B4671C97155A0036AD9E /* OGListViewController.swift */,
+				37C1B4691C9718560036AD9E /* OGListCell.swift */,
+				37C1B46A1C9718560036AD9E /* OGListCell.xib */,
 				377AF03A1C8BE037008A3BE2 /* Main.storyboard */,
 				377AF03D1C8BE037008A3BE2 /* Assets.xcassets */,
 				377AF03F1C8BE037008A3BE2 /* LaunchScreen.storyboard */,
@@ -154,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				377AF0411C8BE037008A3BE2 /* LaunchScreen.storyboard in Resources */,
+				37C1B46C1C9718560036AD9E /* OGListCell.xib in Resources */,
 				377AF03E1C8BE037008A3BE2 /* Assets.xcassets in Resources */,
 				377AF03C1C8BE037008A3BE2 /* Main.storyboard in Resources */,
 			);
@@ -214,8 +224,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				377AF0391C8BE037008A3BE2 /* ViewController.swift in Sources */,
+				377AF0391C8BE037008A3BE2 /* OGSampleViewController.swift in Sources */,
+				37C1B46B1C9718560036AD9E /* OGListCell.swift in Sources */,
 				377AF0371C8BE037008A3BE2 /* AppDelegate.swift in Sources */,
+				37C1B4681C97155A0036AD9E /* OGListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -42,6 +42,16 @@ public class URLEmbeddedView: UIView {
     
     public var didTapHandler: ((URLEmbeddedView, NSURL?) -> Void)?
     
+    public convenience init() {
+        self.init(frame: .zero)
+    }
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setInitialiValues()
+        configureViews()
+    }
+    
     public convenience init(url: String) {
         self.init(url: url, frame: .zero)
     }

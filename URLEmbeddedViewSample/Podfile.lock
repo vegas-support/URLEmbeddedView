@@ -2,7 +2,7 @@ PODS:
   - CryptoSwift (0.2.3)
   - Kanna (1.0.5)
   - MisterFusion (1.0.0)
-  - URLEmbeddedView (0.2.0):
+  - URLEmbeddedView (0.3.0):
     - CryptoSwift (~> 0.2)
     - Kanna (~> 1.0)
     - MisterFusion (~> 1.0)
@@ -18,6 +18,6 @@ SPEC CHECKSUMS:
   CryptoSwift: b2bf37b8e7cc6d682ef3365cb966bc5ae5174aa5
   Kanna: 1df5cd995dc1f3a282e3dcf7521cfef2f069ac4d
   MisterFusion: 8bed489f6c4cfb3572efaa660a353019a5b4dd61
-  URLEmbeddedView: b411a06bba2ed9b2a8b52bcceae8662f17d8b793
+  URLEmbeddedView: 6cd2aec679ee7bacf89c7b0265fdf324168fd8f6
 
 COCOAPODS: 0.39.0

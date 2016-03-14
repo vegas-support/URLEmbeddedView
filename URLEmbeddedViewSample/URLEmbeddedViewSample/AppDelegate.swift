@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  URLEmbeddedViewSample
 //
-//  Created by 鈴木大貴 on 2016/03/06.
-//  Copyright © 2016年 鈴木大貴. All rights reserved.
+//  Created by Taiki Suzuki on 2016/03/06.
+//  Copyright © 2016年 Taiki Suzuki. All rights reserved.
 //
 
 import UIKit
