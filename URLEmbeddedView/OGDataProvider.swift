@@ -6,9 +6,39 @@
 //
 //
 
+/*
+ * In this file, Kanna is used to parse "og:" from meta tags.
+ * Kanna is created by Atsushi Kiwaki.
+ * https://github.com/tid-kijyun/Kanna
+ * The original copyright is here.
+ */
+
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2015 Atsushi Kiwaki (@_tid_)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 import Foundation
 import Kanna
-import WebKit
 
 public final class OGDataProvider: NSObject {
     //MARK: Static constants
@@ -28,14 +58,14 @@ public final class OGDataProvider: NSObject {
 }
 
 extension OGDataProvider {
-    public func fetchOGData(url url: String, completion: ((OGData, NSError?) -> Void)? = nil) -> NSURLSessionDataTask? {
-        let ogData = OGData.fetchOrInsertOGData(url: url)
+    public func fetchOGData(urlString urlString: String, completion: ((OGData, NSError?) -> Void)? = nil) -> NSURLSessionDataTask? {
+        let ogData = OGData.fetchOrInsertOGData(url: urlString)
         if !ogData.sourceUrl.isEmpty {
             completion?(ogData, nil)
         }
-        ogData.sourceUrl = url
-        guard let URL = NSURL(string: url) else {
-            completion?(ogData, NSError(domain: "can not create NSURL with \"\(url)\"", code: 9999, userInfo: nil))
+        ogData.sourceUrl = urlString
+        guard let URL = NSURL(string: urlString) else {
+            completion?(ogData, NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
             return nil
         }
         let request = NSMutableURLRequest(URL: URL)

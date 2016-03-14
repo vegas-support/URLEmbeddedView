@@ -1,8 +1,8 @@
 //
 //  OGData.swift
-//  Pods
+//  URLEmbeddedView
 //
-//  Created by 鈴木大貴 on 2016/03/11.
+//  Created by Taiki Suzuki on 2016/03/11.
 //
 //
 

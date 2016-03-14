@@ -46,6 +46,7 @@ embeddedView.loadURL(urlString)
 embeddedView.textProvider[.Title].font = .boldSystemFontOfSize(18)
 embeddedView.textProvider[.Title].fontColor = .lightGrayColor()
 embeddedView.textProvider[.Title].numberOfLines = 2
+//You can use ".Title", ".Description", ".Domain" and ".NoDataTitle"
 ```
 
 ## Data and Image Cache
@@ -53,15 +54,31 @@ embeddedView.textProvider[.Title].numberOfLines = 2
 You can get Open Graph Data with `OGDataProvider`.
 
 ```swift
-OGDataProvider.sharedInstance.fetchOGData(url: String, completion: ((OGData, NSError?) -> Void)? = nil) -> NSURLSessionDataTask?
+OGDataProvider.sharedInstance.fetchOGData(urlString: String, completion: ((OGData, NSError?) -> Void)? = nil) -> NSURLSessionDataTask?
+OGDataProvider.sharedInstance.deleteOGData(urlString: String, completion: ((NSError?) -> Void)? = nil)
+OGDataProvider.sharedInstance.deleteOGData(ogData: OGData, completion: ((NSError?) -> Void)? = nil)
 ```
 
 You can get UIImage with `OGImageProvider`.
 
 ```swift
-OGImageProvider.sharedInstance.loadImage(url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) -> NSURLSessionDataTask?
+OGImageProvider.sharedInstance.loadImage(urlString: String, completion: ((UIImage?, NSError?) -> Void)? = nil) -> NSURLSessionDataTask?
 OGImageProvider.sharedInstance.clearMemoryCache()
 OGImageProvider.sharedInstance.clearAllCache()
+```
+
+## OGData Properties
+
+```swift
+@NSManaged public var createDate: NSDate
+@NSManaged public var imageUrl: String
+@NSManaged public var pageDescription: String
+@NSManaged public var pageTitle: String
+@NSManaged public var pageType: String
+@NSManaged public var siteName: String
+@NSManaged public var sourceUrl: String
+@NSManaged public var updateDate: NSDate
+@NSManaged public var url: String
 ```
 
 ## Installation
@@ -75,13 +92,16 @@ pod "URLEmbeddedView"
 
 ## Special Thanks
 
-[Kanna(鉋)](https://github.com/tid-kijyun/Kanna) is an great XML/HTML parser for Mac OS X and iOS. (Created by @tid-kijyun)
+- [Kanna(鉋)](https://github.com/tid-kijyun/Kanna) is a great XML/HTML parser for Mac OS X and iOS. (Created by [@tid-kijyun](https://github.com/tid-kijyun))
+- [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift) is a greate Crypto related functions and helpers for Swift. (Created by [@krzyzanowskim](https://github.com/krzyzanowskim))
 
 ## Requirements
 
 - Xcode 7.0 or greater
 - iOS 8.0 or greater
 - [MisterFusion](https://github.com/szk-atmosphere/MisterFusion) - Swift DSL for AutoLayout
+- [Kanna(鉋)](https://github.com/tid-kijyun/Kanna)
+- [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift)
 - UIKit
 - CoreData
 - CoreGraphics

@@ -21,33 +21,32 @@ public final class OGImageProvider: NSObject {
 }
 
 extension OGImageProvider {
-    public func loadImage(url url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) -> NSURLSessionDataTask? {
-        guard let URL = NSURL(string: url) else {
-            completion?(nil, uuidString, NSError(domain: "can not create NSURL with \(url)", code: 9999, userInfo: nil))
+    public func loadImage(urlString urlString: String, completion: ((UIImage?, NSError?) -> Void)? = nil) -> NSURLSessionDataTask? {
+        guard let URL = NSURL(string: urlString) else {
+            completion?(nil, NSError(domain: "can not create NSURL with \(urlString)", code: 9999, userInfo: nil))
             return nil
         }
-        if !uuidString.isEmpty {
-            if let image = OGImageCacheManager.sharedInstance.cachedImage(uuidString: uuidString) {
-                completion?(image, uuidString, nil)
+        if !urlString.isEmpty {
+            if let image = OGImageCacheManager.sharedInstance.cachedImage(urlString: urlString) {
+                completion?(image, nil)
                 return nil
             }
         }
         let task = session.dataTaskWithURL(URL) { data, response, error in
             if let error = error {
-                completion?(nil, uuidString, error)
+                completion?(nil,  error)
                 return
             }
             guard let data = data else {
-                completion?(nil, uuidString, NSError(domain: "can not fetch image data with \(url)", code: 9999, userInfo: nil))
+                completion?(nil, NSError(domain: "can not fetch image data with \(urlString)", code: 9999, userInfo: nil))
                 return
             }
             guard let image = UIImage(data: data) else {
-                completion?(nil, uuidString, NSError(domain: "can not fetch image with \(url)", code: 9999, userInfo: nil))
+                completion?(nil, NSError(domain: "can not fetch image with \(urlString)", code: 9999, userInfo: nil))
                 return
             }
-            let newUUIDString = uuidString.isEmpty ? NSUUID().UUIDString : uuidString
-            OGImageCacheManager.sharedInstance.storeImage(image, data: data, uuidString: newUUIDString)
-            completion?(image, newUUIDString, nil)
+            OGImageCacheManager.sharedInstance.storeImage(image, data: data, urlString: urlString)
+            completion?(image, nil)
         }
         task.resume()
         return task

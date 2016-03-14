@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "URLEmbeddedView"
-  s.version          = "0.2.0"
+  s.version          = "0.3.0"
   s.summary          = "URLEmbeddedView is a view that automatically cache the Open Graph Protocol."
 
 # This description is used to generate tags and improve search results.
@@ -37,6 +37,7 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit', 'CoreData', 'CoreGraphics'
-  s.dependency 'MisterFusion'
+  s.dependency 'MisterFusion', '~> 1.0'
   s.dependency 'Kanna', '~> 1.0'
+  s.dependency 'CryptoSwift', '~> 0.2'
 end

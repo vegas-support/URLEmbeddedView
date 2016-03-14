@@ -1,8 +1,7 @@
 {
   "name": "URLEmbeddedView",
-  "version": "0.1.0",
-  "summary": "A short description of URLEmbeddedView.",
-  "description": "",
+  "version": "0.2.0",
+  "summary": "URLEmbeddedView is a view that automatically cache the Open Graph Protocol.",
   "homepage": "https://github.com/szk-atmosphere/URLEmbeddedView",
   "license": "MIT",
   "authors": {
@@ -10,7 +9,7 @@
   },
   "source": {
     "git": "https://github.com/szk-atmosphere/URLEmbeddedView.git",
-    "tag": "0.1.0"
+    "tag": "0.2.0"
   },
   "social_media_url": "https://twitter.com/SzkAtmosphere",
   "platforms": {
@@ -26,10 +25,13 @@
   ],
   "dependencies": {
     "MisterFusion": [
-
+      "~> 1.0"
     ],
     "Kanna": [
       "~> 1.0"
+    ],
+    "CryptoSwift": [
+      "~> 0.2"
     ]
   }
 }

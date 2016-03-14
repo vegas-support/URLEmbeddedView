@@ -47,6 +47,7 @@ public final class AttributeManager {
     public var font: UIFont {
         didSet { didChangeValue?(style, .Font, font) }
     }
+    
     public var numberOfLines: Int {
         didSet { didChangeValue?(style, .NumberOfLines, numberOfLines) }
     }

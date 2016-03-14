@@ -6,7 +6,30 @@
 //
 //
 
+/*
+ * In this file, CommonCrypto is used to create md5 hash.
+ * CommonCrypto is created by Marcin Krzyżanowski.
+ * https://github.com/krzyzanowskim/CryptoSwift
+ * The original copyright is here.
+ */
+
+/*
+ * Copyright (C) 2014 Marcin Krzyżanowski marcin.krzyzanowski@gmail.com
+ * This software is provided 'as-is', without any express or implied warranty.
+ *
+ * In no event will the authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * - The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
+ *   If you use this software in a product, an acknowledgment in the product documentation is required.
+ * - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+ * - This notice may not be removed or altered from any source or binary distribution.
+ */
+
 import UIKit
+import CryptoSwift
 
 class OGImageCacheManager {
     static let sharedInstance = OGImageCacheManager()
@@ -62,25 +85,26 @@ extension OGImageCacheManager {
 
 //MARK: - Read and write
 extension OGImageCacheManager {
-    private func pathForUUIDString(uuidString: String) -> String {
-        if uuidString.characters.count < 2 { return "" }
-        return cacheDirectory + "/" +  uuidString.substringToIndex(uuidString.startIndex.advancedBy(2)) + "/" + uuidString
+    private func pathForURLString(urlString: String) -> String {
+        let md5String = urlString.md5()
+        if md5String.characters.count < 2 { return cacheDirectory + "/" }
+        return cacheDirectory + "/" +  md5String.substringToIndex(md5String.startIndex.advancedBy(2)) + "/" + md5String
     }
     
-    func cachedImage(uuidString uuidString: String) -> UIImage? {
-        if let image = memoryCache.objectForKey(uuidString) as? UIImage {
+    func cachedImage(urlString urlString: String) -> UIImage? {
+        if let image = memoryCache.objectForKey(urlString) as? UIImage {
             return image
         }
-        if let image = UIImage(contentsOfFile: pathForUUIDString(uuidString)) {
-            memoryCache.setObject(image, forKey: uuidString)
+        if let image = UIImage(contentsOfFile: pathForURLString(urlString)) {
+            memoryCache.setObject(image, forKey: urlString)
             return image
         }
         return nil
     }
     
-    func storeImage(image: UIImage, data: NSData, uuidString: String) {
-        memoryCache.setObject(image, forKey: uuidString)
-        data.writeToFile(pathForUUIDString(uuidString), atomically: false)
+    func storeImage(image: UIImage, data: NSData, urlString: String) {
+        memoryCache.setObject(image, forKey: urlString)
+        data.writeToFile(pathForURLString(urlString), atomically: false)
     }
 }
 

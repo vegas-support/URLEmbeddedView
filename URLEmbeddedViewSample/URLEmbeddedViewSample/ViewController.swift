@@ -74,7 +74,7 @@ extension ViewController: UISearchBarDelegate {
             if let _ = $0 {
                 return
             }
-            OGDataProvider.sharedInstance.fetchOGData(url: urlString) { [weak self] ogData, error in
+            OGDataProvider.sharedInstance.fetchOGData(urlString: urlString) { [weak self] ogData, error in
                 if let _ = error {
                     return
                 }
@@ -85,8 +85,6 @@ extension ViewController: UISearchBarDelegate {
                     + "- pageType         = \(ogData.pageType)\n"
                     + "- pageDescription  = \(ogData.pageDescription)\n"
                     + "- imageUrl         = \(ogData.imageUrl)\n"
-                    + "- imageUUID        = \(ogData.imageUUID)\n"
-                    + "- faviconImageUUID = \(ogData.faviconImageUUID)\n"
                     + "- createDate       = \(ogData.createDate)\n"
                     + "- updateDate       = \(ogData.updateDate)\n"
                 dispatch_async(dispatch_get_main_queue()) {

@@ -33,12 +33,12 @@ final class URLImageView: UIImageView {
         )
     }
     
-    func loadImage(url: String, uuidString: String, completion: ((UIImage?, String, NSError?) -> Void)? = nil) {
+    func loadImage(urlString urlString: String, completion: ((UIImage?, NSError?) -> Void)? = nil) {
         cancelLoadImage()
         if !activityViewHidden {
             activityView.startAnimating()
         }
-        task = OGImageProvider.sharedInstance.loadImage(url: url, uuidString: uuidString) { [weak self] image, uuidString, error in
+        task = OGImageProvider.sharedInstance.loadImage(urlString: urlString) { [weak self] image, error in
             self?.task = nil
             dispatch_async(dispatch_get_main_queue()) {
                 if self?.activityViewHidden == false {
@@ -46,11 +46,11 @@ final class URLImageView: UIImageView {
                 }
                 if let error = error {
                     self?.image = nil
-                    completion?(nil, uuidString, error)
+                    completion?(nil, error)
                     return
                 }
                 self?.image = image
-                completion?(image, uuidString, nil)
+                completion?(image, nil)
             }
         }
     }

@@ -277,8 +277,8 @@ extension URLEmbeddedView {
 }
 
 extension URLEmbeddedView {
-    public func loadURL(url: String, completion: ((NSError?) -> Void)? = nil) {
-        guard let URL = NSURL(string: url) else {
+    public func loadURL(urlString: String, completion: ((NSError?) -> Void)? = nil) {
+        guard let URL = NSURL(string: urlString) else {
             completion?(nil)
             return
         }
@@ -290,7 +290,7 @@ extension URLEmbeddedView {
         guard let URL = URL else { return }
         prepareViewsForReuse()
         activityView.startAnimating()
-        task = OGDataProvider.sharedInstance.fetchOGData(url: URL.absoluteString) { [weak self] ogData, error in
+        task = OGDataProvider.sharedInstance.fetchOGData(urlString: URL.absoluteString) { [weak self] ogData, error in
             dispatch_async(dispatch_get_main_queue()) {
                 self?.activityView.stopAnimating()
                 if let error = error {
@@ -315,19 +315,13 @@ extension URLEmbeddedView {
                 }
                 self?.descriptionLabel.attributedText = self?.textProvider[.Description].attributedText(ogData.pageDescription)
                 if !ogData.imageUrl.isEmpty {
-                    self?.imageView.loadImage(ogData.imageUrl, uuidString: ogData.imageUUID) {
-                        if let _ = $0 where $2 == nil {
+                    self?.imageView.loadImage(urlString: ogData.imageUrl) {
+                        if let _ = $0 where $1 == nil {
                             self?.changeImageViewWidthConstrain(nil)
                         } else {
                             self?.changeImageViewWidthConstrain(0)
                         }
                         self?.layoutIfNeeded()
-                        let uuidString = $1
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                            if ogData.imageUUID == uuidString { return }
-                            ogData.imageUUID = uuidString
-                            ogData.save()
-                        }
                     }
                 } else {
                     self?.changeImageViewWidthConstrain(0)
@@ -336,8 +330,8 @@ extension URLEmbeddedView {
                 let host = URL.host ?? ""
                 self?.domainLabel.attributedText = self?.textProvider[.Domain].attributedText(host)
                 let faciconURL = (self?.dynamicType.FaviconURL ?? "") + host
-                self?.domainImageView.loadImage(faciconURL, uuidString: ogData.faviconImageUUID) {
-                    if let _ = $0 where $2 == nil {
+                self?.domainImageView.loadImage(urlString: faciconURL) {
+                    if let _ = $0 where $1 == nil {
                         self?.changeDomainImageViewWidthConstraint(nil)
                         self?.changeDomainImageViewToDomainLabelConstraint(nil)
                     } else {
@@ -345,12 +339,6 @@ extension URLEmbeddedView {
                         self?.changeDomainImageViewToDomainLabelConstraint(0)
                     }
                     self?.layoutIfNeeded()
-                    let uuidString = $1
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                        if ogData.faviconImageUUID == uuidString { return }
-                        ogData.faviconImageUUID = uuidString
-                        ogData.save()
-                    }
                 }
                 self?.layoutIfNeeded()
                 completion?(nil)

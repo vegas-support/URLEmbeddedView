@@ -84,11 +84,13 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods/CryptoSwift.framework"
   install_framework "Pods/Kanna.framework"
   install_framework "Pods/MisterFusion.framework"
   install_framework "Pods/URLEmbeddedView.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods/CryptoSwift.framework"
   install_framework "Pods/Kanna.framework"
   install_framework "Pods/MisterFusion.framework"
   install_framework "Pods/URLEmbeddedView.framework"
