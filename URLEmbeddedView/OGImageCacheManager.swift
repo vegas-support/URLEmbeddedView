@@ -47,6 +47,15 @@ class OGImageCacheManager {
     
     private init() {
         createDirectoriesIfNeeded()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveMemoryWarning:", name: UIApplicationDidReceiveMemoryWarningNotification , object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+    }
+    
+    func didReceiveMemoryWarning(notification: NSNotification) {
+        clearMemoryCache()
     }
 }
 
