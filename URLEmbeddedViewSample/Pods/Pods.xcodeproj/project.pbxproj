@@ -27,6 +27,7 @@
 		2D8358A2FDF9DF01F7E14E08E931702F /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4153307DC86839AF96A2E7BAB04A18C9 /* URLImageView.swift */; };
 		33AFFE0825E74D085585A5444E3A05EC /* Kanna-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C6514A46F9212C8A0842EF704DE065 /* Kanna-dummy.m */; };
 		347F8446924F365A66283C65E9CB2FCE /* PKCS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1E0F907A13DAA1A7981CD3CB7A4BFC /* PKCS5.swift */; };
+		371B70351C9874C600A2C733 /* TaskContainable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B70341C9874C600A2C733 /* TaskContainable.swift */; };
 		384AD24D61619D55E76878A7084F8800 /* Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBFF311010580181D4FE1D320A5EDB3 /* Multiplatform.swift */; };
 		395EB90F99C1B4455D5473D35CC5BD5E /* Kanna-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E832D39214D3B2E6EC434AE19CAFA5F /* Kanna-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3964F8913F525027A5F74C929710F125 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDD340BB00E5554D1EECF9D94D08398B /* CryptoSwift.framework */; };
@@ -173,6 +174,7 @@
 		341C32BDD92E68F460CB259DE55C8486 /* libxmlHTMLDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = libxmlHTMLDocument.swift; path = Source/libxml/libxmlHTMLDocument.swift; sourceTree = "<group>"; };
 		35F58A850FBA8835FE2D16799715BA2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		3601FB779745BCE00E568D712BE1C260 /* MisterFusion.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MisterFusion.xcconfig; sourceTree = "<group>"; };
+		371B70341C9874C600A2C733 /* TaskContainable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskContainable.swift; sourceTree = "<group>"; };
 		372260AB807B38694A9F0C00A97CA3B0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39A02C2E9892CD2D3417BA38F57F6C21 /* OGData+CoreDataProperties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "OGData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		39E2980D67840BECAB4CD73DA804E624 /* MisterFusion-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MisterFusion-dummy.m"; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				E60E73685985D454B087B5DA9D571186 /* URLEmbeddedView.swift */,
 				2E46DB2CA7BBAEE60287B296C91BC533 /* URLEmbeddedView+Inspectable.swift */,
 				4153307DC86839AF96A2E7BAB04A18C9 /* URLImageView.swift */,
+				371B70341C9874C600A2C733 /* TaskContainable.swift */,
 			);
 			path = URLEmbeddedView;
 			sourceTree = "<group>";
@@ -821,6 +824,7 @@
 				090AD338C6E2F7108299FFAFB83075BB /* OGData+CoreDataProperties.swift in Sources */,
 				E059FFE49563D627D79A6A69E99B91FA /* OGData.swift in Sources */,
 				D0C15B6E7345AE62621B388E5D913EB1 /* OGDataCacheManager.swift in Sources */,
+				371B70351C9874C600A2C733 /* TaskContainable.swift in Sources */,
 				EBBE612F3BF77207151151B74D677EFB /* OGDataProvider.swift in Sources */,
 				8D7DCC72DA1819C0EC3F7BC622969945 /* OGImageCacheManager.swift in Sources */,
 				22703CEA6D021CAB54FE629FC3ED2534 /* OGImageProvider.swift in Sources */,

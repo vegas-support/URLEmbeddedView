@@ -11,8 +11,9 @@ import MisterFusion
 
 final class URLImageView: UIImageView {
     private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    private var task: NSURLSessionDataTask?
+    private var uuidString: String?
     var activityViewHidden: Bool = false
+    var stopTaskWhenCancel = false
     
     init() {
         super.init(frame: .zero)
@@ -38,8 +39,7 @@ final class URLImageView: UIImageView {
         if !activityViewHidden {
             activityView.startAnimating()
         }
-        task = OGImageProvider.sharedInstance.loadImage(urlString: urlString) { [weak self] image, error in
-            self?.task = nil
+        uuidString = OGImageProvider.sharedInstance.loadImage(urlString: urlString) { [weak self] image, error in
             dispatch_async(dispatch_get_main_queue()) {
                 if self?.activityViewHidden == false {
                     self?.activityView.stopAnimating()
@@ -59,8 +59,8 @@ final class URLImageView: UIImageView {
         if !activityViewHidden {
             activityView.stopAnimating()
         }
-        task?.cancel()
-        task = nil
+        guard let uuidString = uuidString else { return }
+        OGImageProvider.sharedInstance.cancelLoad(uuidString, stopTask: stopTaskWhenCancel)
     }
 }
 

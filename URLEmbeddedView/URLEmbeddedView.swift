@@ -37,10 +37,16 @@ public class URLEmbeddedView: UIView {
     }()
     
     private var URL: NSURL?
-    private var task: NSURLSessionDataTask?
+    private var uuidString: String?
     public let textProvider = AttributedTextProvider.sharedInstance
     
     public var didTapHandler: ((URLEmbeddedView, NSURL?) -> Void)?
+    public var stopTaskWhenCancel = false {
+        didSet {
+            domainImageView.stopTaskWhenCancel = stopTaskWhenCancel
+            imageView.stopTaskWhenCancel = stopTaskWhenCancel
+        }
+    }
     
     public convenience init() {
         self.init(frame: .zero)
@@ -300,7 +306,7 @@ extension URLEmbeddedView {
         guard let URL = URL else { return }
         prepareViewsForReuse()
         activityView.startAnimating()
-        task = OGDataProvider.sharedInstance.fetchOGData(urlString: URL.absoluteString) { [weak self] ogData, error in
+        uuidString = OGDataProvider.sharedInstance.fetchOGData(urlString: URL.absoluteString) { [weak self] ogData, error in
             dispatch_async(dispatch_get_main_queue()) {
                 self?.activityView.stopAnimating()
                 if let error = error {
@@ -357,10 +363,10 @@ extension URLEmbeddedView {
     }
     
     public func cancelLoad() {
-        task?.cancel()
-        task = nil
         domainImageView.cancelLoadImage()
         imageView.cancelLoadImage()
         activityView.stopAnimating()
+        guard let uuidString = uuidString else { return }
+        OGDataProvider.sharedInstance.cancelLoad(uuidString, stopTask: stopTaskWhenCancel)
     }
 }

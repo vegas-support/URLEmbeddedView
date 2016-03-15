@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import URLEmbeddedView
 
 class OGListViewController: UIViewController {
 
@@ -43,6 +44,10 @@ class OGListViewController: UIViewController {
 extension OGListViewController {
     @IBAction func didTapBackButton(sender: AnyObject?) {
         navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @IBAction func didTapClearButton(sender: AnyObject) {
+        OGImageProvider.sharedInstance.clearMemoryCache()
     }
 }
 

@@ -175,11 +175,24 @@
                                             <action selector="didTapBackButton:" destination="08T-gz-3JZ" eventType="touchUpInside" id="wia-aT-N8Y"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vr-Up-F6m">
+                                        <rect key="frame" x="430" y="20" width="170" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="170" id="PQX-8P-2DE"/>
+                                            <constraint firstAttribute="height" constant="44" id="sVB-7v-J2a"/>
+                                        </constraints>
+                                        <state key="normal" title="ClearMemoryCache"/>
+                                        <connections>
+                                            <action selector="didTapClearButton:" destination="08T-gz-3JZ" eventType="touchUpInside" id="aUb-cQ-jBY"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.95999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="FY8-Pd-zCY" firstAttribute="leading" secondItem="qaO-7u-dik" secondAttribute="leading" id="2gW-TD-Jax"/>
                                     <constraint firstAttribute="trailing" secondItem="GQG-1N-S9z" secondAttribute="trailing" id="4CX-hy-SlT"/>
+                                    <constraint firstAttribute="bottom" secondItem="7vr-Up-F6m" secondAttribute="bottom" id="Dls-Dm-48w"/>
+                                    <constraint firstAttribute="trailing" secondItem="7vr-Up-F6m" secondAttribute="trailing" id="NZQ-7u-Ivs"/>
                                     <constraint firstAttribute="bottom" secondItem="FY8-Pd-zCY" secondAttribute="bottom" id="Yox-QH-E51"/>
                                     <constraint firstAttribute="height" constant="64" id="c4P-4J-gjZ"/>
                                     <constraint firstItem="GQG-1N-S9z" firstAttribute="leading" secondItem="qaO-7u-dik" secondAttribute="leading" id="dWJ-bs-oYr"/>

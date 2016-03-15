@@ -40,7 +40,22 @@
 import Foundation
 import Kanna
 
+private class TaskContainer: TaskContainable {
+    typealias Completion = ((OGData, NSError?) -> Void)
+    
+    let uuidString: String
+    let task: NSURLSessionDataTask
+    var completion: Completion?
+    
+    required init(uuidString: String, task: NSURLSessionDataTask, completion: Completion?) {
+        self.uuidString = uuidString
+        self.task = task
+        self.completion = completion
+    }
+}
+
 public final class OGDataProvider: NSObject {
+    
     //MARK: Static constants
     public static let sharedInstance = OGDataProvider()
     private static let UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Safari/601.1.42"
@@ -51,6 +66,7 @@ public final class OGDataProvider: NSObject {
     
     //MARK: - Properties
     private let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+    private var taskContainers: [String : TaskContainer] = [:]
     
     private override init() {
         super.init()
@@ -58,7 +74,7 @@ public final class OGDataProvider: NSObject {
 }
 
 extension OGDataProvider {
-    public func fetchOGData(urlString urlString: String, completion: ((OGData, NSError?) -> Void)? = nil) -> NSURLSessionDataTask? {
+    public func fetchOGData(urlString urlString: String, completion: ((OGData, NSError?) -> Void)? = nil) -> String? {
         let ogData = OGData.fetchOrInsertOGData(url: urlString)
         if !ogData.sourceUrl.isEmpty {
             completion?(ogData, nil)
@@ -71,7 +87,11 @@ extension OGDataProvider {
         let request = NSMutableURLRequest(URL: URL)
         request.setValue(self.dynamicType.UserAgent, forHTTPHeaderField: "User-Agent")
         request.timeoutInterval = 5
-        let task = session.dataTaskWithRequest(request) { data, response, error in
+        let uuidString = NSUUID().UUIDString
+        let task = session.dataTaskWithRequest(request) { [weak self] data, response, error in
+            let completion = self?.taskContainers[uuidString]?.completion
+            self?.taskContainers.removeValueForKey(uuidString)
+            
             if let error = error {
                 completion?(ogData, error)
                 return
@@ -82,20 +102,22 @@ extension OGDataProvider {
                 completion?(ogData, nil)
                 return
             }
-            let metaTags = header.xpath(self.dynamicType.MetaTagKey)
+            let metaTags = header.xpath(OGDataProvider.MetaTagKey)
             for metaTag in metaTags {
-                guard let property = metaTag[self.dynamicType.PropertyKey],
-                      let content = metaTag[self.dynamicType.ContentKey]
-                      where property.hasPrefix(self.dynamicType.PropertyPrefix) else {
+                guard let property = metaTag[OGDataProvider.PropertyKey],
+                      let content = metaTag[OGDataProvider.ContentKey]
+                      where property.hasPrefix(OGDataProvider.PropertyPrefix) else {
                     continue
                 }
                 ogData.setValue(property: property, content: content)
             }
             ogData.save()
+            
             completion?(ogData, nil)
         }
+        taskContainers[uuidString] = TaskContainer(uuidString: uuidString, task: task, completion: completion)
         task.resume()
-        return task
+        return uuidString
     }
     
     public func deleteOGData(urlString urlString: String, completion: ((NSError?) -> Void)? = nil) {
@@ -108,5 +130,13 @@ extension OGDataProvider {
     
     public func deleteOGData(ogData: OGData, completion: ((NSError?) -> Void)? = nil) {
         OGDataCacheManager.sharedInstance.delete(ogData, completion: completion)
+    }
+    
+    func cancelLoad(uuidString: String, stopTask: Bool) {
+        taskContainers[uuidString]?.completion = nil
+        if stopTask {
+            taskContainers[uuidString]?.task.cancel()
+        }
+        taskContainers.removeValueForKey(uuidString)
     }
 }
