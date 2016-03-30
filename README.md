@@ -17,6 +17,7 @@
 - [x] Tap handleable
 - [x] Clearable image cache
 - [x] Clearable data cache
+- [ ] Configurable expire date for cache
 
 ## Usage
 
@@ -90,6 +91,21 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "URLEmbeddedView"
 ```
+
+## Use in Objective-C
+
+```objective-c
+#import <URLEmbeddedView/URLEmbeddedView-Swift.h>
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    URLEmbeddedView *embeddedView = [[URLEmbeddedView alloc] init];
+    [self.view addSubView:embeddedView];
+    [embeddedView loadURL:@"https://github.com/" completion:nil];
+}
+```
+
+[Here](./URLEmbeddedViewSample/URLEmbeddedViewSample/OGObjcSampleViewController.m) is Objective-C sample.
 
 ## Special Thanks
 

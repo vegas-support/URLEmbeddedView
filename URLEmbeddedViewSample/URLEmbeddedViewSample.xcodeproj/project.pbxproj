@@ -16,6 +16,7 @@
 		37C1B4681C97155A0036AD9E /* OGListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C1B4671C97155A0036AD9E /* OGListViewController.swift */; };
 		37C1B46B1C9718560036AD9E /* OGListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C1B4691C9718560036AD9E /* OGListCell.swift */; };
 		37C1B46C1C9718560036AD9E /* OGListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37C1B46A1C9718560036AD9E /* OGListCell.xib */; };
+		37C950FA1CAC28CB007771C7 /* OGObjcSampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C950F81CAC28CB007771C7 /* OGObjcSampleViewController.m */; };
 		3F29141586A4F8EAAF89EA1E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94933F0C197F28CE21239575 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,9 @@
 		37C1B4671C97155A0036AD9E /* OGListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGListViewController.swift; sourceTree = "<group>"; };
 		37C1B4691C9718560036AD9E /* OGListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGListCell.swift; sourceTree = "<group>"; };
 		37C1B46A1C9718560036AD9E /* OGListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OGListCell.xib; sourceTree = "<group>"; };
+		37C950F61CAC28CB007771C7 /* URLEmbeddedViewSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "URLEmbeddedViewSample-Bridging-Header.h"; sourceTree = "<group>"; };
+		37C950F71CAC28CB007771C7 /* OGObjcSampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OGObjcSampleViewController.h; sourceTree = "<group>"; };
+		37C950F81CAC28CB007771C7 /* OGObjcSampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OGObjcSampleViewController.m; sourceTree = "<group>"; };
 		94933F0C197F28CE21239575 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40DB547267F1FF3B2610414 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DE24628DAE0BDAF2D6D1717A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -75,6 +79,9 @@
 				37C1B4671C97155A0036AD9E /* OGListViewController.swift */,
 				37C1B4691C9718560036AD9E /* OGListCell.swift */,
 				37C1B46A1C9718560036AD9E /* OGListCell.xib */,
+				37C950F71CAC28CB007771C7 /* OGObjcSampleViewController.h */,
+				37C950F81CAC28CB007771C7 /* OGObjcSampleViewController.m */,
+				37C950F61CAC28CB007771C7 /* URLEmbeddedViewSample-Bridging-Header.h */,
 				377AF03A1C8BE037008A3BE2 /* Main.storyboard */,
 				377AF03D1C8BE037008A3BE2 /* Assets.xcassets */,
 				377AF03F1C8BE037008A3BE2 /* LaunchScreen.storyboard */,
@@ -130,7 +137,7 @@
 		377AF02B1C8BE037008A3BE2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "鈴木大貴";
 				TargetAttributes = {
@@ -224,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37C950FA1CAC28CB007771C7 /* OGObjcSampleViewController.m in Sources */,
 				377AF0391C8BE037008A3BE2 /* OGSampleViewController.swift in Sources */,
 				37C1B46B1C9718560036AD9E /* OGListCell.swift in Sources */,
 				377AF0371C8BE037008A3BE2 /* AppDelegate.swift in Sources */,
@@ -341,10 +349,13 @@
 			baseConfigurationReference = A40DB547267F1FF3B2610414 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = URLEmbeddedViewSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "szk-atmosphere.URLEmbeddedViewSample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "URLEmbeddedViewSample/URLEmbeddedViewSample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -353,10 +364,12 @@
 			baseConfigurationReference = DE24628DAE0BDAF2D6D1717A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = URLEmbeddedViewSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "szk-atmosphere.URLEmbeddedViewSample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "URLEmbeddedViewSample/URLEmbeddedViewSample-Bridging-Header.h";
 			};
 			name = Release;
 		};
