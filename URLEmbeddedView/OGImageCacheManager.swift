@@ -33,6 +33,7 @@ import CryptoSwift
 
 class OGImageCacheManager {
     static let sharedInstance = OGImageCacheManager()
+    private static let TimeOfExpirationForOGImageCacheKey = "TimeOfExpirationForOGImageCache"
     
     private let fileManager = NSFileManager()
     private lazy var memoryCache: NSCache = {
@@ -45,9 +46,21 @@ class OGImageCacheManager {
         return (paths[paths.count-1] as NSString).stringByAppendingPathComponent("images")
     }()
     
+//    var timeOfExpiration: NSTimeInterval {
+//        get {
+//            let ud = NSUserDefaults.standardUserDefaults()
+//            return ud.doubleForKey(self.dynamicType.TimeOfExpirationForOGImageCacheKey)
+//        }
+//        set {
+//            let ud = NSUserDefaults.standardUserDefaults()
+//            ud.setDouble(newValue, forKey: self.dynamicType.TimeOfExpirationForOGImageCacheKey)
+//            ud.synchronize()
+//        }
+//    }
+    
     private init() {
         createDirectoriesIfNeeded()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveMemoryWarning:", name: UIApplicationDidReceiveMemoryWarningNotification , object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.dynamicType.didReceiveMemoryWarning(_:)), name: UIApplicationDidReceiveMemoryWarningNotification , object: nil)
     }
     
     deinit {

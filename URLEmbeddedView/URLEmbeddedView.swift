@@ -165,8 +165,8 @@ public class URLEmbeddedView: UIView {
         addLayoutSubview(activityView, andConstraints:
             activityView.CenterX,
             activityView.CenterY,
-            activityView.Width  |=| 30,
-            activityView.Height |=| 30
+            activityView.Width  |==| 30,
+            activityView.Height |==| 30
         )
         
         alphaView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
@@ -200,7 +200,7 @@ extension URLEmbeddedView {
         }
         let misterFusion: MisterFusion
         if let constant = constant {
-            misterFusion = imageView.Width |=| constant
+            misterFusion = imageView.Width |==| constant
         } else {
             misterFusion = imageView.Width |==| imageView.Height
         }
@@ -213,7 +213,7 @@ extension URLEmbeddedView {
         }
         let misterFusion: MisterFusion
         if let constant = constant {
-            misterFusion = domainImageView.Width |=| constant
+            misterFusion = domainImageView.Width |==| constant
         } else {
             misterFusion = domainImageView.Width |==| domainConainter.Height
         }
@@ -245,7 +245,7 @@ extension URLEmbeddedView {
             if constant == constraint.constant { return }
             removeConstraint(constraint)
         }
-        domainContainerHeightConstraint = addLayoutConstraint(domainConainter.Height |=| constant)
+        domainContainerHeightConstraint = addLayoutConstraint(domainConainter.Height |==| constant)
     }
 }
 

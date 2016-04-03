@@ -9,7 +9,7 @@
 import Foundation
 
 protocol TaskContainable {
-    typealias Completion
+    associatedtype Completion
     
     var uuidString: String { get }
     var task: NSURLSessionDataTask { get }

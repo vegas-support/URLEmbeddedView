@@ -59,6 +59,7 @@ You can get Open Graph Data with `OGDataProvider`.
 OGDataProvider.sharedInstance.fetchOGData(urlString: String, completion: ((OGData, NSError?) -> Void)? = nil) -> NSURLSessionDataTask?
 OGDataProvider.sharedInstance.deleteOGData(urlString: String, completion: ((NSError?) -> Void)? = nil)
 OGDataProvider.sharedInstance.deleteOGData(ogData: OGData, completion: ((NSError?) -> Void)? = nil)
+OGDataProvider.sharedInstance.timeOfUpdation = 10.days //default 10days
 ```
 
 You can get UIImage with `OGImageProvider`.
