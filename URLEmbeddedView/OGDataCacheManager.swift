@@ -12,7 +12,7 @@ import CoreData
 final class OGDataCacheManager {
     static let sharedInstance = OGDataCacheManager()
     private static let TimeOfExpirationForOGDataCacheKey = "TimeOfExpirationForOGDataCache"
-    private static let TimeOfUpdationForOGDataCacheKey = "TimeOfUpdationForOGDataCache"
+    
     
     lazy var applicationDocumentsDirectory: NSURL = {
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
@@ -75,31 +75,16 @@ final class OGDataCacheManager {
 //        }
 //    }
     
-    private var _timeOfUpdation: NSTimeInterval?
-    var timeOfUpdation: NSTimeInterval {
-        get {
-            guard let _timeOfUpdation = _timeOfUpdation else {
-                let ud = NSUserDefaults.standardUserDefaults()
-                guard let time = (ud.objectForKey(self.dynamicType.TimeOfUpdationForOGDataCacheKey) as? NSNumber)?.doubleValue else {
-                    let time: NSTimeInterval = 10.days //default 10 days
-                    saveTimeOfUpdation(time)
-                    self._timeOfUpdation = time
-                    return time
-                }
-                return time
-            }
-            return _timeOfUpdation
-        }
-        set {
-            saveTimeOfUpdation(newValue)
-            _timeOfUpdation = newValue
-        }
-    }
-    
-    private func saveTimeOfUpdation(timeOfUpdation: NSTimeInterval) {
+    var updateInterval: NSTimeInterval = {
         let ud = NSUserDefaults.standardUserDefaults()
-        ud.setObject(NSNumber(double: timeOfUpdation), forKey: self.dynamicType.TimeOfUpdationForOGDataCacheKey)
-        ud.synchronize()
+        guard let updateInterval = ud.updateIntervalForOGData else {
+            let interval = 10.days
+            ud.updateIntervalForOGData = interval
+            return interval
+        }
+        return updateInterval
+    }() {
+        didSet { NSUserDefaults.standardUserDefaults().updateIntervalForOGData = updateInterval }
     }
 }
 

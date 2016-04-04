@@ -27,7 +27,7 @@ class OGSampleViewController: UIViewController {
         textView.textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         textView.textContainer.lineFragmentPadding = 0
         
-        OGDataProvider.sharedInstance.timeOfUpdation = 10.days
+        OGDataProvider.sharedInstance.updateInterval = 10.days
         
         embeddedView.textProvider[.Title].font = .boldSystemFontOfSize(18)
         embeddedView.textProvider[.Description].fontColor = .lightGrayColor()

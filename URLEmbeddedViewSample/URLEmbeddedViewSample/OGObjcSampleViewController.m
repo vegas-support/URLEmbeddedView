@@ -25,6 +25,8 @@
     // Do any additional setup after loading the view from its nib.
     self.textView.text = @"https://github.com/";
     
+    [OGDataProvider sharedInstance].updateInterval = [NSNumber days:10];
+    
     self.embeddedView = [[URLEmbeddedView alloc] initWithUrl:@""];
     [self.containerView addLayoutSubview:self.embeddedView andConstraints:@[
         self.embeddedView.Top,

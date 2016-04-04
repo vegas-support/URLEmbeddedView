@@ -72,13 +72,9 @@ public final class OGDataProvider: NSObject {
         super.init()
     }
     
-    public var timeOfUpdation: NSTimeInterval {
-        get {
-            return OGDataCacheManager.sharedInstance.timeOfUpdation
-        }
-        set {
-            OGDataCacheManager.sharedInstance.timeOfUpdation = newValue
-        }
+    public var updateInterval: NSTimeInterval {
+        get { return OGDataCacheManager.sharedInstance.updateInterval }
+        set { OGDataCacheManager.sharedInstance.updateInterval = newValue }
     }
 }
 
@@ -87,7 +83,7 @@ extension OGDataProvider {
         let ogData = OGData.fetchOrInsertOGData(url: urlString)
         if !ogData.sourceUrl.isEmpty {
             completion?(ogData, nil)
-            if fabs(ogData.updateDate.timeIntervalSinceNow) < timeOfUpdation {
+            if fabs(ogData.updateDate.timeIntervalSinceNow) < updateInterval {
                 return nil
             }
         }

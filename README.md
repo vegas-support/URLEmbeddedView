@@ -59,7 +59,13 @@ You can get Open Graph Data with `OGDataProvider`.
 OGDataProvider.sharedInstance.fetchOGData(urlString: String, completion: ((OGData, NSError?) -> Void)? = nil) -> NSURLSessionDataTask?
 OGDataProvider.sharedInstance.deleteOGData(urlString: String, completion: ((NSError?) -> Void)? = nil)
 OGDataProvider.sharedInstance.deleteOGData(ogData: OGData, completion: ((NSError?) -> Void)? = nil)
-OGDataProvider.sharedInstance.timeOfUpdation = 10.days //default 10days
+```
+
+You can configure time interval for next updating of OGData.
+Default is 10 days.
+
+```swift
+OGDataProvider.sharedInstance.updateInterval = 10.days
 ```
 
 You can get UIImage with `OGImageProvider`.
@@ -103,6 +109,10 @@ pod "URLEmbeddedView"
     URLEmbeddedView *embeddedView = [[URLEmbeddedView alloc] init];
     [self.view addSubView:embeddedView];
     [embeddedView loadURL:@"https://github.com/" completion:nil];
+}
+
+- (void)setUpdateInterval {
+  [OGDataProvider sharedInstance].updateInterval = [NSNumber days:10];
 }
 ```
 
