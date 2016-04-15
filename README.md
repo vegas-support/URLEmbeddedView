@@ -134,6 +134,10 @@ pod "URLEmbeddedView"
 - CoreData
 - CoreGraphics
 
+## Other
+
+Android version is [here](https://github.com/kaelaela/OpenGraphView). (Created by [@kaelaela](https://github.com/kaelaela))
+
 ## Author
 
 Taiki Suzuki, s1180183@gmail.com
