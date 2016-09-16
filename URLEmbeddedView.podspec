@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "URLEmbeddedView"
-  s.version          = "0.4.1"
+  s.version          = "0.5.0"
   s.summary          = "URLEmbeddedView is a view that automatically cache the Open Graph Protocol."
 
 # This description is used to generate tags and improve search results.
@@ -19,12 +19,12 @@ Pod::Spec.new do |s|
   #s.description      = <<-DESC
   #DESC
 
-  s.homepage         = "https://github.com/szk-atmosphere/URLEmbeddedView"
+  s.homepage         = "https://github.com/marty-suzuki/URLEmbeddedView"
 
   s.license          = 'MIT'
   s.author           = { "Taiki Suzuki" => "s1180183@gmail.com" }
-  s.source           = { :git => "https://github.com/szk-atmosphere/URLEmbeddedView.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/SzkAtmosphere'
+  s.source           = { :git => "https://github.com/marty-suzuki/URLEmbeddedView.git", :tag => s.version.to_s }
+  s.social_media_url = 'https://twitter.com/marty_suzuki'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit', 'CoreData', 'CoreGraphics'
-  s.dependency 'MisterFusion', '~> 1.0'
-  s.dependency 'Kanna', '~> 1.0'
-  s.dependency 'CryptoSwift', '~> 0.2'
+  s.dependency 'MisterFusion', '~> 1.4.0'
+  s.dependency 'Kanna', '~> 1.1.0'
+  s.dependency 'CryptoSwift', '~> 0.5.2'
 end

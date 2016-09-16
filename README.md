@@ -17,6 +17,7 @@
 - [x] Tap handleable
 - [x] Clearable image cache
 - [x] Clearable data cache
+- [x] Support Swift2.3
 - [ ] Configurable expire date for cache
 
 ## Usage
@@ -125,7 +126,7 @@ pod "URLEmbeddedView"
 
 ## Requirements
 
-- Xcode 7.0 or greater
+- Xcode 8.0 or greater
 - iOS 8.0 or greater
 - [MisterFusion](https://github.com/szk-atmosphere/MisterFusion) - Swift DSL for AutoLayout
 - [Kanna(鉋)](https://github.com/tid-kijyun/Kanna)
