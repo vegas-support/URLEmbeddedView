@@ -1,25 +1,34 @@
 PODS:
-  - CryptoSwift (0.5.2)
-  - Kanna (1.1.1)
-  - MisterFusion (1.4.0)
-  - URLEmbeddedView (0.5.0):
-    - CryptoSwift (~> 0.5.2)
-    - Kanna (~> 1.1.0)
-    - MisterFusion (~> 1.4.0)
+  - CryptoSwift (0.6.0)
+  - Kanna (2.0.0)
+  - MisterFusion (2.0.1)
+  - URLEmbeddedView (0.6.0):
+    - CryptoSwift (~> 0.6.0)
+    - Kanna
+    - MisterFusion (~> 2.0.0)
 
 DEPENDENCIES:
+  - Kanna (from `https://github.com/tid-kijyun/Kanna.git`, branch `swift3.0`)
   - URLEmbeddedView (from `../`)
 
 EXTERNAL SOURCES:
+  Kanna:
+    :branch: swift3.0
+    :git: https://github.com/tid-kijyun/Kanna.git
   URLEmbeddedView:
     :path: "../"
 
-SPEC CHECKSUMS:
-  CryptoSwift: c1ef79f901b86099a6fe8b3c7524cf9f3f3c8c40
-  Kanna: 9d3118cff609bd21eb374be5be590b544941160f
-  MisterFusion: ccb69d87569a4acaabda051d3c8db7ab4be2d5db
-  URLEmbeddedView: 3a73400f3ddd4b52b844ba74be98e5fa82102c44
+CHECKOUT OPTIONS:
+  Kanna:
+    :commit: 109249451c32e14dac541bfbfeaa91b4dcb47a87
+    :git: https://github.com/tid-kijyun/Kanna.git
 
-PODFILE CHECKSUM: 619170e01539d09ceacf4e43a1c423d46ff1cbf2
+SPEC CHECKSUMS:
+  CryptoSwift: 4a599b7241b8d3b857d6e2c28867d0bd5d1aae24
+  Kanna: 8d60d86a3580f7dee732811e5163a5e3e41a32a7
+  MisterFusion: d42cac7afe8318c282bcda93396eba0aef45d30e
+  URLEmbeddedView: 870f7c9b92d05f1e477c28ee9c3081e4f4118db4
+
+PODFILE CHECKSUM: 0f5578c9c896789cb7332797a69b49f17bcb0a81
 
 COCOAPODS: 1.1.0.rc.2

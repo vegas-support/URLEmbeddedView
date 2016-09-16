@@ -1,6 +1,6 @@
 {
   "name": "URLEmbeddedView",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "summary": "URLEmbeddedView is a view that automatically cache the Open Graph Protocol.",
   "homepage": "https://github.com/marty-suzuki/URLEmbeddedView",
   "license": "MIT",
@@ -9,7 +9,7 @@
   },
   "source": {
     "git": "https://github.com/marty-suzuki/URLEmbeddedView.git",
-    "tag": "0.5.0"
+    "tag": "0.6.0"
   },
   "social_media_url": "https://twitter.com/marty_suzuki",
   "platforms": {
@@ -25,13 +25,13 @@
   ],
   "dependencies": {
     "MisterFusion": [
-      "~> 1.4.0"
+      "~> 2.0.0"
     ],
     "Kanna": [
-      "~> 1.1.0"
+
     ],
     "CryptoSwift": [
-      "~> 0.5.2"
+      "~> 0.6.0"
     ]
   }
 }

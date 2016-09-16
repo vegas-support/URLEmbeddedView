@@ -29,31 +29,31 @@ class OGSampleViewController: UIViewController {
         
         OGDataProvider.sharedInstance.updateInterval = 10.days
         
-        embeddedView.textProvider[.Title].font = .boldSystemFontOfSize(18)
-        embeddedView.textProvider[.Description].fontColor = .lightGrayColor()
-        embeddedView.textProvider[.Domain].fontColor = .lightGrayColor()
+        embeddedView.textProvider[.title].font = .boldSystemFont(ofSize: 18)
+        embeddedView.textProvider[.description].fontColor = .lightGray
+        embeddedView.textProvider[.domain].fontColor = .lightGray
         
         embeddedView.didTapHandler = { [weak self] embeddedView, URL in
             guard let URL = URL else { return }
-            self?.presentViewController(SFSafariViewController(URL: URL), animated: true, completion: nil)
+            self?.present(SFSafariViewController(url: URL), animated: true, completion: nil)
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OGSampleViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OGSampleViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(OGSampleViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(OGSampleViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         searchBar.becomeFirstResponder()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         searchBar.resignFirstResponder()
     }
 
@@ -64,13 +64,13 @@ class OGSampleViewController: UIViewController {
 }
 
 extension OGSampleViewController {
-    @IBAction func didTapBackButton(sender: AnyObject?) {
-        navigationController?.popViewControllerAnimated(true)
+    @IBAction func didTapBackButton(_ sender: AnyObject?) {
+        _ = navigationController?.popViewController(animated: true)
     }
 }
 
 extension OGSampleViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let urlString = searchBar.text else { return }
         embeddedView.loadURL(urlString) {
             if let _ = $0 {
@@ -89,7 +89,7 @@ extension OGSampleViewController: UISearchBarDelegate {
                     + "- imageUrl         = \(ogData.imageUrl)\n"
                     + "- createDate       = \(ogData.createDate)\n"
                     + "- updateDate       = \(ogData.updateDate)\n"
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     self?.textView.text = text
                 }
             }
@@ -98,29 +98,29 @@ extension OGSampleViewController: UISearchBarDelegate {
 }
 
 extension OGSampleViewController {
-    private struct KeyboardInfo {
-        let animationDuration: NSTimeInterval
+    fileprivate struct KeyboardInfo {
+        let animationDuration: TimeInterval
         let animationOptions: UIViewAnimationOptions
         let frame: CGRect
-        init(userInfo: [NSObject : AnyObject]?) {
-            animationDuration = userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSTimeInterval ?? 0
+        init(userInfo: [AnyHashable: Any]?) {
+            animationDuration = userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0
             animationOptions = UIViewAnimationOptions(rawValue:userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? UInt ?? 0)
-            frame = (userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() ?? .zero
+            frame = (userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
         }
     }
     
-    func keyboardWillShow(notification: NSNotification) {
-        let keyboard = KeyboardInfo(userInfo: notification.userInfo)
+    func keyboardWillShow(_ notification: Notification) {
+        let keyboard = KeyboardInfo(userInfo: (notification as NSNotification).userInfo)
         embeddedViewBottomConstraint.constant = keyboard.frame.size.height + 12
-        UIView.animateWithDuration(keyboard.animationDuration, delay: 0, options:  keyboard.animationOptions, animations: {
+        UIView.animate(withDuration: keyboard.animationDuration, delay: 0, options:  keyboard.animationOptions, animations: {
             self.view.layoutIfNeeded()
         }, completion:  nil)
     }
     
-    func keyboardWillHide(notification: NSNotification) {
-        let keyboard = KeyboardInfo(userInfo: notification.userInfo)
+    func keyboardWillHide(_ notification: Notification) {
+        let keyboard = KeyboardInfo(userInfo: (notification as NSNotification).userInfo)
         embeddedViewBottomConstraint.constant = 0
-        UIView.animateWithDuration(keyboard.animationDuration, delay: 0, options:  keyboard.animationOptions, animations: {
+        UIView.animate(withDuration: keyboard.animationDuration, delay: 0, options:  keyboard.animationOptions, animations: {
             self.view.layoutIfNeeded()
         }, completion:  nil)
     }

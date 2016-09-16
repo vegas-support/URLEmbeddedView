@@ -30,7 +30,7 @@ class OGListViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        tableView.registerNib(UINib(nibName: "OGListCell", bundle: nil), forCellReuseIdentifier: "OGListCell")
+        tableView.register(UINib(nibName: "OGListCell", bundle: nil), forCellReuseIdentifier: "OGListCell")
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -42,36 +42,36 @@ class OGListViewController: UIViewController {
 }
 
 extension OGListViewController {
-    @IBAction func didTapBackButton(sender: AnyObject?) {
-        navigationController?.popViewControllerAnimated(true)
+    @IBAction func didTapBackButton(_ sender: AnyObject?) {
+        _ = navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func didTapClearButton(sender: AnyObject) {
+    @IBAction func didTapClearButton(_ sender: AnyObject) {
         OGImageProvider.sharedInstance.clearMemoryCache()
     }
 }
 
 extension OGListViewController: UITableViewDataSource {
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("OGListCell") as! OGListCell
-        let url = urlList[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OGListCell") as! OGListCell
+        let url = urlList[(indexPath as NSIndexPath).row]
         cell.embeddedView.loadURL(url)
         cell.label.text = url
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         cell.embeddedView.didTapHandler = { [weak self] embeddedView, URL in
             guard let URL = URL else { return }
-            self?.presentViewController(SFSafariViewController(URL: URL), animated: true, completion: nil)
+            self?.present(SFSafariViewController(url: URL), animated: true, completion: nil)
         }
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return urlList.count
     }
 }
 
 extension OGListViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 160
     }
 }

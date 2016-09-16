@@ -18,6 +18,7 @@
 - [x] Clearable image cache
 - [x] Clearable data cache
 - [x] Support Swift2.3
+- [x] Support Swift3
 - [ ] Configurable expire date for cache
 
 ## Usage
@@ -97,7 +98,21 @@ URLEmbeddedView is available through [CocoaPods](http://cocoapods.org). To insta
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "URLEmbeddedView"
+# Uncomment this line to define a global platform for your project
+platform :ios, '8.0'
+# Uncomment this line if you're using Swift
+use_frameworks!
+
+# Swift3 supported Kanna has not released officially yet.
+# You need to write following lines.
+def swift3_overrides
+pod 'Kanna', git: 'https://github.com/tid-kijyun/Kanna.git', branch: 'swift3.0'
+end
+
+target 'Your Project Name' do
+swift3_overrides
+pod 'URLEmbeddedView', :git => 'https://github.com/marty-suzuki/URLEmbeddedView.git', :tag => '0.6.0'
+end
 ```
 
 ## Use in Objective-C

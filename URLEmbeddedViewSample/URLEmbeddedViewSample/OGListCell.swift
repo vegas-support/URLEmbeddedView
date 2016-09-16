@@ -19,10 +19,10 @@ class OGListCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         containerView.addLayoutSubview(embeddedView, andConstraints:
-            embeddedView.Top |+| 8,
-            embeddedView.Right |-| 12,
-            embeddedView.Left |+| 12,
-            embeddedView.Bottom |-| 7.5
+            embeddedView.top |+| 8,
+            embeddedView.right |-| 12,
+            embeddedView.left |+| 12,
+            embeddedView.bottom |-| 7.5
         )
     }
     
@@ -32,7 +32,7 @@ class OGListCell: UITableViewCell {
         label.text = nil
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
