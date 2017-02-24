@@ -3,11 +3,6 @@ platform :ios, '8.0'
 # Uncomment this line if you're using Swift
 use_frameworks!
 
-def swift3_overrides
-pod 'Kanna', git: 'https://github.com/tid-kijyun/Kanna.git', branch: 'swift3.0'
-end
-
 target 'URLEmbeddedViewSample' do
-swift3_overrides
 pod 'URLEmbeddedView', :path => '../'
 end

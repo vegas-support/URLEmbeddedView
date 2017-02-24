@@ -103,15 +103,9 @@ platform :ios, '8.0'
 # Uncomment this line if you're using Swift
 use_frameworks!
 
-# Swift3 supported Kanna has not released officially yet.
-# You need to write following lines.
-def swift3_overrides
-pod 'Kanna', git: 'https://github.com/tid-kijyun/Kanna.git', branch: 'swift3.0'
-end
-
 target 'Your Project Name' do
 swift3_overrides
-pod 'URLEmbeddedView', :git => 'https://github.com/marty-suzuki/URLEmbeddedView.git', :tag => '0.6.0'
+pod 'URLEmbeddedView'
 end
 ```
 
