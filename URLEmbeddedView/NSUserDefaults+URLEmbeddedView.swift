@@ -9,12 +9,14 @@
 import Foundation
 
 extension UserDefaults {
-    fileprivate static let UpdateIntervalForOGDataCacheKey = "UpdateIntervalForOGDataCache"
+    private struct CacheKey {
+        static let updateIntervalForOGData = "UpdateIntervalForOGDataCache"
+    }
     
     var updateIntervalForOGData: TimeInterval? {
         get {
             let ud = UserDefaults.standard
-            guard let interval = (ud.object(forKey: type(of: self).UpdateIntervalForOGDataCacheKey) as? NSNumber)?.doubleValue else {
+            guard let interval = (ud.object(forKey: CacheKey.updateIntervalForOGData) as? NSNumber)?.doubleValue else {
                 return nil
             }
             return interval
@@ -22,7 +24,7 @@ extension UserDefaults {
         set {
             guard let interval = newValue else { return }
             let ud = UserDefaults.standard
-            ud.set(NSNumber(value: interval as Double), forKey: type(of: self).UpdateIntervalForOGDataCacheKey)
+            ud.set(NSNumber(value: interval), forKey: CacheKey.updateIntervalForOGData)
             ud.synchronize()
         }
     }

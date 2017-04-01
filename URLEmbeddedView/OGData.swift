@@ -19,13 +19,13 @@ public final class OGData: NSManagedObject {
         case url         = "og:url"
     }
     
-    fileprivate lazy var URL: Foundation.URL? = {
+    private lazy var URL: Foundation.URL? = {
         return Foundation.URL(string: self.sourceUrl)
     }()
 
     class func fetchOrInsertOGData(url: String) -> OGData {
         guard let ogData = fetchOGData(url: url) else {
-            let managedObjectContext = OGDataCacheManager.sharedInstance.updateManagedObjectContext
+            let managedObjectContext = OGDataCacheManager.shared.updateManagedObjectContext
             let newOGData = NSEntityDescription.insertNewObject(forEntityName: "OGData", into: managedObjectContext) as! OGData
             let date = Date()
             newOGData.createDate = date
@@ -36,7 +36,7 @@ public final class OGData: NSManagedObject {
     }
     
     class func fetchOGData(url: String) -> OGData? {
-        let managedObjectContext = OGDataCacheManager.sharedInstance.updateManagedObjectContext
+        let managedObjectContext = OGDataCacheManager.shared.updateManagedObjectContext
         let fetchRequest = NSFetchRequest<OGData>()
         fetchRequest.entity = NSEntityDescription.entity(forEntityName: "OGData", in: managedObjectContext)
         fetchRequest.fetchLimit = 1
@@ -59,6 +59,6 @@ public final class OGData: NSManagedObject {
     
     func save() {
         updateDate = Date()
-        OGDataCacheManager.sharedInstance.saveContext(nil)
+        OGDataCacheManager.shared.saveContext(nil)
     }
 }

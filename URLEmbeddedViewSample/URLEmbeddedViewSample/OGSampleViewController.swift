@@ -22,12 +22,12 @@ class OGSampleViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         automaticallyAdjustsScrollViewInsets = false
         
-        searchBar.text = "https://github.com/szk-atmosphere/URLEmbeddedView"
+        searchBar.text = "https://github.com/marty-suzuki/URLEmbeddedView"
         searchBar.delegate = self
         textView.textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         textView.textContainer.lineFragmentPadding = 0
         
-        OGDataProvider.sharedInstance.updateInterval = 10.days
+        OGDataProvider.shared.updateInterval = 10.days
         
         embeddedView.textProvider[.title].font = .boldSystemFont(ofSize: 18)
         embeddedView.textProvider[.description].fontColor = .lightGray
@@ -76,7 +76,7 @@ extension OGSampleViewController: UISearchBarDelegate {
             if let _ = $0 {
                 return
             }
-            OGDataProvider.sharedInstance.fetchOGData(urlString: urlString) { [weak self] ogData, error in
+            OGDataProvider.shared.fetchOGData(urlString: urlString) { [weak self] ogData, error in
                 if let _ = error {
                     return
                 }

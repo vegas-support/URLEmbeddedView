@@ -42,7 +42,7 @@ public final class AttributeManager {
     }
     
     var didChangeValue: ((Style, Attribute, Any) -> Void)?
-    fileprivate let style: Style
+    private let style: Style
     
     public var font: UIFont {
         didSet { didChangeValue?(style, .font, font) }

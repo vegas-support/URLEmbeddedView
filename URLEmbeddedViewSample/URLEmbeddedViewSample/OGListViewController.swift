@@ -17,7 +17,7 @@ class OGListViewController: UIViewController {
     let urlList: [String] = [
         "https://onboardmag.com/videos/web-series/sixty-minute-sessions-karl-anton-svensson.html",
         "https://www.youtube.com/watch?v=R3Jtl-pPLtQ",
-        "https://github.com/szk-atmosphere/URLEmbeddedView",
+        "https://github.com/marty-suzuki/URLEmbeddedView",
         "https://www.youtube.com/watch?v=IvUU8joBb1Q",
         "https://www.instagram.com/p/_0sZrcM81K/?taken-by=superstreet",
         "https://twitter.com/KidFromTheIsles/status/596761535541694464",
@@ -47,7 +47,7 @@ extension OGListViewController {
     }
     
     @IBAction func didTapClearButton(_ sender: AnyObject) {
-        OGImageProvider.sharedInstance.clearMemoryCache()
+        OGImageProvider.shared.clearMemoryCache()
     }
 }
 

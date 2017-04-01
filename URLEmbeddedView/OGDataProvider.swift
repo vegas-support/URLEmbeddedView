@@ -40,25 +40,27 @@
 import Foundation
 import Kanna
 
-private class TaskContainer: TaskContainable {
-    typealias Completion = ((OGData, NSError?) -> Void)
-    
-    let uuidString: String
-    let task: URLSessionDataTask
-    var completion: Completion?
-    
-    required init(uuidString: String, task: URLSessionDataTask, completion: Completion?) {
-        self.uuidString = uuidString
-        self.task = task
-        self.completion = completion
-    }
-}
-
 public final class OGDataProvider: NSObject {
     
+    private class TaskContainer: TaskContainable {
+        typealias Completion = ((OGData, Error?) -> Void)
+        
+        let uuidString: String
+        let task: URLSessionDataTask
+        var completion: Completion?
+        
+        required init(uuidString: String, task: URLSessionDataTask, completion: Completion?) {
+            self.uuidString = uuidString
+            self.task = task
+            self.completion = completion
+        }
+    }
+    
     //MARK: Static constants
-    public static let sharedInstance = OGDataProvider()
-    fileprivate struct Const {
+    @objc(sharedInstance)
+    public static let shared = OGDataProvider()
+    
+    private struct Const {
         static let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Safari/601.1.42"
         static let metaTagKey = "meta"
         static let propertyKey = "property"
@@ -67,22 +69,20 @@ public final class OGDataProvider: NSObject {
     }
         
     //MARK: - Properties
-    fileprivate let session = URLSession(configuration: URLSessionConfiguration.default)
-    fileprivate var taskContainers: [String : TaskContainer] = [:]
+    private let session = URLSession(configuration: URLSessionConfiguration.default)
+    private var taskContainers: [String : TaskContainer] = [:]
     
-    fileprivate override init() {
+    private override init() {
         super.init()
     }
     
     public var updateInterval: TimeInterval {
-        get { return OGDataCacheManager.sharedInstance.updateInterval }
-        set { OGDataCacheManager.sharedInstance.updateInterval = newValue }
+        get { return OGDataCacheManager.shared.updateInterval }
+        set { OGDataCacheManager.shared.updateInterval = newValue }
     }
-}
-
-extension OGDataProvider {
+    
     @discardableResult
-    public func fetchOGData(urlString: String, completion: ((OGData, NSError?) -> Void)? = nil) -> String? {
+    public func fetchOGData(urlString: String, completion: ((OGData, Error?) -> Void)? = nil) -> String? {
         let ogData = OGData.fetchOrInsertOGData(url: urlString)
         if !ogData.sourceUrl.isEmpty {
             completion?(ogData, nil)
@@ -95,17 +95,17 @@ extension OGDataProvider {
             completion?(ogData, NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
             return nil
         }
-        let request = MutableURLRequest(url: URL)
+        var request = URLRequest(url: URL)
         request.setValue(Const.userAgent, forHTTPHeaderField: "User-Agent")
         request.timeoutInterval = 5
         let uuidString = UUID().uuidString
         
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { [weak self] data, response, error in
+        let task = session.dataTask(with: request, completionHandler: { [weak self] data, response, error in
             let completion = self?.taskContainers[uuidString]?.completion
-            self?.taskContainers.removeValue(forKey: uuidString)
+            _ = self?.taskContainers.removeValue(forKey: uuidString)
             
             if let error = error {
-                completion?(ogData, error as? NSError)
+                completion?(ogData, error)
                 return
             }
             guard let data = data,
@@ -141,7 +141,7 @@ extension OGDataProvider {
     }
     
     public func deleteOGData(_ ogData: OGData, completion: ((NSError?) -> Void)? = nil) {
-        OGDataCacheManager.sharedInstance.delete(ogData, completion: completion)
+        OGDataCacheManager.shared.delete(ogData, completion: completion)
     }
     
     func cancelLoad(_ uuidString: String, stopTask: Bool) {

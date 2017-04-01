@@ -8,17 +8,19 @@
 
 import Foundation
 
-public final class AttributedTextProvider {
-    static let sharedInstance = AttributedTextProvider()
+public final class AttributedTextProvider: NSObject {
+    @objc(sharedInstance)
+    static let shared = AttributedTextProvider()
     
-    fileprivate let TitleAttributeManager       = AttributeManager(style: .title)
-    fileprivate let DomainAttributeManager      = AttributeManager(style: .domain)
-    fileprivate let DescriptionAttributeManager = AttributeManager(style: .description)
-    fileprivate let NoDataTitleAttributeManager = AttributeManager(style: .noDataTitle)
+    private let titleAttributeManager       = AttributeManager(style: .title)
+    private let domainAttributeManager      = AttributeManager(style: .domain)
+    private let descriptionAttributeManager = AttributeManager(style: .description)
+    private let noDataTitleAttributeManager = AttributeManager(style: .noDataTitle)
     
     var didChangeValue: ((AttributeManager.Style, AttributeManager.Attribute, Any) -> Void)?
     
-    fileprivate init() {
+    private override init() {
+        super.init()
         self[.title].didChangeValue       = { [weak self] in self?.didChangeValue?($0, $1, $2) }
         self[.domain].didChangeValue      = { [weak self] in self?.didChangeValue?($0, $1, $2) }
         self[.description].didChangeValue = { [weak self] in self?.didChangeValue?($0, $1, $2) }
@@ -27,10 +29,10 @@ public final class AttributedTextProvider {
     
     public subscript(style: AttributeManager.Style) -> AttributeManager {
         switch style {
-        case .title       : return TitleAttributeManager
-        case .domain      : return DomainAttributeManager
-        case .description : return DescriptionAttributeManager
-        case .noDataTitle : return NoDataTitleAttributeManager
+        case .title       : return titleAttributeManager
+        case .domain      : return domainAttributeManager
+        case .description : return descriptionAttributeManager
+        case .noDataTitle : return noDataTitleAttributeManager
         }
     }
     

@@ -10,37 +10,37 @@ import UIKit
 import MisterFusion
 
 open class URLEmbeddedView: UIView {
-    fileprivate typealias ATP = AttributedTextProvider
+    private typealias ATP = AttributedTextProvider
     //MARK: - Static constants
-    fileprivate struct Const {
+    private struct Const {
         static let faviconURL = "http://www.google.com/s2/favicons?domain="
     }
     
     //MARK: - Properties
-    fileprivate let alphaView = UIView()
+    private let alphaView = UIView()
     
     let imageView = URLImageView()
-    fileprivate var imageViewWidthConstraint: NSLayoutConstraint?
+    private var imageViewWidthConstraint: NSLayoutConstraint?
     
-    fileprivate let titleLabel = UILabel()
-    fileprivate var titleLabelHeightConstraint: NSLayoutConstraint?
-    fileprivate let descriptionLabel = UILabel()
+    private let titleLabel = UILabel()
+    private var titleLabelHeightConstraint: NSLayoutConstraint?
+    private let descriptionLabel = UILabel()
     
-    fileprivate let domainConainter = UIView()
-    fileprivate var domainContainerHeightConstraint: NSLayoutConstraint?
-    fileprivate let domainLabel = UILabel()
-    fileprivate let domainImageView = URLImageView()
-    fileprivate var domainImageViewToDomainLabelConstraint: NSLayoutConstraint?
-    fileprivate var domainImageViewWidthConstraint: NSLayoutConstraint?
+    private let domainConainter = UIView()
+    private var domainContainerHeightConstraint: NSLayoutConstraint?
+    private let domainLabel = UILabel()
+    private let domainImageView = URLImageView()
+    private var domainImageViewToDomainLabelConstraint: NSLayoutConstraint?
+    private var domainImageViewWidthConstraint: NSLayoutConstraint?
     
-    fileprivate let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    fileprivate lazy var linkIconView: LinkIconView = {
+    private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    private lazy var linkIconView: LinkIconView = {
         return LinkIconView(frame: self.bounds)
     }()
     
-    fileprivate var URL: Foundation.URL?
-    fileprivate var uuidString: String?
-    open let textProvider = AttributedTextProvider.sharedInstance
+    private var URL: Foundation.URL?
+    private var uuidString: String?
+    open let textProvider = AttributedTextProvider.shared
     
     open var didTapHandler: ((URLEmbeddedView, Foundation.URL?) -> Void)?
     open var stopTaskWhenCancel = false {
@@ -193,10 +193,9 @@ open class URLEmbeddedView: UIView {
         alphaView.alpha = 0
         didTapHandler?(self, URL)
     }
-}
 
-extension URLEmbeddedView {
-    fileprivate func changeImageViewWidthConstrain(_ constant: CGFloat?) {
+    //MARK: - Image layout
+    private func changeImageViewWidthConstrain(_ constant: CGFloat?) {
         if let constraint = imageViewWidthConstraint {
             removeConstraint(constraint)
         }
@@ -209,7 +208,7 @@ extension URLEmbeddedView {
         imageViewWidthConstraint = addLayoutConstraint(misterFusion)
     }
     
-    fileprivate func changeDomainImageViewWidthConstraint(_ constant: CGFloat?) {
+    private func changeDomainImageViewWidthConstraint(_ constant: CGFloat?) {
         if let constraint = domainImageViewWidthConstraint {
             removeConstraint(constraint)
         }
@@ -222,7 +221,7 @@ extension URLEmbeddedView {
         domainImageViewWidthConstraint = addLayoutConstraint(misterFusion)
     }
     
-    fileprivate func changeDomainImageViewToDomainLabelConstraint(_ constant: CGFloat?) {
+    private func changeDomainImageViewToDomainLabelConstraint(_ constant: CGFloat?) {
         let constant = constant ?? (textProvider[.domain].font.lineHeight / 5)
         if let constraint = domainImageViewToDomainLabelConstraint {
             if constant == constraint.constant { return }
@@ -232,7 +231,7 @@ extension URLEmbeddedView {
         domainImageViewToDomainLabelConstraint = addLayoutConstraint(misterFusion)
     }
     
-    fileprivate func changeTitleLabelHeightConstraint() {
+    private func changeTitleLabelHeightConstraint() {
         let constant = textProvider[.title].font.lineHeight
         if let constraint = titleLabelHeightConstraint {
             if constant == constraint.constant { return }
@@ -241,7 +240,7 @@ extension URLEmbeddedView {
         titleLabelHeightConstraint = addLayoutConstraint(titleLabel.height |>=| constant)
     }
     
-    fileprivate func changeDomainContainerHeightConstraint() {
+    private func changeDomainContainerHeightConstraint() {
         let constant = textProvider[.domain].font.lineHeight
         if let constraint = domainContainerHeightConstraint {
             if constant == constraint.constant { return }
@@ -249,10 +248,9 @@ extension URLEmbeddedView {
         }
         domainContainerHeightConstraint = addLayoutConstraint(domainConainter.height |==| constant)
     }
-}
-
-extension URLEmbeddedView {
-    fileprivate func handleTextProviderChanged(_ style: AttributeManager.Style, attribute: AttributeManager.Attribute, value: Any) {
+    
+    //MARK: - Attributes
+    private func handleTextProviderChanged(_ style: AttributeManager.Style, attribute: AttributeManager.Attribute, value: Any) {
         switch style {
         case .title:       didChangeTitleAttirbute(attribute, value: value)
         case .domain:      didChangeDomainAttirbute(attribute, value: value)
@@ -261,7 +259,7 @@ extension URLEmbeddedView {
         }
     }
     
-    fileprivate func didChangeTitleAttirbute(_ attribute: AttributeManager.Attribute, value: Any) {
+    private func didChangeTitleAttirbute(_ attribute: AttributeManager.Attribute, value: Any) {
         switch attribute {
         case .font: changeDomainContainerHeightConstraint()
         case .fontColor: break
@@ -269,7 +267,7 @@ extension URLEmbeddedView {
         }
     }
     
-    fileprivate func didChangeDomainAttirbute(_ attribute: AttributeManager.Attribute, value: Any) {
+    private func didChangeDomainAttirbute(_ attribute: AttributeManager.Attribute, value: Any) {
         switch attribute {
         case .font: changeDomainContainerHeightConstraint()
         case .fontColor: break
@@ -277,7 +275,7 @@ extension URLEmbeddedView {
         }
     }
     
-    fileprivate func didChangeDescriptionAttirbute(_ attribute: AttributeManager.Attribute, value: Any) {
+    private func didChangeDescriptionAttirbute(_ attribute: AttributeManager.Attribute, value: Any) {
         switch attribute {
         case .font: break
         case .fontColor: break
@@ -285,17 +283,16 @@ extension URLEmbeddedView {
         }
     }
     
-    fileprivate func didChangeNoDataTitleAttirbute(_ attribute: AttributeManager.Attribute, value: Any) {
+    private func didChangeNoDataTitleAttirbute(_ attribute: AttributeManager.Attribute, value: Any) {
         switch attribute {
         case .font: changeTitleLabelHeightConstraint()
         case .fontColor: break
         case .numberOfLines: break
         }
     }
-}
-
-extension URLEmbeddedView {
-    public func loadURL(_ urlString: String, completion: ((NSError?) -> Void)? = nil) {
+    
+    //MARK: - Load
+    public func loadURL(_ urlString: String, completion: ((Error?) -> Void)? = nil) {
         guard let URL = Foundation.URL(string: urlString) else {
             completion?(nil)
             return
@@ -304,11 +301,11 @@ extension URLEmbeddedView {
         load(completion)
     }
     
-    public func load(_ completion: ((NSError?) -> Void)? = nil) {
+    public func load(_ completion: ((Error?) -> Void)? = nil) {
         guard let URL = URL else { return }
         prepareViewsForReuse()
         activityView.startAnimating()
-        uuidString = OGDataProvider.sharedInstance.fetchOGData(urlString: URL.absoluteString) { [weak self] ogData, error in
+        uuidString = OGDataProvider.shared.fetchOGData(urlString: URL.absoluteString) { [weak self] ogData, error in
             DispatchQueue.main.async {
                 self?.activityView.stopAnimating()
                 if let error = error {
@@ -369,6 +366,6 @@ extension URLEmbeddedView {
         imageView.cancelLoadImage()
         activityView.stopAnimating()
         guard let uuidString = uuidString else { return }
-        OGDataProvider.sharedInstance.cancelLoad(uuidString, stopTask: stopTaskWhenCancel)
+        OGDataProvider.shared.cancelLoad(uuidString, stopTask: stopTaskWhenCancel)
     }
 }

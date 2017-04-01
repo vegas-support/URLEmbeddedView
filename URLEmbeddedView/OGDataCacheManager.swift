@@ -9,10 +9,13 @@
 import UIKit
 import CoreData
 
-final class OGDataCacheManager {
-    static let sharedInstance = OGDataCacheManager()
-    fileprivate static let TimeOfExpirationForOGDataCacheKey = "TimeOfExpirationForOGDataCache"
+final class OGDataCacheManager: NSObject {
+    @objc(sharedInstance)
+    static let shared = OGDataCacheManager()
     
+    private struct CacheKey {
+        static let timeOfExpirationForOGData = "TimeOfExpirationForOGDataCache"
+    }
     
     lazy var applicationDocumentsDirectory: URL = {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -66,11 +69,11 @@ final class OGDataCacheManager {
 //    var timeOfExpiration: NSTimeInterval {
 //        get {
 //            let ud = NSUserDefaults.standardUserDefaults()
-//            return ud.doubleForKey(self.dynamicType.TimeOfExpirationForOGDataCacheKey)
+//            return ud.doubleForKey(CacheKey.timeOfExpirationForOGData)
 //        }
 //        set {
 //            let ud = NSUserDefaults.standardUserDefaults()
-//            ud.setDouble(newValue, forKey: self.dynamicType.TimeOfExpirationForOGDataCacheKey)
+//            ud.setDouble(newValue, forKey: CacheKey.timeOfExpirationForOGData)
 //            ud.synchronize()
 //        }
 //    }
@@ -86,9 +89,11 @@ final class OGDataCacheManager {
     }() {
         didSet { UserDefaults.standard.updateIntervalForOGData = updateInterval }
     }
-}
+    
+    private override init() {
+        super.init()
+    }
 
-extension OGDataCacheManager {
     func delete(_ object: NSManagedObject, completion: ((NSError?) -> Void)?) {
         object.managedObjectContext?.delete(object)
         saveContext(completion)
@@ -121,7 +126,7 @@ extension OGDataCacheManager {
         })
     }
     
-    fileprivate func saveContext(_ context: NSManagedObjectContext, success: (() -> Void)?, failure: ((NSError) -> Void)?) {
+    private func saveContext(_ context: NSManagedObjectContext, success: (() -> Void)?, failure: ((NSError) -> Void)?) {
         if !context.hasChanges {
             success?()
         }

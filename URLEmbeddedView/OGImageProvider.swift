@@ -8,42 +8,43 @@
 
 import Foundation
 
-private class TaskContainer: TaskContainable {
-    typealias Completion = ((UIImage?, NSError?) -> Void)
-    
-    let uuidString: String
-    let task: URLSessionDataTask
-    var completion: Completion?
-    
-    required init(uuidString: String, task: URLSessionDataTask, completion: Completion?) {
-        self.uuidString = uuidString
-        self.task = task
-        self.completion = completion
-    }
-}
+
 
 public final class OGImageProvider: NSObject {
     
+    private class TaskContainer: TaskContainable {
+        typealias Completion = ((UIImage?, Error?) -> Void)
+        
+        let uuidString: String
+        let task: URLSessionDataTask
+        var completion: Completion?
+        
+        required init(uuidString: String, task: URLSessionDataTask, completion: Completion?) {
+            self.uuidString = uuidString
+            self.task = task
+            self.completion = completion
+        }
+    }
+    
     //MARK: - Static constants
-    public static let sharedInstance = OGImageProvider()
+    @objc(sharedInstance)
+    public static let shared = OGImageProvider()
     
     //MARK: - Properties
-    fileprivate let session = URLSession(configuration: URLSessionConfiguration.default)
-    fileprivate var taskContainers: [String : TaskContainer] = [:]
+    private let session = URLSession(configuration: URLSessionConfiguration.default)
+    private var taskContainers: [String : TaskContainer] = [:]
     
-    fileprivate override init() {
+    private override init() {
         super.init()
     }
-}
 
-extension OGImageProvider {
-    public func loadImage(urlString: String, completion: ((UIImage?, NSError?) -> Void)? = nil) -> String? {
+    public func loadImage(urlString: String, completion: ((UIImage?, Error?) -> Void)? = nil) -> String? {
         guard let URL = URL(string: urlString) else {
             completion?(nil, NSError(domain: "can not create NSURL with \(urlString)", code: 9999, userInfo: nil))
             return nil
         }
         if !urlString.isEmpty {
-            if let image = OGImageCacheManager.sharedInstance.cachedImage(urlString: urlString) {
+            if let image = OGImageCacheManager.shared.cachedImage(urlString: urlString) {
                 completion?(image, nil)
                 return nil
             }
@@ -51,10 +52,10 @@ extension OGImageProvider {
         let uuidString = UUID().uuidString
         let task = session.dataTask(with: URL) { [weak self] data, response, error in
             let completion = self?.taskContainers[uuidString]?.completion
-            self?.taskContainers.removeValue(forKey: uuidString)
+            _ = self?.taskContainers.removeValue(forKey: uuidString)
             
             if let error = error {
-                completion?(nil,  error as NSError?)
+                completion?(nil,  error)
                 return
             }
             guard let data = data else {
@@ -65,7 +66,7 @@ extension OGImageProvider {
                 completion?(nil, NSError(domain: "can not fetch image with \(urlString)", code: 9999, userInfo: nil))
                 return
             }
-            OGImageCacheManager.sharedInstance.storeImage(image, data: data, urlString: urlString)
+            OGImageCacheManager.shared.storeImage(image, data: data, urlString: urlString)
             
             completion?(image, nil)
         }
@@ -75,11 +76,11 @@ extension OGImageProvider {
     }
     
     public func clearMemoryCache() {
-        OGImageCacheManager.sharedInstance.clearMemoryCache()
+        OGImageCacheManager.shared.clearMemoryCache()
     }
     
     public func clearAllCache() {
-        OGImageCacheManager.sharedInstance.clearAllCache()
+        OGImageCacheManager.shared.clearAllCache()
     }
     
     func cancelLoad(_ uuidString: String, stopTask: Bool) {
