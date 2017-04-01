@@ -58,24 +58,24 @@ embeddedView.textProvider[.Title].numberOfLines = 2
 You can get Open Graph Data with `OGDataProvider`.
 
 ```swift
-OGDataProvider.sharedInstance.fetchOGData(urlString: String, completion: ((OGData, NSError?) -> Void)? = nil) -> NSURLSessionDataTask?
-OGDataProvider.sharedInstance.deleteOGData(urlString: String, completion: ((NSError?) -> Void)? = nil)
-OGDataProvider.sharedInstance.deleteOGData(ogData: OGData, completion: ((NSError?) -> Void)? = nil)
+OGDataProvider.shared.fetchOGData(urlString: String, completion: ((OGData, Error?) -> Void)? = nil) -> NSURLSessionDataTask?
+OGDataProvider.shared.deleteOGData(urlString: String, completion: ((Error?) -> Void)? = nil)
+OGDataProvider.shared.deleteOGData(ogData: OGData, completion: ((Error?) -> Void)? = nil)
 ```
 
 You can configure time interval for next updating of OGData.
 Default is 10 days.
 
 ```swift
-OGDataProvider.sharedInstance.updateInterval = 10.days
+OGDataProvider.shared.updateInterval = 10.days
 ```
 
 You can get UIImage with `OGImageProvider`.
 
 ```swift
-OGImageProvider.sharedInstance.loadImage(urlString: String, completion: ((UIImage?, NSError?) -> Void)? = nil) -> NSURLSessionDataTask?
-OGImageProvider.sharedInstance.clearMemoryCache()
-OGImageProvider.sharedInstance.clearAllCache()
+OGImageProvider.shared.loadImage(urlString: String, completion: ((UIImage?, Error?) -> Void)? = nil) -> NSURLSessionDataTask?
+OGImageProvider.shared.clearMemoryCache()
+OGImageProvider.shared.clearAllCache()
 ```
 
 ## OGData Properties
@@ -98,14 +98,15 @@ URLEmbeddedView is available through [CocoaPods](http://cocoapods.org). To insta
 it, simply add the following line to your Podfile:
 
 ```ruby
-# Uncomment this line to define a global platform for your project
-platform :ios, '8.0'
-# Uncomment this line if you're using Swift
-use_frameworks!
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '8.0'
 
 target 'Your Project Name' do
-swift3_overrides
-pod 'URLEmbeddedView'
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for URLEmbeddedViewSample
+  pod "URLEmbeddedView"
 end
 ```
 
@@ -139,14 +140,14 @@ end
 - iOS 8.0 or greater
 - [MisterFusion](https://github.com/szk-atmosphere/MisterFusion) - Swift DSL for AutoLayout
 - [Kanna(鉋)](https://github.com/tid-kijyun/Kanna)
-- [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift)
 - UIKit
 - CoreData
 - CoreGraphics
 
 ## Other
 
-Android version is [here](https://github.com/kaelaela/OpenGraphView). (Created by [@kaelaela](https://github.com/kaelaela))
+- [NoticeObserveKit](https://github.com/marty-suzuki/NoticeObserveKit) (type-safe NotificationCenter wrapper) is used in this sample.
+- Android version is [here](https://github.com/kaelaela/OpenGraphView). (Created by [@kaelaela](https://github.com/kaelaela))
 
 ## Author
 

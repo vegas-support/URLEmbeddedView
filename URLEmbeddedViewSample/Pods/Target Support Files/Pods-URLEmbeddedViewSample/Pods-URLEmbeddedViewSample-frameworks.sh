@@ -91,11 +91,13 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Kanna/Kanna.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MisterFusion/MisterFusion.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/NoticeObserveKit/NoticeObserveKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/URLEmbeddedView/URLEmbeddedView.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Kanna/Kanna.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MisterFusion/MisterFusion.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/NoticeObserveKit/NoticeObserveKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/URLEmbeddedView/URLEmbeddedView.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

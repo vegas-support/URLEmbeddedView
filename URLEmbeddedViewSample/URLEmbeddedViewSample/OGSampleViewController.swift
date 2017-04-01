@@ -9,6 +9,7 @@
 import UIKit
 import SafariServices
 import URLEmbeddedView
+import NoticeObserveKit
 
 class OGSampleViewController: UIViewController {
 
@@ -16,6 +17,8 @@ class OGSampleViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var embeddedViewBottomConstraint: NSLayoutConstraint!
+    
+    private var pool = NoticeObserverPool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,10 +42,47 @@ class OGSampleViewController: UIViewController {
         }
     }
     
+    private struct KeyboardInfo: NoticeUserInfoDecodable {
+        let animationDuration: TimeInterval
+        let animationOptions: UIViewAnimationOptions
+        let frame: CGRect
+        init?(info: [AnyHashable: Any]) {
+            animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0
+            animationOptions = UIViewAnimationOptions(rawValue:info[UIKeyboardAnimationCurveUserInfoKey] as? UInt ?? 0)
+            frame = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
+        }
+    }
+    
+    private struct UIKeyboardWillShow: NoticeType {
+        typealias InfoType = KeyboardInfo
+        static let name: Notification.Name = .UIKeyboardWillShow
+    }
+    
+    private struct UIKeyboardWillHide: NoticeType {
+        typealias InfoType = KeyboardInfo
+        static let name: Notification.Name = .UIKeyboardWillHide
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(OGSampleViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(OGSampleViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        pool = NoticeObserverPool()
+        
+        UIKeyboardWillShow.observe { [weak self] keyboard in
+            self?.embeddedViewBottomConstraint.constant = keyboard.frame.size.height + 12
+            UIView.animate(withDuration: keyboard.animationDuration, delay: 0, options:  keyboard.animationOptions, animations: {
+                self?.view.layoutIfNeeded()
+            }, completion:  nil)
+        }
+        .addObserverTo(pool)
+        
+        UIKeyboardWillHide.observe { [weak self] keyboard in
+            self?.embeddedViewBottomConstraint.constant = 0
+            UIView.animate(withDuration: keyboard.animationDuration, delay: 0, options:  keyboard.animationOptions, animations: {
+                self?.view.layoutIfNeeded()
+            }, completion:  nil)
+        }
+        .addObserverTo(pool)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,8 +92,7 @@ class OGSampleViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        pool = NoticeObserverPool()
         searchBar.resignFirstResponder()
     }
 
@@ -61,9 +100,7 @@ class OGSampleViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-}
-
-extension OGSampleViewController {
+    
     @IBAction func didTapBackButton(_ sender: AnyObject?) {
         _ = navigationController?.popViewController(animated: true)
     }
@@ -94,34 +131,5 @@ extension OGSampleViewController: UISearchBarDelegate {
                 }
             }
         }
-    }
-}
-
-extension OGSampleViewController {
-    fileprivate struct KeyboardInfo {
-        let animationDuration: TimeInterval
-        let animationOptions: UIViewAnimationOptions
-        let frame: CGRect
-        init(userInfo: [AnyHashable: Any]?) {
-            animationDuration = userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0
-            animationOptions = UIViewAnimationOptions(rawValue:userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? UInt ?? 0)
-            frame = (userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
-        }
-    }
-    
-    func keyboardWillShow(_ notification: Notification) {
-        let keyboard = KeyboardInfo(userInfo: (notification as NSNotification).userInfo)
-        embeddedViewBottomConstraint.constant = keyboard.frame.size.height + 12
-        UIView.animate(withDuration: keyboard.animationDuration, delay: 0, options:  keyboard.animationOptions, animations: {
-            self.view.layoutIfNeeded()
-        }, completion:  nil)
-    }
-    
-    func keyboardWillHide(_ notification: Notification) {
-        let keyboard = KeyboardInfo(userInfo: (notification as NSNotification).userInfo)
-        embeddedViewBottomConstraint.constant = 0
-        UIView.animate(withDuration: keyboard.animationDuration, delay: 0, options:  keyboard.animationOptions, animations: {
-            self.view.layoutIfNeeded()
-        }, completion:  nil)
     }
 }
