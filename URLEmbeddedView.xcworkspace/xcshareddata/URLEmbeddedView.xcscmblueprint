@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "2FB991B3092909472B290B5A3FF3D7B32C08D0C0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "2FB991B3092909472B290B5A3FF3D7B32C08D0C0" : 9223372036854775807,
+    "3F00198FD7638102954E2D442697C31855C6A5BC" : 9223372036854775807,
+    "5048A2EE31FB43C49E2811E7A59D95893338B9A4" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "4CE158F7-C71C-4CA1-BA71-1AC2B67B876C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "2FB991B3092909472B290B5A3FF3D7B32C08D0C0" : "URLEmbeddedView\/",
+    "3F00198FD7638102954E2D442697C31855C6A5BC" : "URLEmbeddedView\/Carthage\/Checkouts\/Kanna\/",
+    "5048A2EE31FB43C49E2811E7A59D95893338B9A4" : "URLEmbeddedView\/Carthage\/Checkouts\/MisterFusion\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "URLEmbeddedView",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "URLEmbeddedView.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:marty-suzuki\/URLEmbeddedView.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2FB991B3092909472B290B5A3FF3D7B32C08D0C0"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/tid-kijyun\/Kanna.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3F00198FD7638102954E2D442697C31855C6A5BC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/marty-suzuki\/MisterFusion.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5048A2EE31FB43C49E2811E7A59D95893338B9A4"
+    }
+  ]
+}
