@@ -26,7 +26,7 @@ final class URLImageView: UIImageView {
     
     private func initialize() {
         activityView.hidesWhenStopped = true
-        addLayoutSubview(activityView, andConstraints:
+        mf.addSubview(activityView, andConstraints:
             activityView.width |==| 30,
             activityView.height |==| 30,
             activityView.centerX,

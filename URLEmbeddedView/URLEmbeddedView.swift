@@ -104,8 +104,8 @@ open class URLEmbeddedView: UIView {
         textProvider.didChangeValue = { [weak self] style, attribute, value in
             self?.handleTextProviderChanged(style, attribute: attribute, value: value)
         }
-        
-        addLayoutSubview(linkIconView, andConstraints:
+
+        mf.addSubview(linkIconView, andConstraints:
             linkIconView.top,
             linkIconView.left,
             linkIconView.bottom,
@@ -116,7 +116,7 @@ open class URLEmbeddedView: UIView {
         
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        addLayoutSubview(imageView, andConstraints:
+        mf.addSubview(imageView, andConstraints:
             imageView.top,
             imageView.left,
             imageView.bottom
@@ -124,14 +124,14 @@ open class URLEmbeddedView: UIView {
         changeImageViewWidthConstrain(nil)
         
         titleLabel.numberOfLines = textProvider[.title].numberOfLines
-        addLayoutSubview(titleLabel, andConstraints:
+        mf.addSubview(titleLabel, andConstraints:
             titleLabel.top    |+| 8,
             titleLabel.right  |-| 12,
             titleLabel.left   |==| imageView.right |+| 12
         )
         changeTitleLabelHeightConstraint()
         
-        addLayoutSubview(domainConainter, andConstraints:
+        mf.addSubview(domainConainter, andConstraints:
             domainConainter.right  |-| 12,
             domainConainter.bottom |-| 10,
             domainConainter.left   |==| imageView.right |+| 12
@@ -139,7 +139,7 @@ open class URLEmbeddedView: UIView {
         changeDomainContainerHeightConstraint()
         
         descriptionLabel.numberOfLines = textProvider[.description].numberOfLines
-        addLayoutSubview(descriptionLabel, andConstraints:
+        mf.addSubview(descriptionLabel, andConstraints:
             descriptionLabel.right  |-| 12,
             descriptionLabel.height |>=| 0,
             descriptionLabel.top    |==| titleLabel.bottom   |+| 2,
@@ -148,7 +148,7 @@ open class URLEmbeddedView: UIView {
         )
         
         domainImageView.activityViewHidden = true
-        domainConainter.addLayoutSubview(domainImageView, andConstraints:
+        domainConainter.mf.addSubview(domainImageView, andConstraints:
             domainImageView.top,
             domainImageView.left,
             domainImageView.bottom
@@ -156,7 +156,7 @@ open class URLEmbeddedView: UIView {
         changeDomainImageViewWidthConstraint(nil)
         
         domainLabel.numberOfLines = textProvider[.domain].numberOfLines
-        domainConainter.addLayoutSubview(domainLabel, andConstraints:
+        domainConainter.mf.addSubview(domainLabel, andConstraints:
             domainLabel.top,
             domainLabel.right,
             domainLabel.bottom
@@ -164,7 +164,7 @@ open class URLEmbeddedView: UIView {
         changeDomainImageViewToDomainLabelConstraint(nil)
         
         activityView.hidesWhenStopped = true
-        addLayoutSubview(activityView, andConstraints:
+        mf.addSubview(activityView, andConstraints:
             activityView.centerX,
             activityView.centerY,
             activityView.width  |==| 30,
@@ -173,7 +173,7 @@ open class URLEmbeddedView: UIView {
         
         alphaView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         alphaView.alpha = 0
-        addLayoutSubview(alphaView, andConstraints:
+        mf.addSubview(alphaView, andConstraints:
             alphaView.top,
             alphaView.right,
             alphaView.bottom,
@@ -205,7 +205,7 @@ open class URLEmbeddedView: UIView {
         } else {
             misterFusion = imageView.width |==| imageView.height
         }
-        imageViewWidthConstraint = addLayoutConstraint(misterFusion)
+        imageViewWidthConstraint = mf.addConstraint(misterFusion)
     }
     
     private func changeDomainImageViewWidthConstraint(_ constant: CGFloat?) {
@@ -218,7 +218,7 @@ open class URLEmbeddedView: UIView {
         } else {
             misterFusion = domainImageView.width |==| domainConainter.height
         }
-        domainImageViewWidthConstraint = addLayoutConstraint(misterFusion)
+        domainImageViewWidthConstraint = mf.addConstraint(misterFusion)
     }
     
     private func changeDomainImageViewToDomainLabelConstraint(_ constant: CGFloat?) {
@@ -228,7 +228,7 @@ open class URLEmbeddedView: UIView {
             removeConstraint(constraint)
         }
         let misterFusion = domainLabel.left |==| domainImageView.right |+| constant
-        domainImageViewToDomainLabelConstraint = addLayoutConstraint(misterFusion)
+        domainImageViewToDomainLabelConstraint = mf.addConstraint(misterFusion)
     }
     
     private func changeTitleLabelHeightConstraint() {
@@ -237,7 +237,7 @@ open class URLEmbeddedView: UIView {
             if constant == constraint.constant { return }
             removeConstraint(constraint)
         }
-        titleLabelHeightConstraint = addLayoutConstraint(titleLabel.height |>=| constant)
+        titleLabelHeightConstraint = mf.addConstraint(titleLabel.height |>=| constant)
     }
     
     private func changeDomainContainerHeightConstraint() {
@@ -246,7 +246,7 @@ open class URLEmbeddedView: UIView {
             if constant == constraint.constant { return }
             removeConstraint(constraint)
         }
-        domainContainerHeightConstraint = addLayoutConstraint(domainConainter.height |==| constant)
+        domainContainerHeightConstraint = mf.addConstraint(domainConainter.height |==| constant)
     }
     
     //MARK: - Attributes

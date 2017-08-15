@@ -4,8 +4,9 @@
 [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat)](https://developer.apple.com/swift)
 [![Version](https://img.shields.io/cocoapods/v/URLEmbeddedView.svg?style=flat)](http://cocoapods.org/pods/URLEmbeddedView)
 [![License](https://img.shields.io/cocoapods/l/URLEmbeddedView.svg?style=flat)](http://cocoapods.org/pods/URLEmbeddedView)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-![](./SampleImages/sample2.gif) ![](./SampleImages/sample.gif)
+![](./Images/sample2.gif) ![](./Images/sample.gif)
 
 
 ## Features
@@ -34,15 +35,15 @@ embeddedView.loadURL(urlString)
 
 - Default
 
-<img src="SampleImages/sample01.png" width="320">
+<img src="Images/sample01.png" width="320">
 
 - No Image
 
-<img src="SampleImages/sample03.png" width="320">
+<img src="Images/sample03.png" width="320">
 
 - No response
 
-<img src="SampleImages/sample02.png" width="320">
+<img src="Images/sample02.png" width="320">
 
 ## Customization
 
@@ -138,7 +139,7 @@ end
 
 - Xcode 8.0 or greater
 - iOS 8.0 or greater
-- [MisterFusion](https://github.com/szk-atmosphere/MisterFusion) - Swift DSL for AutoLayout
+- [MisterFusion](https://github.com/marty-suzuki/MisterFusion) - Swift DSL for AutoLayout
 - [Kanna(鉋)](https://github.com/tid-kijyun/Kanna)
 - UIKit
 - CoreData
