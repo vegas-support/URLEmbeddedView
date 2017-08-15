@@ -7,6 +7,7 @@
 [![Version](https://img.shields.io/cocoapods/v/MisterFusion.svg?style=flat)](http://cocoapods.org/pods/MisterFusion)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/MisterFusion.svg?style=flat)](http://cocoapods.org/pods/MisterFusion)
+[![Build Status](https://travis-ci.org/marty-suzuki/MisterFusion.svg?branch=master)](https://travis-ci.org/marty-suzuki/MisterFusion)
 
 [ManiacDev.com](https://maniacdev.com/) referred.  
 [https://maniacdev.com/2015/12/open-source-auto-layout-library-with-a-simple-and-concise-syntax](https://maniacdev.com/2015/12/open-source-auto-layout-library-with-a-simple-and-concise-syntax)
@@ -19,8 +20,8 @@ MisterFusion makes more easier to use AutoLayout in Swift & Objective-C code.
 - [x] Simple And Concise Syntax
 - [x] Use in Swift and Objective-C
 - [x] Support Size Class
-- [x] Support Swift2.3
 - [x] Support Swift3
+- [x] Support Swift3.1
 
 #### MisterFusion Code for Swift
 
@@ -243,7 +244,7 @@ override func traitCollectionDidChange(previousTraitCollection: UITraitCollectio
 }
 ```
 
-* A detail sample is [here](./MisterFusionSample/MisterFusionSample/ViewController.swift)
+* A detail sample is [here](./Example/MisterFusionSample/ViewController.swift)
 
 ## For Objective-C
 
@@ -326,7 +327,7 @@ This is an example Regular, Compact size for iPhone6s+.
 }
 ```
 
-* A detail sample is [here](./MisterFusionSample/MisterFusionSample/MFViewController.m)
+* A detail sample is [here](./Example/MisterFusionSample/MFViewController.m)
 
 ## Requirements
 
