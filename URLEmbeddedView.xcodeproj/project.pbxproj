@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		374BF8F21F45E3F900EE3354 /* AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BF8F11F45E3F900EE3354 /* AutoLayout.swift */; };
 		ED602B6E1F42D4EB00A45816 /* URLEmbeddedView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED602B841F42D51100A45816 /* AttributedTextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B741F42D51100A45816 /* AttributedTextProvider.swift */; };
 		ED602B851F42D51100A45816 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B751F42D51100A45816 /* AttributeManager.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		374BF8F11F45E3F900EE3354 /* AutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayout.swift; sourceTree = "<group>"; };
 		ED602B691F42D4EB00A45816 /* URLEmbeddedView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLEmbeddedView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLEmbeddedView.h; sourceTree = "<group>"; };
 		ED602B6D1F42D4EB00A45816 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		ED602B6B1F42D4EB00A45816 /* URLEmbeddedView */ = {
 			isa = PBXGroup;
 			children = (
+				374BF8F11F45E3F900EE3354 /* AutoLayout.swift */,
 				ED602B741F42D51100A45816 /* AttributedTextProvider.swift */,
 				ED602B751F42D51100A45816 /* AttributeManager.swift */,
 				ED602B761F42D51100A45816 /* LinkIconView.swift */,
@@ -210,6 +213,7 @@
 				ED602B8B1F42D51100A45816 /* OGData+CoreDataProperties.swift in Sources */,
 				ED602B871F42D51100A45816 /* MD5.swift in Sources */,
 				ED602B8D1F42D51100A45816 /* OGDataProvider.swift in Sources */,
+				374BF8F21F45E3F900EE3354 /* AutoLayout.swift in Sources */,
 				ED602B931F42D51100A45816 /* URLImageView.swift in Sources */,
 				ED602B861F42D51100A45816 /* LinkIconView.swift in Sources */,
 			);

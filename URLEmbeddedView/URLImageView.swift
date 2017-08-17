@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MisterFusion
 
 final class URLImageView: UIImageView {
     private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -26,12 +25,9 @@ final class URLImageView: UIImageView {
     
     private func initialize() {
         activityView.hidesWhenStopped = true
-        mf.addSubview(activityView, andConstraints:
-            activityView.width |==| 30,
-            activityView.height |==| 30,
-            activityView.centerX,
-            activityView.centerY
-        )
+        addSubview(activityView)
+        addConstraints(with: activityView, size: .init(width: 30, height: 30))
+        addConstraints(with: activityView, center: .zero)
     }
     
     func loadImage(urlString: String, completion: ((UIImage?, Error?) -> Void)? = nil) {

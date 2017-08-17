@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MisterFusion
 
 open class URLEmbeddedView: UIView {
     private typealias ATP = AttributedTextProvider
@@ -105,80 +104,102 @@ open class URLEmbeddedView: UIView {
             self?.handleTextProviderChanged(style, attribute: attribute, value: value)
         }
 
-        mf.addSubview(linkIconView, andConstraints:
-            linkIconView.top,
-            linkIconView.left,
-            linkIconView.bottom,
-            linkIconView.width |==| linkIconView.height
-        )
+        addSubview(linkIconView)
+        addConstraints(with: linkIconView,
+                       edges: .init(top: 0, left: 0, bottom: 0))
+        addConstraint(.init(item: linkIconView,
+                            attribute: .width,
+                            relatedBy: .equal,
+                            toItem: linkIconView,
+                            attribute: .height,
+                            multiplier: 1,
+                            constant: 0))
         linkIconView.clipsToBounds = true
         linkIconView.isHidden = true
         
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        mf.addSubview(imageView, andConstraints:
-            imageView.top,
-            imageView.left,
-            imageView.bottom
-        )
+        addSubview(imageView)
+        addConstraints(with: imageView,
+                       edges: .init(top: 0, left: 0, bottom: 0))
         changeImageViewWidthConstrain(nil)
         
         titleLabel.numberOfLines = textProvider[.title].numberOfLines
-        mf.addSubview(titleLabel, andConstraints:
-            titleLabel.top    |+| 8,
-            titleLabel.right  |-| 12,
-            titleLabel.left   |==| imageView.right |+| 12
-        )
+        addSubview(titleLabel)
+        addConstraints(with: titleLabel,
+                       edges: .init(top: 8, right: -12))
+        addConstraint(.init(item: titleLabel,
+                            attribute: .left,
+                            relatedBy: .equal,
+                            toItem: imageView,
+                            attribute: .right,
+                            multiplier: 1,
+                            constant: 12))
         changeTitleLabelHeightConstraint()
         
-        mf.addSubview(domainConainter, andConstraints:
-            domainConainter.right  |-| 12,
-            domainConainter.bottom |-| 10,
-            domainConainter.left   |==| imageView.right |+| 12
-        )
+        addSubview(domainConainter)
+        addConstraints(with: domainConainter,
+                       edges: .init(right: -12, bottom: -10))
+        addConstraint(.init(item: domainConainter,
+                            attribute: .left,
+                            relatedBy: .equal,
+                            toItem: imageView,
+                            attribute: .right,
+                            multiplier: 1,
+                            constant: 12))
         changeDomainContainerHeightConstraint()
         
         descriptionLabel.numberOfLines = textProvider[.description].numberOfLines
-        mf.addSubview(descriptionLabel, andConstraints:
-            descriptionLabel.right  |-| 12,
-            descriptionLabel.height |>=| 0,
-            descriptionLabel.top    |==| titleLabel.bottom   |+| 2,
-            descriptionLabel.bottom |<=| domainConainter.top |+| 4,
-            descriptionLabel.left   |==| imageView.right     |+| 12
-        )
+        addSubview(descriptionLabel)
+        addConstraints(with: descriptionLabel, edges: .init(right: -12))
+        addConstraints(with: descriptionLabel,
+                       size: .init(height: 0),
+                       relatedBy: .greaterThanOrEqual)
+        addConstraints([
+            .init(item: descriptionLabel,
+                  attribute: .top,
+                  relatedBy: .equal,
+                  toItem: titleLabel,
+                  attribute: .bottom,
+                  multiplier: 1,
+                  constant: 2),
+            .init(item: descriptionLabel,
+                  attribute: .bottom,
+                  relatedBy: .lessThanOrEqual,
+                  toItem: domainConainter,
+                  attribute: .top,
+                  multiplier: 1,
+                  constant: 4),
+            .init(item: descriptionLabel,
+                  attribute: .left,
+                  relatedBy: .equal,
+                  toItem: imageView,
+                  attribute: .right,
+                  multiplier: 1,
+                  constant: 12)
+        ])
         
         domainImageView.activityViewHidden = true
-        domainConainter.mf.addSubview(domainImageView, andConstraints:
-            domainImageView.top,
-            domainImageView.left,
-            domainImageView.bottom
-        )
+        domainConainter.addSubview(domainImageView)
+        domainConainter.addConstraints(with: domainImageView,
+                                       edges: .init(top: 0, left: 0, bottom: 0))
         changeDomainImageViewWidthConstraint(nil)
         
         domainLabel.numberOfLines = textProvider[.domain].numberOfLines
-        domainConainter.mf.addSubview(domainLabel, andConstraints:
-            domainLabel.top,
-            domainLabel.right,
-            domainLabel.bottom
-        )
+        domainConainter.addSubview(domainLabel)
+        domainConainter.addConstraints(with: domainLabel,
+                                       edges: .init(top: 0, right: 0, bottom: 0))
         changeDomainImageViewToDomainLabelConstraint(nil)
         
         activityView.hidesWhenStopped = true
-        mf.addSubview(activityView, andConstraints:
-            activityView.centerX,
-            activityView.centerY,
-            activityView.width  |==| 30,
-            activityView.height |==| 30
-        )
+        addSubview(activityView)
+        addConstraints(with: activityView, center: .zero)
+        addConstraints(with: activityView, size: .init(width: 30, height: 30))
         
         alphaView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         alphaView.alpha = 0
-        mf.addSubview(alphaView, andConstraints:
-            alphaView.top,
-            alphaView.right,
-            alphaView.bottom,
-            alphaView.left
-        )
+        addSubview(alphaView)
+        addConstraints(with: alphaView, edges: .zero)
     }
     
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -199,26 +220,52 @@ open class URLEmbeddedView: UIView {
         if let constraint = imageViewWidthConstraint {
             removeConstraint(constraint)
         }
-        let misterFusion: MisterFusion
+        let constraint: NSLayoutConstraint
         if let constant = constant {
-            misterFusion = imageView.width |==| constant
+            constraint = NSLayoutConstraint(item: imageView,
+                                            attribute: .width,
+                                            relatedBy: .equal,
+                                            toItem: nil,
+                                            attribute: .notAnAttribute,
+                                            multiplier: 1,
+                                            constant: constant)
         } else {
-            misterFusion = imageView.width |==| imageView.height
+            constraint = NSLayoutConstraint(item: imageView,
+                                            attribute: .width,
+                                            relatedBy: .equal,
+                                            toItem: imageView,
+                                            attribute: .height,
+                                            multiplier: 1,
+                                            constant: 0)
         }
-        imageViewWidthConstraint = mf.addConstraint(misterFusion)
+        addConstraint(constraint)
+        imageViewWidthConstraint = constraint
     }
     
     private func changeDomainImageViewWidthConstraint(_ constant: CGFloat?) {
         if let constraint = domainImageViewWidthConstraint {
             removeConstraint(constraint)
         }
-        let misterFusion: MisterFusion
+        let constraint: NSLayoutConstraint
         if let constant = constant {
-            misterFusion = domainImageView.width |==| constant
+            constraint = NSLayoutConstraint(item: domainImageView,
+                                            attribute: .width,
+                                            relatedBy: .equal,
+                                            toItem: nil,
+                                            attribute: .notAnAttribute,
+                                            multiplier: 1,
+                                            constant: constant)
         } else {
-            misterFusion = domainImageView.width |==| domainConainter.height
+            constraint = NSLayoutConstraint(item: domainImageView,
+                                            attribute: .width,
+                                            relatedBy: .equal,
+                                            toItem: domainConainter,
+                                            attribute: .height,
+                                            multiplier: 1,
+                                            constant: 0)
         }
-        domainImageViewWidthConstraint = mf.addConstraint(misterFusion)
+        addConstraint(constraint)
+        domainImageViewWidthConstraint = constraint
     }
     
     private func changeDomainImageViewToDomainLabelConstraint(_ constant: CGFloat?) {
@@ -227,8 +274,15 @@ open class URLEmbeddedView: UIView {
             if constant == constraint.constant { return }
             removeConstraint(constraint)
         }
-        let misterFusion = domainLabel.left |==| domainImageView.right |+| constant
-        domainImageViewToDomainLabelConstraint = mf.addConstraint(misterFusion)
+        let constraint = NSLayoutConstraint(item: domainLabel,
+                                            attribute: .left,
+                                            relatedBy: .equal,
+                                            toItem: domainImageView,
+                                            attribute: .right,
+                                            multiplier: 1,
+                                            constant: constant)
+        addConstraint(constraint)
+        domainImageViewToDomainLabelConstraint = constraint
     }
     
     private func changeTitleLabelHeightConstraint() {
@@ -237,7 +291,15 @@ open class URLEmbeddedView: UIView {
             if constant == constraint.constant { return }
             removeConstraint(constraint)
         }
-        titleLabelHeightConstraint = mf.addConstraint(titleLabel.height |>=| constant)
+        let constraint = NSLayoutConstraint(item: titleLabel,
+                                            attribute: .height,
+                                            relatedBy: .greaterThanOrEqual,
+                                            toItem: nil,
+                                            attribute: .notAnAttribute,
+                                            multiplier: 1,
+                                            constant: constant)
+        addConstraint(constraint)
+        titleLabelHeightConstraint = constraint
     }
     
     private func changeDomainContainerHeightConstraint() {
@@ -246,7 +308,15 @@ open class URLEmbeddedView: UIView {
             if constant == constraint.constant { return }
             removeConstraint(constraint)
         }
-        domainContainerHeightConstraint = mf.addConstraint(domainConainter.height |==| constant)
+        let constraint = NSLayoutConstraint(item: domainConainter,
+                                            attribute: .height,
+                                            relatedBy: .equal,
+                                            toItem: nil,
+                                            attribute: .notAnAttribute,
+                                            multiplier: 1,
+                                            constant: constant)
+        addConstraint(constraint)
+        domainContainerHeightConstraint = constraint
     }
     
     //MARK: - Attributes
