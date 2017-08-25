@@ -26,7 +26,6 @@
 		ED602B921F42D51100A45816 /* URLEmbeddedView+Inspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B821F42D51100A45816 /* URLEmbeddedView+Inspectable.swift */; };
 		ED602B931F42D51100A45816 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B831F42D51100A45816 /* URLImageView.swift */; };
 		ED602B971F42D57A00A45816 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED602B951F42D57A00A45816 /* Kanna.framework */; };
-		ED602B981F42D57A00A45816 /* MisterFusion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED602B961F42D57A00A45816 /* MisterFusion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +59,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED602B971F42D57A00A45816 /* Kanna.framework in Frameworks */,
-				ED602B981F42D57A00A45816 /* MisterFusion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
