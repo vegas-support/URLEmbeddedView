@@ -91,42 +91,80 @@ public final class OGDataProvider: NSObject {
             }
         }
         ogData.sourceUrl = urlString
-        guard let URL = URL(string: urlString) else {
+        guard let url = URL(string: urlString) else {
             completion?(ogData, NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
             return nil
         }
-        var request = URLRequest(url: URL)
-        request.setValue(Const.userAgent, forHTTPHeaderField: "User-Agent")
-        request.timeoutInterval = 5
-        let uuidString = UUID().uuidString
-        
-        let task = session.dataTask(with: request, completionHandler: { [weak self] data, response, error in
-            let completion = self?.taskContainers[uuidString]?.completion
-            _ = self?.taskContainers.removeValue(forKey: uuidString)
-            
-            if let error = error {
-                completion?(ogData, error)
-                return
+
+        let task: URLSessionDataTask
+        let uuidString: String
+        if url.host?.contains("www.youtube.com") == true {
+            guard
+                let escapedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                let url = URL(string: "https://www.youtube.com/oembed?url=\(escapedString)")
+            else {
+                completion?(ogData, NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
+                return nil
             }
-            guard let data = data,
-                  let html = Kanna.HTML(html: data, encoding: String.Encoding.utf8),
-                  let header = html.head else {
-                completion?(ogData, nil)
-                return
-            }
-            let metaTags = header.xpath(Const.metaTagKey)
-            for metaTag in metaTags {
-                guard let property = metaTag[Const.propertyKey],
-                      let content = metaTag[Const.contentKey]
-                      , property.hasPrefix(Const.propertyPrefix) else {
-                    continue
+            var request = URLRequest(url: url)
+            request.timeoutInterval = 5
+            uuidString = UUID().uuidString
+
+            task = session.dataTask(with: request, completionHandler: { [weak self] data, response, error in
+                let completion = self?.taskContainers[uuidString]?.completion
+                _ = self?.taskContainers.removeValue(forKey: uuidString)
+
+                if let error = error {
+                    completion?(ogData, error)
+                    return
                 }
-                ogData.setValue(property: property, content: content)
-            }
-            ogData.save()
-            
-            completion?(ogData, nil)
-        }) 
+                guard
+                    let data = data,
+                    let rawJson = try? JSONSerialization.jsonObject(with: data, options: []),
+                    let json = rawJson as? [AnyHashable : Any]
+                else {
+                    completion?(ogData, nil)
+                    return
+                }
+                ogData.setValue(withYoutubeJson: json)
+                ogData.save()
+
+                completion?(ogData, nil)
+            })
+        } else {
+            var request = URLRequest(url: url)
+            request.setValue(Const.userAgent, forHTTPHeaderField: "User-Agent")
+            request.timeoutInterval = 5
+            uuidString = UUID().uuidString
+
+            task = session.dataTask(with: request, completionHandler: { [weak self] data, response, error in
+                let completion = self?.taskContainers[uuidString]?.completion
+                _ = self?.taskContainers.removeValue(forKey: uuidString)
+
+                if let error = error {
+                    completion?(ogData, error)
+                    return
+                }
+                guard let data = data,
+                      let html = Kanna.HTML(html: data, encoding: String.Encoding.utf8),
+                      let header = html.head else {
+                    completion?(ogData, nil)
+                    return
+                }
+                let metaTags = header.xpath(Const.metaTagKey)
+                for metaTag in metaTags {
+                    guard let property = metaTag[Const.propertyKey],
+                          let content = metaTag[Const.contentKey]
+                          , property.hasPrefix(Const.propertyPrefix) else {
+                        continue
+                    }
+                    ogData.setValue(property: property, content: content)
+                }
+                ogData.save()
+
+                completion?(ogData, nil)
+            })
+        }
         taskContainers[uuidString] = TaskContainer(uuidString: uuidString, task: task, completion: completion)
         task.resume()
         return uuidString

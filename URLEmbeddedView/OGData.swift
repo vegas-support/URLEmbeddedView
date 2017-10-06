@@ -56,6 +56,21 @@ public final class OGData: NSManagedObject {
         case .description : pageDescription = content.replacingOccurrences(of: "\n", with: " ")
         }
     }
+
+    func setValue(withYoutubeJson json: [AnyHashable : Any]) {
+        if let title = json["title"] as? String {
+            self.pageTitle = title
+        }
+        if let type = json["type"] as? String {
+            self.pageType = type
+        }
+        if let providerName = json["provider_name"] as? String {
+            self.siteName = providerName
+        }
+        if let image = json["thumbnail_url"] as? String {
+            self.imageUrl = image
+        }
+    }
     
     func save() {
         updateDate = Date()
