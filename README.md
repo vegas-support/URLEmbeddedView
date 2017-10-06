@@ -18,8 +18,7 @@
 - [x] Tap handleable
 - [x] Clearable image cache
 - [x] Clearable data cache
-- [x] Support Swift2.3
-- [x] Support Swift3
+- [x] Support Swift3.2
 - [x] Support Carthage since 0.10.1
 
 ## Usage
@@ -122,6 +121,8 @@ NoticeObserveKit to your `Cartfile`:
 github "marty-suzuki/URLEmbeddedView"
 ```
 
+In the project settings add $(SDKROOT)/usr/include/libxml2 to the "header search paths" field
+
 ## Use in Objective-C
 
 ```objective-c
@@ -148,7 +149,7 @@ github "marty-suzuki/URLEmbeddedView"
 
 ## Requirements
 
-- Xcode 8.0 or greater
+- Xcode 9 or greater
 - iOS 8.0 or greater
 - [Kanna(鉋)](https://github.com/tid-kijyun/Kanna)
 - UIKit
