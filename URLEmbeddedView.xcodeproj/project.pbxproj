@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		370325561F8944CF0057A85B /* OGSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370325551F8944CF0057A85B /* OGSession.swift */; };
+		370325581F8944E60057A85B /* OpenGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370325571F8944E60057A85B /* OpenGraph.swift */; };
+		3703255A1F8944FB0057A85B /* OGRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370325591F8944FB0057A85B /* OGRequest.swift */; };
+		3703255C1F8945160057A85B /* HtmlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703255B1F8945160057A85B /* HtmlRequest.swift */; };
+		3703255E1F8945370057A85B /* YoutubeEmbedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703255D1F8945370057A85B /* YoutubeEmbedRequest.swift */; };
 		374BF8F21F45E3F900EE3354 /* AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BF8F11F45E3F900EE3354 /* AutoLayout.swift */; };
 		ED602B6E1F42D4EB00A45816 /* URLEmbeddedView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED602B841F42D51100A45816 /* AttributedTextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B741F42D51100A45816 /* AttributedTextProvider.swift */; };
@@ -29,6 +34,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		370325551F8944CF0057A85B /* OGSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGSession.swift; sourceTree = "<group>"; };
+		370325571F8944E60057A85B /* OpenGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenGraph.swift; sourceTree = "<group>"; };
+		370325591F8944FB0057A85B /* OGRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGRequest.swift; sourceTree = "<group>"; };
+		3703255B1F8945160057A85B /* HtmlRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlRequest.swift; sourceTree = "<group>"; };
+		3703255D1F8945370057A85B /* YoutubeEmbedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeEmbedRequest.swift; sourceTree = "<group>"; };
 		374BF8F11F45E3F900EE3354 /* AutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayout.swift; sourceTree = "<group>"; };
 		ED602B691F42D4EB00A45816 /* URLEmbeddedView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLEmbeddedView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLEmbeddedView.h; sourceTree = "<group>"; };
@@ -65,6 +75,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		370325541F8944CF0057A85B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				370325571F8944E60057A85B /* OpenGraph.swift */,
+				370325551F8944CF0057A85B /* OGSession.swift */,
+				370325591F8944FB0057A85B /* OGRequest.swift */,
+				3703255B1F8945160057A85B /* HtmlRequest.swift */,
+				3703255D1F8945370057A85B /* YoutubeEmbedRequest.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		ED602B5F1F42D4EB00A45816 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +107,7 @@
 		ED602B6B1F42D4EB00A45816 /* URLEmbeddedView */ = {
 			isa = PBXGroup;
 			children = (
+				370325541F8944CF0057A85B /* Core */,
 				374BF8F11F45E3F900EE3354 /* AutoLayout.swift */,
 				ED602B741F42D51100A45816 /* AttributedTextProvider.swift */,
 				ED602B751F42D51100A45816 /* AttributeManager.swift */,
@@ -198,9 +221,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED602B8F1F42D51100A45816 /* OGImageProvider.swift in Sources */,
+				3703255A1F8944FB0057A85B /* OGRequest.swift in Sources */,
 				ED602B8A1F42D51100A45816 /* OGData.swift in Sources */,
 				ED602B891F42D51100A45816 /* NSUserDefaults+URLEmbeddedView.swift in Sources */,
 				ED602B851F42D51100A45816 /* AttributeManager.swift in Sources */,
+				370325561F8944CF0057A85B /* OGSession.swift in Sources */,
 				ED602B911F42D51100A45816 /* URLEmbeddedView.swift in Sources */,
 				ED602B8C1F42D51100A45816 /* OGDataCacheManager.swift in Sources */,
 				ED602B901F42D51100A45816 /* TaskContainable.swift in Sources */,
@@ -209,9 +234,12 @@
 				ED602B841F42D51100A45816 /* AttributedTextProvider.swift in Sources */,
 				ED602B881F42D51100A45816 /* NSTimeInterval+Util.swift in Sources */,
 				ED602B8B1F42D51100A45816 /* OGData+CoreDataProperties.swift in Sources */,
+				3703255C1F8945160057A85B /* HtmlRequest.swift in Sources */,
+				370325581F8944E60057A85B /* OpenGraph.swift in Sources */,
 				ED602B871F42D51100A45816 /* MD5.swift in Sources */,
 				ED602B8D1F42D51100A45816 /* OGDataProvider.swift in Sources */,
 				374BF8F21F45E3F900EE3354 /* AutoLayout.swift in Sources */,
+				3703255E1F8945370057A85B /* YoutubeEmbedRequest.swift in Sources */,
 				ED602B931F42D51100A45816 /* URLImageView.swift in Sources */,
 				ED602B861F42D51100A45816 /* LinkIconView.swift in Sources */,
 			);
