@@ -8,21 +8,14 @@
 
 import Foundation
 
-
-
 public final class OGImageProvider: NSObject {
-    
-    private class TaskContainer: TaskContainable {
-        typealias Completion = ((UIImage?, Error?) -> Void)
+    private final class Task {
+        let innerTask: URLSessionTask
+        var shouldExecuteCompletion: Bool
         
-        let uuidString: String
-        let task: URLSessionDataTask
-        var completion: Completion?
-        
-        required init(uuidString: String, task: URLSessionDataTask, completion: Completion?) {
-            self.uuidString = uuidString
-            self.task = task
-            self.completion = completion
+        init(innerTask: URLSessionTask) {
+            self.innerTask = innerTask
+            self.shouldExecuteCompletion = true
         }
     }
     
@@ -31,15 +24,14 @@ public final class OGImageProvider: NSObject {
     public static let shared = OGImageProvider()
     
     //MARK: - Properties
-    private let session = URLSession(configuration: URLSessionConfiguration.default)
-    private var taskContainers: [String : TaskContainer] = [:]
+    private let session = OGSession(configuration: .default)
     
     private override init() {
         super.init()
     }
 
     public func loadImage(urlString: String, completion: ((UIImage?, Error?) -> Void)? = nil) -> String? {
-        guard let URL = URL(string: urlString) else {
+        guard let url = URL(string: urlString) else {
             completion?(nil, NSError(domain: "can not create NSURL with \(urlString)", code: 9999, userInfo: nil))
             return nil
         }
@@ -49,30 +41,14 @@ public final class OGImageProvider: NSObject {
                 return nil
             }
         }
-        let uuidString = UUID().uuidString
-        let task = session.dataTask(with: URL) { [weak self] data, response, error in
-            let completion = self?.taskContainers[uuidString]?.completion
-            _ = self?.taskContainers.removeValue(forKey: uuidString)
-            
-            if let error = error {
-                completion?(nil,  error)
-                return
-            }
-            guard let data = data else {
-                completion?(nil, NSError(domain: "can not fetch image data with \(urlString)", code: 9999, userInfo: nil))
-                return
-            }
-            guard let image = UIImage(data: data) else {
-                completion?(nil, NSError(domain: "can not fetch image with \(urlString)", code: 9999, userInfo: nil))
-                return
-            }
-            OGImageCacheManager.shared.storeImage(image, data: data, urlString: urlString)
-            
-            completion?(image, nil)
-        }
-        taskContainers[uuidString] = TaskContainer(uuidString: uuidString, task: task, completion: completion)
-        task.resume()
-        return uuidString
+        let request = ImageRequest(url: url)
+        let uuid = session.send(request, success: { (value, isExpired) in
+            OGImageCacheManager.shared.storeImage(value.1, data: value.0, urlString: urlString)
+            if !isExpired { completion?(value.1, nil) }
+        }, failure: { error, isExpired in
+            if !isExpired { completion?(nil,  error) }
+        })
+        return uuid.uuidString
     }
     
     public func clearMemoryCache() {
@@ -84,10 +60,6 @@ public final class OGImageProvider: NSObject {
     }
     
     func cancelLoad(_ uuidString: String, stopTask: Bool) {
-       taskContainers[uuidString]?.completion = nil
-        if stopTask {
-            taskContainers[uuidString]?.task.cancel()
-        }
-        taskContainers.removeValue(forKey: uuidString)
+       session.cancelLoad(withUUIDString: uuidString, stopTask: stopTask)
     }
 }

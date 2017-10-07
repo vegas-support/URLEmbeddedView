@@ -8,19 +8,34 @@
 import Foundation
 
 final class OGSession {
-    struct Task {
-        let uuidString: String
-        let task: URLSessionDataTask
+    private final class Task {
+        private let task: URLSessionTask
+        private(set) var isExpired: Bool
+        
+        init(task: URLSessionTask) {
+            self.task = task
+            self.isExpired = false
+        }
+        
+        func expire(andCancel shouldCancel: Bool) {
+            isExpired = true
+            if shouldCancel {
+                task.cancel()
+            }
+        }
     }
     
     enum Error: Swift.Error {
+        case noData
         case castFaild
         case jsonDecodeFaild
         case htmlDecodeFaild
+        case imageGenerateFaild
         case other(Swift.Error)
     }
     
     private let session: URLSession
+    private var taskCollection: [String : Task] = [:]
     
     init(configuration: URLSessionConfiguration = .default) {
         configuration.timeoutIntervalForRequest = 30
@@ -28,22 +43,33 @@ final class OGSession {
         self.session = URLSession(configuration: configuration)
     }
     
-    func send<T: OGRequest>(_ request: T, completion: @escaping (T.Response?, Error?) -> Void) -> Task {
-        let task = session.dataTask(with: request.urlRequest) { data, response, error in
+    func send<T: OGRequest>(_ request: T, success: @escaping (T.Response, Bool) -> Void, failure: @escaping (OGSession.Error, Bool) -> Void) -> UUID {
+        let uuid = UUID()
+        let uuidString = uuid.uuidString
+        let dataTask = session.dataTask(with: request.urlRequest) { [weak self] data, response, error in
+            let isExpired = self?.taskCollection[uuidString]?.isExpired ?? true
+            self?.taskCollection.removeValue(forKey: uuidString)
+            
             guard let data = data else {
-                let e = error.map { Error.other($0) }
-                completion(nil, e)
+                failure(.noData, isExpired)
                 return
             }
             do {
                 let response = try T.response(data: data)
-                completion(response, nil)
+                success(response, isExpired)
             } catch let e as Error {
-                completion(nil, e)
+                failure(e, isExpired)
             } catch let e {
-                completion(nil, .other(e))
+                failure(.other(e), isExpired)
             }
         }
-        return Task(uuidString: UUID().uuidString, task: task)
+        let task = Task(task: dataTask)
+        taskCollection[uuid.uuidString] = task
+        dataTask.resume()
+        return uuid
+    }
+    
+    func cancelLoad(withUUIDString uuidString: String, stopTask: Bool) {
+        taskCollection[uuidString]?.expire(andCancel: stopTask)
     }
 }

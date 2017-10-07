@@ -5,6 +5,6 @@ use_frameworks!
 
 target 'URLEmbeddedViewSample' do
 pod 'URLEmbeddedView', :path => '../'
-pod 'NoticeObserveKit'
-pod 'MisterFusion'
+pod 'NoticeObserveKit', '0.3.0'
+pod 'MisterFusion', '2.2.1'
 end

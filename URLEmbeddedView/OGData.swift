@@ -18,10 +18,6 @@ public final class OGData: NSManagedObject {
         case type        = "og:type"
         case url         = "og:url"
     }
-    
-    private lazy var URL: Foundation.URL? = {
-        return Foundation.URL(string: self.sourceUrl)
-    }()
 
     class func fetchOrInsertOGData(url: String) -> OGData {
         guard let ogData = fetchOGData(url: url) else {
@@ -44,32 +40,26 @@ public final class OGData: NSManagedObject {
         let fetchedList = (try? managedObjectContext.fetch(fetchRequest))
         return fetchedList?.first
     }
-    
-    func setValue(property: String, content: String) {
-        guard let propertyName = PropertyName(rawValue: property) else { return }
-        switch propertyName  {
-        case .siteName    : siteName        = content
-        case .type        : pageType        = content
-        case .title       : pageTitle       = content
-        case .image       : imageUrl        = content
-        case .url         : url             = content
-        case .description : pageDescription = content.replacingOccurrences(of: "\n", with: " ")
+
+    func setValue(_ html: OpenGraph.HTML) {
+        for meta in html.metaList {
+            guard let propertyName = PropertyName(rawValue: meta.property) else { return }
+            switch propertyName  {
+            case .siteName    : siteName        = meta.content
+            case .type        : pageType        = meta.content
+            case .title       : pageTitle       = meta.content
+            case .image       : imageUrl        = meta.content
+            case .url         : url             = meta.content
+            case .description : pageDescription = meta.content.replacingOccurrences(of: "\n", with: " ")
+            }
         }
     }
-
-    func setValue(withYoutubeJson json: [AnyHashable : Any]) {
-        if let title = json["title"] as? String {
-            self.pageTitle = title
-        }
-        if let type = json["type"] as? String {
-            self.pageType = type
-        }
-        if let providerName = json["provider_name"] as? String {
-            self.siteName = providerName
-        }
-        if let image = json["thumbnail_url"] as? String {
-            self.imageUrl = image
-        }
+    
+    func setValue(_ youtube: OpenGraph.Youtube) {
+        self.pageTitle = youtube.title
+        self.pageType = youtube.type
+        self.siteName = youtube.providerName
+        self.imageUrl = youtube.thumbnailUrl
     }
     
     func save() {

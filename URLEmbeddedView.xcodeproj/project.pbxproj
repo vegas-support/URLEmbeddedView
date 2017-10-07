@@ -13,6 +13,7 @@
 		3703255C1F8945160057A85B /* HtmlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703255B1F8945160057A85B /* HtmlRequest.swift */; };
 		3703255E1F8945370057A85B /* YoutubeEmbedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703255D1F8945370057A85B /* YoutubeEmbedRequest.swift */; };
 		374BF8F21F45E3F900EE3354 /* AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BF8F11F45E3F900EE3354 /* AutoLayout.swift */; };
+		3756FE3E1F8957680026E0EF /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756FE3D1F8957680026E0EF /* ImageRequest.swift */; };
 		ED602B6E1F42D4EB00A45816 /* URLEmbeddedView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED602B841F42D51100A45816 /* AttributedTextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B741F42D51100A45816 /* AttributedTextProvider.swift */; };
 		ED602B851F42D51100A45816 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B751F42D51100A45816 /* AttributeManager.swift */; };
@@ -26,7 +27,6 @@
 		ED602B8D1F42D51100A45816 /* OGDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B7D1F42D51100A45816 /* OGDataProvider.swift */; };
 		ED602B8E1F42D51100A45816 /* OGImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B7E1F42D51100A45816 /* OGImageCacheManager.swift */; };
 		ED602B8F1F42D51100A45816 /* OGImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B7F1F42D51100A45816 /* OGImageProvider.swift */; };
-		ED602B901F42D51100A45816 /* TaskContainable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B801F42D51100A45816 /* TaskContainable.swift */; };
 		ED602B911F42D51100A45816 /* URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B811F42D51100A45816 /* URLEmbeddedView.swift */; };
 		ED602B921F42D51100A45816 /* URLEmbeddedView+Inspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B821F42D51100A45816 /* URLEmbeddedView+Inspectable.swift */; };
 		ED602B931F42D51100A45816 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED602B831F42D51100A45816 /* URLImageView.swift */; };
@@ -40,6 +40,7 @@
 		3703255B1F8945160057A85B /* HtmlRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlRequest.swift; sourceTree = "<group>"; };
 		3703255D1F8945370057A85B /* YoutubeEmbedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeEmbedRequest.swift; sourceTree = "<group>"; };
 		374BF8F11F45E3F900EE3354 /* AutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayout.swift; sourceTree = "<group>"; };
+		3756FE3D1F8957680026E0EF /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		ED602B691F42D4EB00A45816 /* URLEmbeddedView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLEmbeddedView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLEmbeddedView.h; sourceTree = "<group>"; };
 		ED602B6D1F42D4EB00A45816 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -55,7 +56,6 @@
 		ED602B7D1F42D51100A45816 /* OGDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGDataProvider.swift; sourceTree = "<group>"; };
 		ED602B7E1F42D51100A45816 /* OGImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGImageCacheManager.swift; sourceTree = "<group>"; };
 		ED602B7F1F42D51100A45816 /* OGImageProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGImageProvider.swift; sourceTree = "<group>"; };
-		ED602B801F42D51100A45816 /* TaskContainable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskContainable.swift; sourceTree = "<group>"; };
 		ED602B811F42D51100A45816 /* URLEmbeddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLEmbeddedView.swift; sourceTree = "<group>"; };
 		ED602B821F42D51100A45816 /* URLEmbeddedView+Inspectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLEmbeddedView+Inspectable.swift"; sourceTree = "<group>"; };
 		ED602B831F42D51100A45816 /* URLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
@@ -83,6 +83,7 @@
 				370325591F8944FB0057A85B /* OGRequest.swift */,
 				3703255B1F8945160057A85B /* HtmlRequest.swift */,
 				3703255D1F8945370057A85B /* YoutubeEmbedRequest.swift */,
+				3756FE3D1F8957680026E0EF /* ImageRequest.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -121,7 +122,6 @@
 				ED602B7D1F42D51100A45816 /* OGDataProvider.swift */,
 				ED602B7E1F42D51100A45816 /* OGImageCacheManager.swift */,
 				ED602B7F1F42D51100A45816 /* OGImageProvider.swift */,
-				ED602B801F42D51100A45816 /* TaskContainable.swift */,
 				ED602B811F42D51100A45816 /* URLEmbeddedView.swift */,
 				ED602B821F42D51100A45816 /* URLEmbeddedView+Inspectable.swift */,
 				ED602B831F42D51100A45816 /* URLImageView.swift */,
@@ -221,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED602B8F1F42D51100A45816 /* OGImageProvider.swift in Sources */,
+				3756FE3E1F8957680026E0EF /* ImageRequest.swift in Sources */,
 				3703255A1F8944FB0057A85B /* OGRequest.swift in Sources */,
 				ED602B8A1F42D51100A45816 /* OGData.swift in Sources */,
 				ED602B891F42D51100A45816 /* NSUserDefaults+URLEmbeddedView.swift in Sources */,
@@ -228,7 +229,6 @@
 				370325561F8944CF0057A85B /* OGSession.swift in Sources */,
 				ED602B911F42D51100A45816 /* URLEmbeddedView.swift in Sources */,
 				ED602B8C1F42D51100A45816 /* OGDataCacheManager.swift in Sources */,
-				ED602B901F42D51100A45816 /* TaskContainable.swift in Sources */,
 				ED602B921F42D51100A45816 /* URLEmbeddedView+Inspectable.swift in Sources */,
 				ED602B8E1F42D51100A45816 /* OGImageCacheManager.swift in Sources */,
 				ED602B841F42D51100A45816 /* AttributedTextProvider.swift in Sources */,
