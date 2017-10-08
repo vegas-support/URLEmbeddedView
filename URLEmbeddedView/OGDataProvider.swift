@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Kanna
 
 public final class OGDataProvider: NSObject {
     //MARK: Static constants
@@ -52,14 +51,14 @@ public final class OGDataProvider: NSObject {
             }
             uuid = session.send(request, success: { youtube, isExpired in
                 ogData.setValue(youtube)
-                ogData.save()
+                DispatchQueue.global().async { ogData.save() }
                 if !isExpired { completion?(ogData, nil) }
             }, failure: failure)
         } else {
             let request = HtmlRequest(url: url)
             uuid = session.send(request, success: { html, isExpired in
                 ogData.setValue(html)
-                ogData.save()
+                DispatchQueue.global().async { ogData.save() }
                 if !isExpired { completion?(ogData, nil) }
             }, failure: failure)
         }

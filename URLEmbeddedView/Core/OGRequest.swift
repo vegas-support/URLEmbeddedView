@@ -21,7 +21,6 @@ extension OGRequest {
     var urlRequest: URLRequest {
         var request = URLRequest(url: url)
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
-        request.timeoutInterval = 5
         return request
     }
 }

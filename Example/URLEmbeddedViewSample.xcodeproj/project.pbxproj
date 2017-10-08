@@ -207,14 +207,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-URLEmbeddedViewSample/Pods-URLEmbeddedViewSample-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
 				"${BUILT_PRODUCTS_DIR}/MisterFusion/MisterFusion.framework",
 				"${BUILT_PRODUCTS_DIR}/NoticeObserveKit/NoticeObserveKit.framework",
 				"${BUILT_PRODUCTS_DIR}/URLEmbeddedView/URLEmbeddedView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kanna.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MisterFusion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NoticeObserveKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/URLEmbeddedView.framework",

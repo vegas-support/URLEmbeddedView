@@ -49,7 +49,10 @@ final class OGSession {
         let dataTask = session.dataTask(with: request.urlRequest) { [weak self] data, response, error in
             let isExpired = self?.taskCollection[uuidString]?.isExpired ?? true
             self?.taskCollection.removeValue(forKey: uuidString)
-            
+            if let error = error {
+                failure((error as? Error) ?? .other(error), isExpired)
+                return
+            }
             guard let data = data else {
                 failure(.noData, isExpired)
                 return

@@ -42,15 +42,15 @@ public final class OGData: NSManagedObject {
     }
 
     func setValue(_ html: OpenGraph.HTML) {
-        for meta in html.metaList {
-            guard let propertyName = PropertyName(rawValue: meta.property) else { return }
+        html.metaList.forEach {
+            guard let propertyName = PropertyName(rawValue: $0.property) else { return }
             switch propertyName  {
-            case .siteName    : siteName        = meta.content
-            case .type        : pageType        = meta.content
-            case .title       : pageTitle       = meta.content
-            case .image       : imageUrl        = meta.content
-            case .url         : url             = meta.content
-            case .description : pageDescription = meta.content.replacingOccurrences(of: "\n", with: " ")
+            case .siteName    : siteName        = $0.content
+            case .type        : pageType        = $0.content
+            case .title       : pageTitle       = $0.content
+            case .image       : imageUrl        = $0.content
+            case .url         : url             = $0.content
+            case .description : pageDescription = $0.content.replacingOccurrences(of: "\n", with: " ")
             }
         }
     }

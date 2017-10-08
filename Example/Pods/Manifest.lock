@@ -1,9 +1,7 @@
 PODS:
-  - Kanna (2.1.1)
   - MisterFusion (2.2.1)
   - NoticeObserveKit (0.3.0)
-  - URLEmbeddedView (0.10.3):
-    - Kanna (~> 2.1.1)
+  - URLEmbeddedView (0.11.0)
 
 DEPENDENCIES:
   - MisterFusion (= 2.2.1)
@@ -15,10 +13,9 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   MisterFusion: 5835783ee1c8306c4070a73beb3875dac681580c
   NoticeObserveKit: 66f37e06f155a3632d3a96e799cf7700f6a4c104
-  URLEmbeddedView: 9a7c69a9885d82118ee9880f4c878ddfa04ce9c1
+  URLEmbeddedView: 302c52cae562f394c963d0e84be05d7a3626a792
 
 PODFILE CHECKSUM: 4aa1b26e56435d5dd811f0df1f98dc854ae11c23
 
