@@ -44,15 +44,15 @@ public final class AttributeManager {
     var didChangeValue: ((Style, Attribute, Any) -> Void)?
     private let style: Style
     
-    public var font: UIFont {
+    @objc public var font: UIFont {
         didSet { didChangeValue?(style, .font, font) }
     }
     
-    public var numberOfLines: Int {
+    @objc public var numberOfLines: Int {
         didSet { didChangeValue?(style, .numberOfLines, numberOfLines) }
     }
     
-    public var fontColor: UIColor {
+    @objc public var fontColor: UIColor {
         didSet { didChangeValue?(style, .fontColor, fontColor) }
     }
     
@@ -64,9 +64,9 @@ public final class AttributeManager {
     }
     
     func attributedText(_ string: String) -> NSAttributedString {
-        let attributes: [String : AnyObject] = [
-            NSFontAttributeName : font,
-            NSForegroundColorAttributeName : fontColor
+        let attributes: [NSAttributedStringKey : Any] = [
+            .font : font,
+            .foregroundColor : fontColor
         ]
         return NSAttributedString(string: string, attributes: attributes)
     }

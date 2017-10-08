@@ -20,13 +20,13 @@ public final class OGDataProvider: NSObject {
         super.init()
     }
     
-    public var updateInterval: TimeInterval {
+    @objc public var updateInterval: TimeInterval {
         get { return OGDataCacheManager.shared.updateInterval }
         set { OGDataCacheManager.shared.updateInterval = newValue }
     }
     
     @discardableResult
-    public func fetchOGData(urlString: String, completion: ((OGData, Error?) -> Void)? = nil) -> String? {
+    @objc public func fetchOGData(urlString: String, completion: ((OGData, Error?) -> Void)? = nil) -> String? {
         let ogData = OGData.fetchOrInsertOGData(url: urlString)
         if !ogData.sourceUrl.isEmpty {
             completion?(ogData, nil)
@@ -65,7 +65,7 @@ public final class OGDataProvider: NSObject {
         return uuid.uuidString
     }
     
-    public func deleteOGData(urlString: String, completion: ((NSError?) -> Void)? = nil) {
+    @objc public func deleteOGData(urlString: String, completion: ((NSError?) -> Void)? = nil) {
         guard let ogData = OGData.fetchOGData(url: urlString) else {
             completion?(NSError(domain: "no object matches with \"\(urlString)\"", code: 9999, userInfo: nil))
             return
@@ -73,7 +73,7 @@ public final class OGDataProvider: NSObject {
         deleteOGData(ogData, completion: completion)
     }
     
-    public func deleteOGData(_ ogData: OGData, completion: ((NSError?) -> Void)? = nil) {
+    @objc public func deleteOGData(_ ogData: OGData, completion: ((NSError?) -> Void)? = nil) {
         OGDataCacheManager.shared.delete(ogData, completion: completion)
     }
     

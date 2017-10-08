@@ -18,8 +18,9 @@
 - [x] Tap handleable
 - [x] Clearable image cache
 - [x] Clearable data cache
-- [x] Support Swift3.2
-- [x] Support Carthage since 0.10.1
+- [x] Support Swift3.2 (until 0.11.x)
+- [x] Support Swift4
+- [x] Support Carthage since 0.11.1
 
 ## Usage
 

@@ -35,27 +35,27 @@ extension TimeInterval {
 }
 
 extension NSNumber {
-    public class func minutes(_ time: TimeInterval) -> TimeInterval {
+    @objc public class func minutes(_ time: TimeInterval) -> TimeInterval {
         return time.minutes
     }
     
-    public class func hours(_ time: TimeInterval) -> TimeInterval {
+    @objc public class func hours(_ time: TimeInterval) -> TimeInterval {
         return time.hours
     }
     
-    public class func days(_ time: TimeInterval) -> TimeInterval {
+    @objc public class func days(_ time: TimeInterval) -> TimeInterval {
         return time.days
     }
     
-    public class func weeks(_ time: TimeInterval) -> TimeInterval {
+    @objc public class func weeks(_ time: TimeInterval) -> TimeInterval {
         return time.weeks
     }
     
-    public class func months(_ time: TimeInterval) -> TimeInterval {
+    @objc public class func months(_ time: TimeInterval) -> TimeInterval {
         return time.months
     }
     
-    public class func years(_ time: TimeInterval) -> TimeInterval {
+    @objc public class func years(_ time: TimeInterval) -> TimeInterval {
         return time.years
     }
 }

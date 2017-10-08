@@ -39,31 +39,31 @@ open class URLEmbeddedView: UIView {
     
     private var URL: Foundation.URL?
     private var uuidString: String?
-    open let textProvider = AttributedTextProvider.shared
+    @objc open let textProvider = AttributedTextProvider.shared
     
-    open var didTapHandler: ((URLEmbeddedView, Foundation.URL?) -> Void)?
-    open var stopTaskWhenCancel = false {
+    @objc open var didTapHandler: ((URLEmbeddedView, Foundation.URL?) -> Void)?
+    @objc open var stopTaskWhenCancel = false {
         didSet {
             domainImageView.stopTaskWhenCancel = stopTaskWhenCancel
             imageView.stopTaskWhenCancel = stopTaskWhenCancel
         }
     }
     
-    public convenience init() {
+    @objc public convenience init() {
         self.init(frame: .zero)
     }
     
-    public override init(frame: CGRect) {
+    @objc public override init(frame: CGRect) {
         super.init(frame: frame)
         setInitialiValues()
         configureViews()
     }
     
-    public convenience init(url: String) {
+    @objc public convenience init(url: String) {
         self.init(url: url, frame: .zero)
     }
     
-    public init(url: String, frame: CGRect) {
+    @objc public init(url: String, frame: CGRect) {
         super.init(frame: frame)
         URL = Foundation.URL(string: url)
         setInitialiValues()
@@ -362,7 +362,7 @@ open class URLEmbeddedView: UIView {
     }
     
     //MARK: - Load
-    public func loadURL(_ urlString: String, completion: ((Error?) -> Void)? = nil) {
+    @objc public func loadURL(_ urlString: String, completion: ((Error?) -> Void)? = nil) {
         guard let URL = Foundation.URL(string: urlString) else {
             completion?(nil)
             return
@@ -371,7 +371,7 @@ open class URLEmbeddedView: UIView {
         load(completion)
     }
     
-    public func load(_ completion: ((Error?) -> Void)? = nil) {
+    @objc public func load(_ completion: ((Error?) -> Void)? = nil) {
         guard let URL = URL else { return }
         prepareViewsForReuse()
         activityView.startAnimating()
@@ -431,7 +431,7 @@ open class URLEmbeddedView: UIView {
         }
     }
     
-    public func cancelLoad() {
+    @objc public func cancelLoad() {
         domainImageView.cancelLoadImage()
         imageView.cancelLoadImage()
         activityView.stopAnimating()

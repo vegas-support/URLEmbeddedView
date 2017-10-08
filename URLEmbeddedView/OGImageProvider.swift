@@ -30,7 +30,7 @@ public final class OGImageProvider: NSObject {
         super.init()
     }
 
-    public func loadImage(urlString: String, completion: ((UIImage?, Error?) -> Void)? = nil) -> String? {
+    @objc public func loadImage(urlString: String, completion: ((UIImage?, Error?) -> Void)? = nil) -> String? {
         guard let url = URL(string: urlString) else {
             completion?(nil, NSError(domain: "can not create NSURL with \(urlString)", code: 9999, userInfo: nil))
             return nil
@@ -51,11 +51,11 @@ public final class OGImageProvider: NSObject {
         return uuid.uuidString
     }
     
-    public func clearMemoryCache() {
+    @objc public func clearMemoryCache() {
         OGImageCacheManager.shared.clearMemoryCache()
     }
     
-    public func clearAllCache() {
+    @objc public func clearAllCache() {
         OGImageCacheManager.shared.clearAllCache()
     }
     

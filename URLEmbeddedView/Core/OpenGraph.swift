@@ -43,7 +43,7 @@ extension OpenGraph {
                 let initial = Metadata(property: "", content: "")
                 let metaData = (0..<result.numberOfRanges).reduce(initial) { metadata, index in
                     if index == 0 { return metadata }
-                    let range = result.rangeAt(index)
+                    let range = result.range(at: index)
                     if range.location == NSNotFound { return metadata }
                     let substring = (htmlString as NSString).substring(with: range)
                     if substring.contains(Const.propertyPrefix) {
