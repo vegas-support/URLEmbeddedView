@@ -1,25 +1,22 @@
 PODS:
-  - Kanna (2.1.1)
   - MisterFusion (2.2.1)
   - NoticeObserveKit (0.3.0)
-  - URLEmbeddedView (0.10.0):
-    - Kanna (~> 2.1.1)
+  - URLEmbeddedView (0.11.0)
 
 DEPENDENCIES:
-  - MisterFusion
-  - NoticeObserveKit
+  - MisterFusion (= 2.2.1)
+  - NoticeObserveKit (= 0.3.0)
   - URLEmbeddedView (from `../`)
 
 EXTERNAL SOURCES:
   URLEmbeddedView:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   MisterFusion: 5835783ee1c8306c4070a73beb3875dac681580c
   NoticeObserveKit: 66f37e06f155a3632d3a96e799cf7700f6a4c104
-  URLEmbeddedView: b70c99d2737815e89e14f60cb91f3e1c5cae6c3d
+  URLEmbeddedView: 302c52cae562f394c963d0e84be05d7a3626a792
 
-PODFILE CHECKSUM: 6ef39ab0139e92792853fb4a595b3be7f23480a6
+PODFILE CHECKSUM: 4aa1b26e56435d5dd811f0df1f98dc854ae11c23
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.1

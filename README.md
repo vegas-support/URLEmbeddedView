@@ -121,8 +121,6 @@ NoticeObserveKit to your `Cartfile`:
 github "marty-suzuki/URLEmbeddedView"
 ```
 
-In the project settings add $(SDKROOT)/usr/include/libxml2 to the "header search paths" field
-
 ## Use in Objective-C
 
 ```objective-c
@@ -144,14 +142,12 @@ In the project settings add $(SDKROOT)/usr/include/libxml2 to the "header search
 
 ## Special Thanks
 
-- [Kanna(鉋)](https://github.com/tid-kijyun/Kanna) is a great XML/HTML parser for Mac OS X and iOS. (Created by [@tid-kijyun](https://github.com/tid-kijyun))
 - [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift) is a greate Crypto related functions and helpers for Swift. (Created by [@krzyzanowskim](https://github.com/krzyzanowskim))
 
 ## Requirements
 
 - Xcode 9 or greater
 - iOS 8.0 or greater
-- [Kanna(鉋)](https://github.com/tid-kijyun/Kanna)
 - UIKit
 - CoreData
 - CoreGraphics

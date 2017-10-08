@@ -4,7 +4,4 @@
    <FileRef
       location = "container:URLEmbeddedView.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/Kanna/Kanna.xcodeproj">
-   </FileRef>
 </Workspace>

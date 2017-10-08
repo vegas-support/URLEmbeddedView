@@ -6,71 +6,15 @@
 //
 //
 
-/*
- * In this file, Kanna is used to parse "og:" from meta tags.
- * Kanna is created by Atsushi Kiwaki.
- * https://github.com/tid-kijyun/Kanna
- * The original copyright is here.
- */
-
-/*
- * The MIT License (MIT)
- *
- * Copyright (c) 2014 - 2015 Atsushi Kiwaki (@_tid_)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 import Foundation
-import Kanna
 
 public final class OGDataProvider: NSObject {
-    
-    private class TaskContainer: TaskContainable {
-        typealias Completion = ((OGData, Error?) -> Void)
-        
-        let uuidString: String
-        let task: URLSessionDataTask
-        var completion: Completion?
-        
-        required init(uuidString: String, task: URLSessionDataTask, completion: Completion?) {
-            self.uuidString = uuidString
-            self.task = task
-            self.completion = completion
-        }
-    }
-    
     //MARK: Static constants
     @objc(sharedInstance)
     public static let shared = OGDataProvider()
-    
-    private struct Const {
-        static let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Safari/601.1.42"
-        static let metaTagKey = "meta"
-        static let propertyKey = "property"
-        static let contentKey = "content"
-        static let propertyPrefix = "og:"
-    }
         
     //MARK: - Properties
-    private let session = URLSession(configuration: URLSessionConfiguration.default)
-    private var taskContainers: [String : TaskContainer] = [:]
+    private let session = OGSession(configuration: .default)
     
     private override init() {
         super.init()
@@ -96,78 +40,29 @@ public final class OGDataProvider: NSObject {
             return nil
         }
 
-        let task: URLSessionDataTask
-        let uuidString: String
+        let uuid: UUID
+        let failure: (OGSession.Error, Bool) -> Void = { error, isExpired in
+            if !isExpired { completion?(ogData, error) }
+        }
         if url.host?.contains("www.youtube.com") == true {
-            guard
-                let escapedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-                let url = URL(string: "https://www.youtube.com/oembed?url=\(escapedString)")
-            else {
+            guard let request = YoutubeEmbedRequest(url: url) else {
                 completion?(ogData, NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
                 return nil
             }
-            var request = URLRequest(url: url)
-            request.timeoutInterval = 5
-            uuidString = UUID().uuidString
-
-            task = session.dataTask(with: request, completionHandler: { [weak self] data, response, error in
-                let completion = self?.taskContainers[uuidString]?.completion
-                _ = self?.taskContainers.removeValue(forKey: uuidString)
-
-                if let error = error {
-                    completion?(ogData, error)
-                    return
-                }
-                guard
-                    let data = data,
-                    let rawJson = try? JSONSerialization.jsonObject(with: data, options: []),
-                    let json = rawJson as? [AnyHashable : Any]
-                else {
-                    completion?(ogData, nil)
-                    return
-                }
-                ogData.setValue(withYoutubeJson: json)
-                ogData.save()
-
-                completion?(ogData, nil)
-            })
+            uuid = session.send(request, success: { youtube, isExpired in
+                ogData.setValue(youtube)
+                DispatchQueue.global().async { ogData.save() }
+                if !isExpired { completion?(ogData, nil) }
+            }, failure: failure)
         } else {
-            var request = URLRequest(url: url)
-            request.setValue(Const.userAgent, forHTTPHeaderField: "User-Agent")
-            request.timeoutInterval = 5
-            uuidString = UUID().uuidString
-
-            task = session.dataTask(with: request, completionHandler: { [weak self] data, response, error in
-                let completion = self?.taskContainers[uuidString]?.completion
-                _ = self?.taskContainers.removeValue(forKey: uuidString)
-
-                if let error = error {
-                    completion?(ogData, error)
-                    return
-                }
-                guard let data = data,
-                      let html = Kanna.HTML(html: data, encoding: String.Encoding.utf8),
-                      let header = html.head else {
-                    completion?(ogData, nil)
-                    return
-                }
-                let metaTags = header.xpath(Const.metaTagKey)
-                for metaTag in metaTags {
-                    guard let property = metaTag[Const.propertyKey],
-                          let content = metaTag[Const.contentKey]
-                          , property.hasPrefix(Const.propertyPrefix) else {
-                        continue
-                    }
-                    ogData.setValue(property: property, content: content)
-                }
-                ogData.save()
-
-                completion?(ogData, nil)
-            })
+            let request = HtmlRequest(url: url)
+            uuid = session.send(request, success: { html, isExpired in
+                ogData.setValue(html)
+                DispatchQueue.global().async { ogData.save() }
+                if !isExpired { completion?(ogData, nil) }
+            }, failure: failure)
         }
-        taskContainers[uuidString] = TaskContainer(uuidString: uuidString, task: task, completion: completion)
-        task.resume()
-        return uuidString
+        return uuid.uuidString
     }
     
     public func deleteOGData(urlString: String, completion: ((NSError?) -> Void)? = nil) {
@@ -183,10 +78,6 @@ public final class OGDataProvider: NSObject {
     }
     
     func cancelLoad(_ uuidString: String, stopTask: Bool) {
-        taskContainers[uuidString]?.completion = nil
-        if stopTask {
-            taskContainers[uuidString]?.task.cancel()
-        }
-        taskContainers.removeValue(forKey: uuidString)
+        session.cancelLoad(withUUIDString: uuidString, stopTask: stopTask)
     }
 }
