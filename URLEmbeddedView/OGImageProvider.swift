@@ -42,7 +42,8 @@ public final class OGImageProvider: NSObject {
             }
         }
         let request = ImageRequest(url: url)
-        let uuid = session.send(request, success: { value, isExpired in
+        let uuid = UUID()
+        session.send(request, uuid: uuid, success: { value, isExpired in
             OGImageCacheManager.shared.storeImage(value.1, data: value.0, urlString: urlString)
             if !isExpired { completion?(value.1, nil) }
         }, failure: { error, isExpired in

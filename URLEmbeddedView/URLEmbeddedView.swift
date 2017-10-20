@@ -393,14 +393,18 @@ open class URLEmbeddedView: UIView {
                 }
                 
                 self?.linkIconView.isHidden = true
-                if ogData.pageTitle.isEmpty {
-                    self?.titleLabel.attributedText = self?.textProvider[.noDataTitle].attributedText(URL.absoluteString)
+                if let pageTitle = ogData.pageTitle {
+                    self?.titleLabel.attributedText = self?.textProvider[.title].attributedText(pageTitle)
                 } else {
-                    self?.titleLabel.attributedText = self?.textProvider[.title].attributedText(ogData.pageTitle)
+                    self?.titleLabel.attributedText = self?.textProvider[.noDataTitle].attributedText(URL.absoluteString)
                 }
-                self?.descriptionLabel.attributedText = self?.textProvider[.description].attributedText(ogData.pageDescription)
-                if !ogData.imageUrl.isEmpty {
-                    self?.imageView.loadImage(urlString: ogData.imageUrl) {
+                if let pageDescription = ogData.pageDescription {
+                    self?.descriptionLabel.attributedText = self?.textProvider[.description].attributedText(pageDescription)
+                } else {
+                    self?.descriptionLabel.attributedText = nil
+                }
+                if let imageUrl = ogData.imageUrl {
+                    self?.imageView.loadImage(urlString: imageUrl.absoluteString) {
                         if let _ = $0 , $1 == nil {
                             self?.changeImageViewWidthConstrain(nil)
                         } else {

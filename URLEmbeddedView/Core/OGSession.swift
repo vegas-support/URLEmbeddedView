@@ -43,8 +43,7 @@ final class OGSession {
         self.session = URLSession(configuration: configuration)
     }
     
-    func send<T: OGRequest>(_ request: T, success: @escaping (T.Response, Bool) -> Void, failure: @escaping (OGSession.Error, Bool) -> Void) -> UUID {
-        let uuid = UUID()
+    func send<T: OGRequest>(_ request: T, uuid: UUID, success: @escaping (T.Response, Bool) -> Void, failure: @escaping (OGSession.Error, Bool) -> Void) {
         let uuidString = uuid.uuidString
         let dataTask = session.dataTask(with: request.urlRequest) { [weak self] data, response, error in
             let isExpired = self?.taskCollection[uuidString]?.isExpired ?? true
@@ -69,7 +68,6 @@ final class OGSession {
         let task = Task(task: dataTask)
         taskCollection[uuid.uuidString] = task
         dataTask.resume()
-        return uuid
     }
     
     func cancelLoad(withUUIDString uuidString: String, stopTask: Bool) {

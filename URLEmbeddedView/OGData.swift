@@ -19,26 +19,32 @@ public final class OGData: NSManagedObject {
         case url         = "og:url"
     }
 
-    class func fetchOrInsertOGData(url: String) -> OGData {
-        guard let ogData = fetchOGData(url: url) else {
-            let managedObjectContext = OGDataCacheManager.shared.updateManagedObjectContext
+    class func fetchOrInsertOGData(url: String,
+                                   managedObjectContext: NSManagedObjectContext = OGDataCacheManager.shared.updateManagedObjectContext,
+                                   completion: @escaping (OGData) -> ()) {
+        fetchOGData(url: url, managedObjectContext: managedObjectContext) { ogData in
+            if let ogData = ogData {
+                completion(ogData)
+            }
             let newOGData = NSEntityDescription.insertNewObject(forEntityName: "OGData", into: managedObjectContext) as! OGData
             let date = Date()
             newOGData.createDate = date
             newOGData.updateDate = date
-            return newOGData
+            completion(newOGData)
         }
-        return ogData
     }
     
-    class func fetchOGData(url: String) -> OGData? {
-        let managedObjectContext = OGDataCacheManager.shared.updateManagedObjectContext
-        let fetchRequest = NSFetchRequest<OGData>()
-        fetchRequest.entity = NSEntityDescription.entity(forEntityName: "OGData", in: managedObjectContext)
-        fetchRequest.fetchLimit = 1
-        fetchRequest.predicate = NSPredicate(format: "sourceUrl = %@", url)
-        let fetchedList = (try? managedObjectContext.fetch(fetchRequest))
-        return fetchedList?.first
+    class func fetchOGData(url: String,
+                           managedObjectContext: NSManagedObjectContext = OGDataCacheManager.shared.updateManagedObjectContext,
+                           completion: @escaping (OGData?) -> ()) {
+        managedObjectContext.perform {
+            let fetchRequest = NSFetchRequest<OGData>()
+            fetchRequest.entity = NSEntityDescription.entity(forEntityName: "OGData", in: managedObjectContext)
+            fetchRequest.fetchLimit = 1
+            fetchRequest.predicate = NSPredicate(format: "sourceUrl = %@", url)
+            let fetchedList = (try? managedObjectContext.fetch(fetchRequest))
+            completion(fetchedList?.first)
+        }
     }
 
     func setValue(_ html: OpenGraph.HTML) {

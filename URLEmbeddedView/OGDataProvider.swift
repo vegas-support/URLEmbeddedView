@@ -26,51 +26,61 @@ public final class OGDataProvider: NSObject {
     }
     
     @discardableResult
-    @objc public func fetchOGData(urlString: String, completion: ((OGData, Error?) -> Void)? = nil) -> String? {
-        let ogData = OGData.fetchOrInsertOGData(url: urlString)
-        if !ogData.sourceUrl.isEmpty {
-            completion?(ogData, nil)
-            if fabs(ogData.updateDate.timeIntervalSinceNow) < updateInterval {
-                return nil
+    public func fetchOGData(urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)? = nil) -> String {
+        let uuid = UUID()
+        OGData.fetchOrInsertOGData(url: urlString) { [weak self] ogData in
+            guard let me = self else { return }
+            if !ogData.sourceUrl.isEmpty {
+                completion?(.init(ogData: ogData), nil)
+                if fabs(ogData.updateDate.timeIntervalSinceNow) < me.updateInterval {
+                    return
+                }
             }
-        }
-        ogData.sourceUrl = urlString
-        guard let url = URL(string: urlString) else {
-            completion?(ogData, NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
-            return nil
-        }
+            ogData.sourceUrl = urlString
+            guard let url = URL(string: urlString) else {
+                completion?(.init(ogData: ogData), NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
+                return
+            }
 
-        let uuid: UUID
-        let failure: (OGSession.Error, Bool) -> Void = { error, isExpired in
-            if !isExpired { completion?(ogData, error) }
-        }
-        if url.host?.contains("www.youtube.com") == true {
-            guard let request = YoutubeEmbedRequest(url: url) else {
-                completion?(ogData, NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
-                return nil
+            let failure: (OGSession.Error, Bool) -> Void = { error, isExpired in
+                ogData.managedObjectContext?.perform {
+                    if !isExpired { completion?(.init(ogData: ogData), nil) }
+                }
             }
-            uuid = session.send(request, success: { youtube, isExpired in
-                ogData.setValue(youtube)
-                DispatchQueue.global().async { ogData.save() }
-                if !isExpired { completion?(ogData, nil) }
-            }, failure: failure)
-        } else {
-            let request = HtmlRequest(url: url)
-            uuid = session.send(request, success: { html, isExpired in
-                ogData.setValue(html)
-                DispatchQueue.global().async { ogData.save() }
-                if !isExpired { completion?(ogData, nil) }
-            }, failure: failure)
+            if url.host?.contains("youtube.com") == true {
+                guard let request = YoutubeEmbedRequest(url: url) else {
+                    completion?(.init(ogData: ogData), NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
+                    return
+                }
+                me.session.send(request, uuid: uuid, success: { youtube, isExpired in
+                    ogData.managedObjectContext?.perform {
+                        ogData.setValue(youtube)
+                        ogData.save()
+                        if !isExpired { completion?(.init(ogData: ogData), nil) }
+                    }
+                }, failure: failure)
+            } else {
+                let request = HtmlRequest(url: url)
+                me.session.send(request, uuid: uuid, success: { html, isExpired in
+                    ogData.managedObjectContext?.perform {
+                        ogData.setValue(html)
+                        ogData.save()
+                        if !isExpired { completion?(.init(ogData: ogData), nil) }
+                    }
+                }, failure: failure)
+            }
         }
         return uuid.uuidString
     }
     
     @objc public func deleteOGData(urlString: String, completion: ((NSError?) -> Void)? = nil) {
-        guard let ogData = OGData.fetchOGData(url: urlString) else {
-            completion?(NSError(domain: "no object matches with \"\(urlString)\"", code: 9999, userInfo: nil))
-            return
+        OGData.fetchOGData(url: urlString) { [weak self] ogData in
+            guard let ogData = ogData else {
+                completion?(NSError(domain: "no object matches with \"\(urlString)\"", code: 9999, userInfo: nil))
+                return
+            }
+            self?.deleteOGData(ogData, completion: completion)
         }
-        deleteOGData(ogData, completion: completion)
     }
     
     @objc public func deleteOGData(_ ogData: OGData, completion: ((NSError?) -> Void)? = nil) {
