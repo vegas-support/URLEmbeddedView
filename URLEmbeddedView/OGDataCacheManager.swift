@@ -127,10 +127,10 @@ final class OGDataCacheManager: NSObject {
     }
     
     private func saveContext(_ context: NSManagedObjectContext, success: (() -> Void)?, failure: ((NSError) -> Void)?) {
-        if !context.hasChanges {
-            success?()
-        }
         context.perform {
+            if !context.hasChanges {
+                success?()
+            }
             do {
                 try context.save()
                 success?()

@@ -74,7 +74,7 @@ class OGSampleViewController: UIViewController {
                 self?.view.layoutIfNeeded()
             }, completion:  nil)
         }
-        .addObserverTo(pool)
+        .disposed(by: pool)
         
         UIKeyboardWillHide.observe { [weak self] keyboard in
             self?.embeddedViewBottomConstraint.constant = 0
@@ -82,7 +82,7 @@ class OGSampleViewController: UIViewController {
                 self?.view.layoutIfNeeded()
             }, completion:  nil)
         }
-        .addObserverTo(pool)
+        .disposed(by: pool)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -117,15 +117,15 @@ extension OGSampleViewController: UISearchBarDelegate {
                 if let _ = error {
                     return
                 }
-                let text = "- sourceUrl        = \(ogData.sourceUrl)\n"
-                    + "- url              = \(ogData.url)\n"
-                    + "- siteName         = \(ogData.siteName)\n"
-                    + "- pageTitle        = \(ogData.pageTitle)\n"
-                    + "- pageType         = \(ogData.pageType)\n"
-                    + "- pageDescription  = \(ogData.pageDescription)\n"
-                    + "- imageUrl         = \(ogData.imageUrl)\n"
-                    + "- createDate       = \(ogData.createDate)\n"
-                    + "- updateDate       = \(ogData.updateDate)\n"
+                let text = "- sourceUrl        = \(ogData.sourceUrl as URL?)\n"
+                    + "- url              = \(ogData.url as URL?)\n"
+                    + "- siteName         = \(ogData.siteName as String?)\n"
+                    + "- pageTitle        = \(ogData.pageTitle as String?)\n"
+                    + "- pageType         = \(ogData.pageType as String?)\n"
+                    + "- pageDescription  = \(ogData.pageDescription as String?)\n"
+                    + "- imageUrl         = \(ogData.imageUrl as URL?)\n"
+                    + "- createdAt       = \(ogData.createdAt)\n"
+                    + "- updatedAt       = \(ogData.updatedAt)\n"
                 DispatchQueue.main.async {
                     self?.textView.text = text
                 }

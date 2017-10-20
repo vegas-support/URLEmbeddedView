@@ -59,7 +59,7 @@ embeddedView.textProvider[.Title].numberOfLines = 2
 You can get Open Graph Data with `OGDataProvider`.
 
 ```swift
-OGDataProvider.shared.fetchOGData(urlString: String, completion: ((OGData, Error?) -> Void)? = nil) -> NSURLSessionDataTask?
+OGDataProvider.shared.fetchOGData(urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)? = nil) -> String?
 OGDataProvider.shared.deleteOGData(urlString: String, completion: ((Error?) -> Void)? = nil)
 OGDataProvider.shared.deleteOGData(ogData: OGData, completion: ((Error?) -> Void)? = nil)
 ```
@@ -79,18 +79,18 @@ OGImageProvider.shared.clearMemoryCache()
 OGImageProvider.shared.clearAllCache()
 ```
 
-## OGData Properties
+## OpenGraph.Data Properties
 
 ```swift
-@NSManaged public var createDate: NSDate
-@NSManaged public var imageUrl: String
-@NSManaged public var pageDescription: String
-@NSManaged public var pageTitle: String
-@NSManaged public var pageType: String
-@NSManaged public var siteName: String
-@NSManaged public var sourceUrl: String
-@NSManaged public var updateDate: NSDate
-@NSManaged public var url: String
+public let createdAt: Date
+public let imageUrl: URL?
+public let pageDescription: String?
+public let pageTitle: String?
+public let pageType: String?
+public let siteName: String?
+public let sourceUrl: URL?
+public let updatedAt: Data
+public let url: URL?
 ```
 
 ## Installation
