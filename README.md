@@ -137,6 +137,13 @@ github "marty-suzuki/URLEmbeddedView"
 - (void)setUpdateInterval {
   [OGDataProvider sharedInstance].updateInterval = [NSNumber days:10];
 }
+
+- (void)fetchOpenGraphData {
+  [[OGDataProvider sharedInstance] fetchOGDataWithUrlString:self.textView.text
+                                            completion:^(OpenGraphData *data, NSError *error) {
+      NSLog(@"OpenGraphData = %@", data);
+  }];
+}
 ```
 
 [Here](./Example/URLEmbeddedViewSample/OGObjcSampleViewController.m) is Objective-C sample.
