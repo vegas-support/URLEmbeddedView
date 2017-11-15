@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OGImageCacheManager: NSObject {
+final class OGImageCacheManager: NSObject {
     @objc(sharedInstance)
     static let shared = OGImageCacheManager()
     
@@ -17,12 +17,12 @@ class OGImageCacheManager: NSObject {
     }
         
     private let fileManager = FileManager()
-    private lazy var memoryCache: NSCache<NSString, UIImage> = {
+    private let memoryCache: NSCache<NSString, UIImage> = {
         let cache = NSCache<NSString, UIImage>()
         cache.countLimit = 30
         return cache
     }()
-    private lazy var cacheDirectory: String = {
+    private let cacheDirectory: String = {
         let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
         return (paths[paths.count-1] as NSString).appendingPathComponent("images")
     }()
@@ -88,7 +88,8 @@ class OGImageCacheManager: NSObject {
     private func pathForURLString(_ urlString: String) -> String {
         let md5String = urlString.md5()
         if md5String.characters.count < 2 { return cacheDirectory + "/" }
-        return cacheDirectory + "/" +  md5String.substring(to: md5String.characters.index(md5String.startIndex, offsetBy: 2)) + "/" + md5String
+        let substring = md5String[..<md5String.index(md5String.startIndex, offsetBy: 2)]
+        return cacheDirectory + "/" + substring + "/" + md5String
     }
     
     func cachedImage(urlString: String) -> UIImage? {

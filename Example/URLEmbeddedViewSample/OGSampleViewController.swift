@@ -113,7 +113,7 @@ extension OGSampleViewController: UISearchBarDelegate {
             if let _ = $0 {
                 return
             }
-            OGDataProvider.shared.fetchOGData(urlString: urlString) { [weak self] ogData, error in
+            OGDataProvider.shared.fetchOGData(withURLString: urlString) { [weak self] ogData, error in
                 if let _ = error {
                     return
                 }

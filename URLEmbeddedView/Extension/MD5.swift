@@ -43,7 +43,7 @@ extension String {
     }
 }
 
-final class MD5 {
+private final class MD5 {
     private struct BytesSequence: Sequence {
         let chunkSize: Array<UInt8>.IndexDistance
         let data: Array<UInt8>

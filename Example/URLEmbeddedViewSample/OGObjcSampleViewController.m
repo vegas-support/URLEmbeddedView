@@ -47,8 +47,8 @@
 
 - (IBAction)didTapFetchButton:(id)sender {
     [self.embeddedView loadURL:self.textView.text completion:nil];
-    
-    [[OGDataProvider sharedInstance] fetchOGDataWithUrlString:self.textView.text
+        
+    [[OGDataProvider sharedInstance] fetchOGDataWithURLString:@"https://github.com/"
                                                    completion:^(OpenGraphData *data, NSError *error) {
        NSLog(@"OpenGraphData = %@", data);
     }];

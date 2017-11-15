@@ -20,8 +20,11 @@ struct YoutubeEmbedRequest: OGRequest {
     }
     
     static func response(data: Data) throws -> OpenGraph.Youtube {
-        let rawJson = try JSONSerialization.jsonObject(with: data, options: [])
-        let json = try (rawJson as? [AnyHashable : Any]) ?? { throw OGSession.Error.castFaild }()
-        return try OpenGraph.Youtube(json: json) ?? { throw OGSession.Error.jsonDecodeFaild }()
+        return try JSONDecoder().decode(OpenGraph.Youtube.self, from: data)
+        
+        
+        //let rawJson = try JSONSerialization.jsonObject(with: data, options: [])
+        //let json = try (rawJson as? [AnyHashable : Any]) ?? { throw OGSession.Error.castFaild }()
+        //return try OpenGraph.Youtube(json: json) ?? { throw OGSession.Error.jsonDecodeFaild }()
     }
 }

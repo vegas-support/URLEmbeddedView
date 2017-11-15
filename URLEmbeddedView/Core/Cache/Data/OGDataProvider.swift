@@ -26,12 +26,12 @@ public final class OGDataProvider: NSObject {
     }
     
     @discardableResult
-    @objc public func fetchOGDataWithUrlString(_ urlString: String, completion: ((OpenGraphData, Error?) -> Void)? = nil) -> String {
-        return fetchOGData(urlString: urlString) { completion?($0 as OpenGraphData, $1) }
+    @objc public func fetchOGDataWithURLString(_ urlString: String, completion: ((OpenGraphData, Error?) -> Void)? = nil) -> String {
+        return fetchOGData(withURLString: urlString) { completion?($0 as OpenGraphData, $1) }
     }
     
     @discardableResult
-    public func fetchOGData(urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)? = nil) -> String {
+    @nonobjc public func fetchOGData(withURLString urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)? = nil) -> String {
         let uuid = UUID()
         OGData.fetchOrInsertOGData(url: urlString) { [weak self] ogData in
             guard let me = self else { return }

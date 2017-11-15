@@ -375,7 +375,7 @@ open class URLEmbeddedView: UIView {
         guard let URL = URL else { return }
         prepareViewsForReuse()
         activityView.startAnimating()
-        uuidString = OGDataProvider.shared.fetchOGData(urlString: URL.absoluteString) { [weak self] ogData, error in
+        uuidString = OGDataProvider.shared.fetchOGData(withURLString: URL.absoluteString) { [weak self] ogData, error in
             DispatchQueue.main.async {
                 self?.activityView.stopAnimating()
                 if let error = error {

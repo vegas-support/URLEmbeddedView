@@ -14,6 +14,8 @@ final class URLImageView: UIImageView {
     var activityViewHidden: Bool = false
     var stopTaskWhenCancel = false
     
+    private var imageManger: OGImageManager = .shared
+    
     init() {
         super.init(frame: .zero)
         initialize()
@@ -35,7 +37,7 @@ final class URLImageView: UIImageView {
         if !activityViewHidden {
             activityView.startAnimating()
         }
-        uuidString = OGImageProvider.shared.loadImage(urlString: urlString) { [weak self] image, error in
+        uuidString = imageManger.loadImage(urlString: urlString) { [weak self] image, error in
             DispatchQueue.main.async {
                 if self?.activityViewHidden == false {
                     self?.activityView.stopAnimating()
@@ -56,7 +58,7 @@ final class URLImageView: UIImageView {
             activityView.stopAnimating()
         }
         guard let uuidString = uuidString else { return }
-        OGImageProvider.shared.cancelLoad(uuidString, stopTask: stopTaskWhenCancel)
+        imageManger.cancelLoad(uuidString, stopTask: stopTaskWhenCancel)
     }
 }
 

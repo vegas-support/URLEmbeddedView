@@ -60,24 +60,17 @@ extension OpenGraph {
 }
 
 extension OpenGraph {
-    struct Youtube {
+    struct Youtube: Codable {
         let title: String
         let type: String
         let providerName: String
         let thumbnailUrl: String
         
-        init?(json: [AnyHashable : Any]) {
-            guard let title = json["title"] as? String else { return nil }
-            self.title = title
-            
-            guard let type = json["type"] as? String else { return nil }
-            self.type = type
-            
-            guard let providerName = json["provider_name"] as? String else { return nil }
-            self.providerName = providerName
-            
-            guard let thumbnailUrl = json["thumbnail_url"] as? String else { return nil }
-            self.thumbnailUrl = thumbnailUrl
+        enum CodingKeys: String, CodingKey {
+            case title
+            case type
+            case providerName = "provider_name"
+            case thumbnailUrl = "thumbnail_url"
         }
     }
 }
@@ -147,6 +140,18 @@ extension OpenGraph.Data: _ObjectiveCBridgeable {
         self.url = source.url
     }
     
+    private init() {
+        self.createdAt = Date()
+        self.imageUrl = nil
+        self.pageDescription = nil
+        self.pageTitle = nil
+        self.pageType = nil
+        self.siteName = nil
+        self.sourceUrl = nil
+        self.updatedAt = Date()
+        self.url = nil
+    }
+    
     public func _bridgeToObjectiveC() -> OpenGraphData {
         return .init(source: self)
     }
@@ -161,7 +166,6 @@ extension OpenGraph.Data: _ObjectiveCBridgeable {
     }
     
     public static func _unconditionallyBridgeFromObjectiveC(_ source: OpenGraphData?) -> OpenGraph.Data {
-        guard let source = source else { fatalError("source is nil") }
-        return .init(source: source)
+        return .init()
     }
 }

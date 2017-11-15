@@ -1,5 +1,5 @@
 //
-//  OGImageProvider.swift
+//  OGImageManager.swift
 //  URLEmbeddedView
 //
 //  Created by Taiki Suzuki on 2016/03/07.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class OGImageProvider: NSObject {
+public final class OGImageManager: NSObject {
     private final class Task {
         let innerTask: URLSessionTask
         var shouldExecuteCompletion: Bool
@@ -21,7 +21,7 @@ public final class OGImageProvider: NSObject {
     
     //MARK: - Static constants
     @objc(sharedInstance)
-    public static let shared = OGImageProvider()
+    public static let shared = OGImageManager()
     
     //MARK: - Properties
     private let session = OGSession(configuration: .default)
