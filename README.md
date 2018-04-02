@@ -22,6 +22,7 @@
 - [x] Support Swift3.2 (until 0.11.x)
 - [x] Support Swift4
 - [x] Support Carthage since 0.11.1
+- [x] Supprot Swift4.1 since 0.15.0
 
 ## Usage
 

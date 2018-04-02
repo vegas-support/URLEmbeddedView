@@ -31,7 +31,7 @@ public final class OGDataProvider: NSObject {
     }
     
     @discardableResult
-    public func fetchOGData(urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)? = nil) -> String {
+    @nonobjc public func fetchOGData(urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)? = nil) -> String {
         let uuid = UUID()
         OGData.fetchOrInsertOGData(url: urlString) { [weak self] ogData in
             guard let me = self else { return }
