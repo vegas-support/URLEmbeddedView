@@ -109,15 +109,15 @@ extension OpenGraph {
 }
 
 @objc public class OpenGraphData: NSObject {
-    public let createdAt: Date
-    public let imageUrl: URL?
-    public let pageDescription: String?
-    public let pageTitle: String?
-    public let pageType: String?
-    public let siteName: String?
-    public let sourceUrl: URL?
-    public let updatedAt: Date
-    public let url: URL?
+    @objc public let createdAt: Date
+    @objc public let imageUrl: URL?
+    @objc public let pageDescription: String?
+    @objc public let pageTitle: String?
+    @objc public let pageType: String?
+    @objc public let siteName: String?
+    @objc public let sourceUrl: URL?
+    @objc public let updatedAt: Date
+    @objc public let url: URL?
     
     fileprivate init(source: OpenGraph.Data) {
         self.createdAt = source.createdAt

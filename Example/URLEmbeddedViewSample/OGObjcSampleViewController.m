@@ -49,8 +49,10 @@
     [self.embeddedView loadURL:self.textView.text completion:nil];
     
     [[OGDataProvider sharedInstance] fetchOGDataWithUrlString:self.textView.text
-                                                   completion:^(OpenGraphData *data, NSError *error) {
-       NSLog(@"OpenGraphData = %@", data);
+                                                   completion:^(OpenGraphData *data, NSError *error)
+    {
+        NSLog(@"OpenGraphData = %@", data);
+        NSLog(@"siteName = %@", data.siteName);
     }];
 }
 
