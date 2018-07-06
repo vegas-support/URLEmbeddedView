@@ -38,7 +38,7 @@ extension OpenGraph {
             guard let regex = Const.regex else { return nil }
             let range = NSRange(htmlString.startIndex..<htmlString.endIndex, in: htmlString)
             let results = regex.matches(in: htmlString, options: [], range: range)
-            let metaList: [Metadata] = results.flatMap { result in
+            let metaList: [Metadata] = results.compactMap { result in
                 guard result.numberOfRanges > 2 else { return nil }
                 let initial = Metadata(property: "", content: "")
                 let metaData = (0..<result.numberOfRanges).reduce(initial) { metadata, index in

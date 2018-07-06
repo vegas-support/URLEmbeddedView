@@ -17,17 +17,17 @@ final class OGDataCacheManager: NSObject {
         static let timeOfExpirationForOGData = "TimeOfExpirationForOGDataCache"
     }
     
-    lazy var applicationDocumentsDirectory: URL = {
+    private(set) lazy var applicationDocumentsDirectory: URL = {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1]
     }()
     
-    lazy var managedObjectModel: NSManagedObjectModel = {
+    private(set) lazy var managedObjectModel: NSManagedObjectModel = {
         let modelURL = Bundle(for: type(of: self)).url(forResource: "URLEmbeddedViewOGData", withExtension: "momd")!
         return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+    private(set) lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.appendingPathComponent("URLEmbeddedViewOGData.sqlite")
         var failureReason = "There was an error creating or loading the application's saved data."
@@ -47,20 +47,20 @@ final class OGDataCacheManager: NSObject {
         return coordinator
     }()
     
-    lazy var writerManagedObjectContext: NSManagedObjectContext = {
+    private(set) lazy var writerManagedObjectContext: NSManagedObjectContext = {
         let coordinator = self.persistentStoreCoordinator
         var managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()
     
-    lazy var mainManagedObjectContext: NSManagedObjectContext = {
+    private(set) lazy var mainManagedObjectContext: NSManagedObjectContext = {
         var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.parent = self.writerManagedObjectContext
         return managedObjectContext
     }()
     
-    lazy var updateManagedObjectContext: NSManagedObjectContext = {
+    private(set) lazy var updateManagedObjectContext: NSManagedObjectContext = {
         var managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.parent = self.mainManagedObjectContext
         return managedObjectContext
