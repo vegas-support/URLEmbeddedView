@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class OGDataProvider: NSObject {
+@objc public final class OGDataProvider: NSObject {
     //MARK: Static constants
     @objc(sharedInstance)
     public static let shared = OGDataProvider()

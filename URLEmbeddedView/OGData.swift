@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public final class OGData: NSManagedObject {
+@objc public final class OGData: NSManagedObject {
     fileprivate enum PropertyName: String {
         case description = "og:description"
         case image       = "og:image"

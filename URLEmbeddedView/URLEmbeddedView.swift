@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class URLEmbeddedView: UIView {
+@objc open class URLEmbeddedView: UIView {
     private typealias ATP = AttributedTextProvider
     //MARK: - Static constants
     private struct Const {
