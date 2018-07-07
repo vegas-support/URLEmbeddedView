@@ -25,10 +25,25 @@ extension OpenGraph {
         }
         
         struct Metadata {
+            enum Error: Swift.Error {
+                case faildToConvertData(String)
+            }
+
             let property: String
             let content: String
             fileprivate var isValid: Bool {
                 return !property.isEmpty && !content.isEmpty
+            }
+
+            func unescapedContent() throws -> String {
+                guard let data = content.data(using: .utf8) else {
+                    throw Error.faildToConvertData(content)
+                }
+                let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+                    .documentType : NSAttributedString.DocumentType.html,
+                    .characterEncoding: String.Encoding.utf8.rawValue
+                ]
+                return try NSAttributedString(data: data, options: options, documentAttributes: nil).string
             }
         }
         
