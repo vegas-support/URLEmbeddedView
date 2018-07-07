@@ -10,13 +10,33 @@ import Foundation
 import CoreData
 
 @objc public final class OGData: NSManagedObject {
-    fileprivate enum PropertyName: String {
-        case description = "og:description"
-        case image       = "og:image"
-        case siteName    = "og:site_name"
-        case title       = "og:title"
-        case type        = "og:type"
-        case url         = "og:url"
+    private enum PropertyName {
+        case description
+        case image
+        case siteName
+        case title
+        case type
+        case url
+
+        init?(_ meta: OpenGraph.HTML.Metadata) {
+            let property = meta.property
+            let content = meta.content
+            if property.contains("og:description") {
+                self = .description
+            } else if property.contains("og:image") && content.contains("http") {
+                self = .image
+            } else if property.contains("og:site_name") {
+                self = .siteName
+            } else if property.contains("og:title") {
+                self = .title
+            } else if property.contains("og:type") {
+                self = .type
+            } else if property.contains("og:url") {
+                self = .url
+            } else {
+                return nil
+            }
+        }
     }
 
     class func fetchOrInsertOGData(url: String,
@@ -49,11 +69,11 @@ import CoreData
 
     func setValue(_ html: OpenGraph.HTML) {
         html.metaList.forEach {
-            guard let propertyName = PropertyName(rawValue: $0.property) else { return }
+            guard let propertyName = PropertyName($0) else { return }
             switch propertyName  {
             case .siteName    : siteName        = $0.content
             case .type        : pageType        = $0.content
-            case .title       : pageTitle       = $0.content
+            case .title       : pageTitle       = (try? $0.unescapedContent()) ?? ""
             case .image       : imageUrl        = $0.content
             case .url         : url             = $0.content
             case .description : pageDescription = $0.content.replacingOccurrences(of: "\n", with: " ")
