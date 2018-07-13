@@ -35,7 +35,7 @@ extension String {
         let md5 = MD5().calculate(for: self.utf8.lazy.map({ $0 as UInt8 }))
         return md5.lazy.reduce("") {
             var s = String($1, radix: 16)
-            if s.characters.count == 1 {
+            if s.count == 1 {
                 s = "0" + s
             }
             return $0 + s
@@ -45,7 +45,7 @@ extension String {
 
 private final class MD5 {
     private struct BytesSequence: Sequence {
-        let chunkSize: Array<UInt8>.IndexDistance
+        let chunkSize: Int
         let data: Array<UInt8>
         
         func makeIterator() -> AnyIterator<ArraySlice<UInt8>> {
@@ -188,9 +188,14 @@ private final class MD5 {
                 for j in 0 ..< min(MemoryLayout<T>.size, totalBytes) {
                     bytes[totalBytes - 1 - j] = (bytesPointer + j).pointee
                 }
-                
+
+                #if swift(>=4.1)
+                valuePointer.deinitialize(count: 1)
+                valuePointer.deallocate()
+                #else
                 valuePointer.deinitialize()
                 valuePointer.deallocate(capacity: 1)
+                #endif
                 
                 return bytes
             }()

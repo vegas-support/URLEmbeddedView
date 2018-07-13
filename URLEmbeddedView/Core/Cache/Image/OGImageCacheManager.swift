@@ -87,7 +87,7 @@ final class OGImageCacheManager: NSObject {
     //MARK: - Read and write
     private func pathForURLString(_ urlString: String) -> String {
         let md5String = urlString.md5()
-        if md5String.characters.count < 2 { return cacheDirectory + "/" }
+        if md5String.count < 2 { return cacheDirectory + "/" }
         let substring = md5String[..<md5String.index(md5String.startIndex, offsetBy: 2)]
         return cacheDirectory + "/" + substring + "/" + md5String
     }
