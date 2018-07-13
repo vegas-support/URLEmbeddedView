@@ -6,4 +6,5 @@
 //  Copyright © 2018年 marty-suzuki. All rights reserved.
 //
 
-import Foundation
+/// name space
+public enum OpenGraph {}

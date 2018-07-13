@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		3744376020F90CA2008ABA8D /* Gap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744375F20F90CA2008ABA8D /* Gap.swift */; };
+		3744376320F90F37008ABA8D /* OpenGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376220F90F37008ABA8D /* OpenGraph.swift */; };
+		3744376520F90F4F008ABA8D /* OpenGraph.HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376420F90F4F008ABA8D /* OpenGraph.HTML.swift */; };
+		3744376720F90F63008ABA8D /* OpenGraph.Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376620F90F63008ABA8D /* OpenGraph.Youtube.swift */; };
+		3744376920F90F76008ABA8D /* OpenGraph.Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376820F90F76008ABA8D /* OpenGraph.Data.swift */; };
+		3744376B20F90FAE008ABA8D /* OpenGraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376A20F90FAE008ABA8D /* OpenGraphData.swift */; };
 		3751D0751FBCA9840035E242 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0591FBCA9840035E242 /* MD5.swift */; };
 		3751D0761FBCA9840035E242 /* NSTimeInterval+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */; };
 		3751D0771FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */; };
@@ -15,7 +20,6 @@
 		3751D0791FBCA9840035E242 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05F1FBCA9840035E242 /* ImageRequest.swift */; };
 		3751D07A1FBCA9840035E242 /* OGRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0601FBCA9840035E242 /* OGRequest.swift */; };
 		3751D07B1FBCA9840035E242 /* OGSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0611FBCA9840035E242 /* OGSession.swift */; };
-		3751D07C1FBCA9840035E242 /* OpenGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0621FBCA9840035E242 /* OpenGraph.swift */; };
 		3751D07D1FBCA9840035E242 /* YoutubeEmbedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0631FBCA9840035E242 /* YoutubeEmbedRequest.swift */; };
 		3751D07E1FBCA9840035E242 /* OGData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0661FBCA9840035E242 /* OGData+CoreDataProperties.swift */; };
 		3751D07F1FBCA9840035E242 /* OGData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0671FBCA9840035E242 /* OGData.swift */; };
@@ -37,6 +41,11 @@
 
 /* Begin PBXFileReference section */
 		3744375F20F90CA2008ABA8D /* Gap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gap.swift; sourceTree = "<group>"; };
+		3744376220F90F37008ABA8D /* OpenGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraph.swift; sourceTree = "<group>"; };
+		3744376420F90F4F008ABA8D /* OpenGraph.HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraph.HTML.swift; sourceTree = "<group>"; };
+		3744376620F90F63008ABA8D /* OpenGraph.Youtube.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraph.Youtube.swift; sourceTree = "<group>"; };
+		3744376820F90F76008ABA8D /* OpenGraph.Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraph.Data.swift; sourceTree = "<group>"; };
+		3744376A20F90FAE008ABA8D /* OpenGraphData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphData.swift; sourceTree = "<group>"; };
 		3751D0591FBCA9840035E242 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimeInterval+Util.swift"; sourceTree = "<group>"; };
 		3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+URLEmbeddedView.swift"; sourceTree = "<group>"; };
@@ -44,7 +53,6 @@
 		3751D05F1FBCA9840035E242 /* ImageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		3751D0601FBCA9840035E242 /* OGRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGRequest.swift; sourceTree = "<group>"; };
 		3751D0611FBCA9840035E242 /* OGSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGSession.swift; sourceTree = "<group>"; };
-		3751D0621FBCA9840035E242 /* OpenGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenGraph.swift; sourceTree = "<group>"; };
 		3751D0631FBCA9840035E242 /* YoutubeEmbedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeEmbedRequest.swift; sourceTree = "<group>"; };
 		3751D0661FBCA9840035E242 /* OGData+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OGData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3751D0671FBCA9840035E242 /* OGData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGData.swift; sourceTree = "<group>"; };
@@ -78,6 +86,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3744376120F90F19008ABA8D /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				3744376820F90F76008ABA8D /* OpenGraph.Data.swift */,
+				3744376420F90F4F008ABA8D /* OpenGraph.HTML.swift */,
+				3744376220F90F37008ABA8D /* OpenGraph.swift */,
+				3744376620F90F63008ABA8D /* OpenGraph.Youtube.swift */,
+				3744376A20F90FAE008ABA8D /* OpenGraphData.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		3751D0581FBCA9840035E242 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +114,7 @@
 			children = (
 				3751D05D1FBCA9840035E242 /* API */,
 				3751D0641FBCA9840035E242 /* Cache */,
+				3744376120F90F19008ABA8D /* Entity */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -105,7 +126,6 @@
 				3751D05F1FBCA9840035E242 /* ImageRequest.swift */,
 				3751D0601FBCA9840035E242 /* OGRequest.swift */,
 				3751D0611FBCA9840035E242 /* OGSession.swift */,
-				3751D0621FBCA9840035E242 /* OpenGraph.swift */,
 				3751D0631FBCA9840035E242 /* YoutubeEmbedRequest.swift */,
 			);
 			path = API;
@@ -291,7 +311,11 @@
 				3751D0831FBCA9840035E242 /* OGImageManager.swift in Sources */,
 				3751D07A1FBCA9840035E242 /* OGRequest.swift in Sources */,
 				3751D07B1FBCA9840035E242 /* OGSession.swift in Sources */,
-				3751D07C1FBCA9840035E242 /* OpenGraph.swift in Sources */,
+				3744376920F90F76008ABA8D /* OpenGraph.Data.swift in Sources */,
+				3744376520F90F4F008ABA8D /* OpenGraph.HTML.swift in Sources */,
+				3744376320F90F37008ABA8D /* OpenGraph.swift in Sources */,
+				3744376720F90F63008ABA8D /* OpenGraph.Youtube.swift in Sources */,
+				3744376B20F90FAE008ABA8D /* OpenGraphData.swift in Sources */,
 				3751D0881FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift in Sources */,
 				3751D0891FBCA9840035E242 /* URLEmbeddedView.swift in Sources */,
 				37F9EA851F8A0CFB00858317 /* URLEmbeddedViewOGData.xcdatamodeld in Sources */,

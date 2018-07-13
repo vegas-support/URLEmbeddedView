@@ -7,3 +7,19 @@
 //
 
 import Foundation
+
+extension OpenGraph {
+    struct Youtube: Codable {
+        let title: String
+        let type: String
+        let providerName: String
+        let thumbnailUrl: String
+
+        enum CodingKeys: String, CodingKey {
+            case title
+            case type
+            case providerName = "provider_name"
+            case thumbnailUrl = "thumbnail_url"
+        }
+    }
+}
