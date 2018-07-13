@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3744376020F90CA2008ABA8D /* Gap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744375F20F90CA2008ABA8D /* Gap.swift */; };
 		3751D0751FBCA9840035E242 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0591FBCA9840035E242 /* MD5.swift */; };
 		3751D0761FBCA9840035E242 /* NSTimeInterval+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */; };
 		3751D0771FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */; };
@@ -29,13 +30,13 @@
 		3751D0881FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0721FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift */; };
 		3751D0891FBCA9840035E242 /* URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0731FBCA9840035E242 /* URLEmbeddedView.swift */; };
 		3751D08A1FBCA9840035E242 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0741FBCA9840035E242 /* URLImageView.swift */; };
-		37E1B1BF20EFDE18007BCA4C /* Gap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B1BE20EFDE18007BCA4C /* Gap.swift */; };
 		37F9EA841F8A0CFB00858317 /* LinkIcon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 37F9EA801F8A0CFB00858317 /* LinkIcon.pdf */; };
 		37F9EA851F8A0CFB00858317 /* URLEmbeddedViewOGData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37F9EA811F8A0CFB00858317 /* URLEmbeddedViewOGData.xcdatamodeld */; };
 		ED602B6E1F42D4EB00A45816 /* URLEmbeddedView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3744375F20F90CA2008ABA8D /* Gap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gap.swift; sourceTree = "<group>"; };
 		3751D0591FBCA9840035E242 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimeInterval+Util.swift"; sourceTree = "<group>"; };
 		3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+URLEmbeddedView.swift"; sourceTree = "<group>"; };
@@ -58,7 +59,6 @@
 		3751D0721FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLEmbeddedView+Inspectable.swift"; sourceTree = "<group>"; };
 		3751D0731FBCA9840035E242 /* URLEmbeddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLEmbeddedView.swift; sourceTree = "<group>"; };
 		3751D0741FBCA9840035E242 /* URLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
-		37E1B1BE20EFDE18007BCA4C /* Gap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gap.swift; sourceTree = "<group>"; };
 		37F9EA801F8A0CFB00858317 /* LinkIcon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = LinkIcon.pdf; sourceTree = "<group>"; };
 		37F9EA821F8A0CFB00858317 /* URLEmbeddedViewOGData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = URLEmbeddedViewOGData.xcdatamodel; sourceTree = "<group>"; };
 		37F9EA831F8A0CFB00858317 /* URLEmbeddedViewOGData2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = URLEmbeddedViewOGData2.xcdatamodel; sourceTree = "<group>"; };
@@ -81,6 +81,7 @@
 		3751D0581FBCA9840035E242 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				3744375F20F90CA2008ABA8D /* Gap.swift */,
 				3751D0591FBCA9840035E242 /* MD5.swift */,
 				3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */,
 				3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */,
@@ -165,9 +166,9 @@
 		ED602B5F1F42D4EB00A45816 = {
 			isa = PBXGroup;
 			children = (
+				ED602B6A1F42D4EB00A45816 /* Products */,
 				37F9EA7F1F8A0CFB00858317 /* Resources */,
 				ED602B6B1F42D4EB00A45816 /* URLEmbeddedView */,
-				ED602B6A1F42D4EB00A45816 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -185,9 +186,8 @@
 				3751D05C1FBCA9840035E242 /* Core */,
 				3751D0581FBCA9840035E242 /* Extension */,
 				3751D06D1FBCA9840035E242 /* UI */,
-				ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */,
-				37E1B1BE20EFDE18007BCA4C /* Gap.swift */,
 				ED602B6D1F42D4EB00A45816 /* Info.plist */,
+				ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */,
 			);
 			path = URLEmbeddedView;
 			sourceTree = "<group>";
@@ -274,29 +274,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				3751D0841FBCA9840035E242 /* AttributedTextProvider.swift in Sources */,
-				3751D0881FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift in Sources */,
-				3751D0821FBCA9840035E242 /* OGImageCacheManager.swift in Sources */,
-				3751D0751FBCA9840035E242 /* MD5.swift in Sources */,
-				3751D07C1FBCA9840035E242 /* OpenGraph.swift in Sources */,
-				3751D0801FBCA9840035E242 /* OGDataCacheManager.swift in Sources */,
-				3751D0831FBCA9840035E242 /* OGImageManager.swift in Sources */,
-				3751D0791FBCA9840035E242 /* ImageRequest.swift in Sources */,
-				3751D0761FBCA9840035E242 /* NSTimeInterval+Util.swift in Sources */,
 				3751D0851FBCA9840035E242 /* AttributeManager.swift in Sources */,
-				3751D0771FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift in Sources */,
 				3751D0861FBCA9840035E242 /* AutoLayout.swift in Sources */,
-				3751D0871FBCA9840035E242 /* LinkIconView.swift in Sources */,
-				3751D07E1FBCA9840035E242 /* OGData+CoreDataProperties.swift in Sources */,
-				3751D07B1FBCA9840035E242 /* OGSession.swift in Sources */,
-				3751D07F1FBCA9840035E242 /* OGData.swift in Sources */,
+				3744376020F90CA2008ABA8D /* Gap.swift in Sources */,
 				3751D0781FBCA9840035E242 /* HtmlRequest.swift in Sources */,
-				3751D07D1FBCA9840035E242 /* YoutubeEmbedRequest.swift in Sources */,
+				3751D0791FBCA9840035E242 /* ImageRequest.swift in Sources */,
+				3751D0871FBCA9840035E242 /* LinkIconView.swift in Sources */,
+				3751D0751FBCA9840035E242 /* MD5.swift in Sources */,
+				3751D0761FBCA9840035E242 /* NSTimeInterval+Util.swift in Sources */,
+				3751D0771FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift in Sources */,
+				3751D07E1FBCA9840035E242 /* OGData+CoreDataProperties.swift in Sources */,
+				3751D07F1FBCA9840035E242 /* OGData.swift in Sources */,
+				3751D0801FBCA9840035E242 /* OGDataCacheManager.swift in Sources */,
+				3751D0811FBCA9840035E242 /* OGDataProvider.swift in Sources */,
+				3751D0821FBCA9840035E242 /* OGImageCacheManager.swift in Sources */,
+				3751D0831FBCA9840035E242 /* OGImageManager.swift in Sources */,
+				3751D07A1FBCA9840035E242 /* OGRequest.swift in Sources */,
+				3751D07B1FBCA9840035E242 /* OGSession.swift in Sources */,
+				3751D07C1FBCA9840035E242 /* OpenGraph.swift in Sources */,
+				3751D0881FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift in Sources */,
 				3751D0891FBCA9840035E242 /* URLEmbeddedView.swift in Sources */,
 				37F9EA851F8A0CFB00858317 /* URLEmbeddedViewOGData.xcdatamodeld in Sources */,
-				3751D0811FBCA9840035E242 /* OGDataProvider.swift in Sources */,
-				3751D07A1FBCA9840035E242 /* OGRequest.swift in Sources */,
 				3751D08A1FBCA9840035E242 /* URLImageView.swift in Sources */,
-				37E1B1BF20EFDE18007BCA4C /* Gap.swift in Sources */,
+				3751D07D1FBCA9840035E242 /* YoutubeEmbedRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
