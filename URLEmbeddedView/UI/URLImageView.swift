@@ -10,9 +10,9 @@ import UIKit
 
 final class URLImageView: UIImageView {
     private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    private var uuidString: String?
+    private var currentTask: Task?
     var activityViewHidden: Bool = false
-    var stopTaskWhenCancel = false
+    var shouldContinueDownloadingWhenCancel = true
     
     private var imageManger: OGImageManager = .shared
     
@@ -32,33 +32,29 @@ final class URLImageView: UIImageView {
         addConstraints(with: activityView, center: .zero)
     }
     
-    func loadImage(urlString: String, completion: ((UIImage?, Error?) -> Void)? = nil) {
-        cancelLoadImage()
+    func loadImage(urlString: String, completion: ((Result<UIImage>) -> Void)? = nil) {
+        cancelLoadingImage()
         if !activityViewHidden {
             activityView.startAnimating()
         }
-        uuidString = imageManger.loadImage(urlString: urlString) { [weak self] image, error in
+        currentTask = imageManger.loadImage(withURLString: urlString) { [weak self] result in
             DispatchQueue.main.async {
                 if self?.activityViewHidden == false {
                     self?.activityView.stopAnimating()
                 }
-                if let error = error {
-                    self?.image = nil
-                    completion?(nil, error)
-                    return
-                }
-                self?.image = image
-                completion?(image, nil)
+                self?.image = result.value
+                completion?(result)
             }
         }
     }
     
-    func cancelLoadImage() {
+    func cancelLoadingImage() {
         if !activityViewHidden {
             activityView.stopAnimating()
         }
-        guard let uuidString = uuidString else { return }
-        imageManger.cancelLoad(uuidString, stopTask: stopTaskWhenCancel)
+        if let task = currentTask {
+            imageManger.cancelLoading(task, shouldContinueDownloading: shouldContinueDownloadingWhenCancel)
+        }
     }
 }
 

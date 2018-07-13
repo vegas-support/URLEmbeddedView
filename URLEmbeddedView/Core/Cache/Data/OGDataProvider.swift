@@ -26,13 +26,13 @@ import Foundation
     }
     
     @discardableResult
-    @objc public func fetchOGDataWithURLString(_ urlString: String, completion: ((OpenGraphData, Error?) -> Void)? = nil) -> String {
+    @objc public func fetchOGDataWithURLString(_ urlString: String, completion: ((OpenGraphData, Error?) -> Void)? = nil) -> Task {
         return fetchOGData(withURLString: urlString) { completion?($0 as OpenGraphData, $1) }
     }
     
     @discardableResult
-    @nonobjc public func fetchOGData(withURLString urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)? = nil) -> String {
-        let uuid = UUID()
+    @nonobjc public func fetchOGData(withURLString urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)? = nil) -> Task {
+        let task = Task()
         OGData.fetchOrInsertOGData(url: urlString) { [weak self] ogData in
             guard let me = self else { return }
             if !ogData.sourceUrl.isEmpty {
@@ -57,7 +57,7 @@ import Foundation
                     completion?(.init(ogData: ogData), NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
                     return
                 }
-                me.session.send(request, uuid: uuid, success: { youtube, isExpired in
+                me.session.send(request, task: task, success: { youtube, isExpired in
                     ogData.managedObjectContext?.perform {
                         ogData.setValue(youtube)
                         ogData.save()
@@ -66,7 +66,7 @@ import Foundation
                 }, failure: failure)
             } else {
                 let request = HtmlRequest(url: url)
-                me.session.send(request, uuid: uuid, success: { html, isExpired in
+                me.session.send(request, task: task, success: { html, isExpired in
                     ogData.managedObjectContext?.perform {
                         ogData.setValue(html)
                         ogData.save()
@@ -75,7 +75,7 @@ import Foundation
                 }, failure: failure)
             }
         }
-        return uuid.uuidString
+        return task
     }
     
     @objc public func deleteOGData(urlString: String, completion: ((NSError?) -> Void)? = nil) {
@@ -92,7 +92,7 @@ import Foundation
         OGDataCacheManager.shared.delete(ogData, completion: completion)
     }
     
-    func cancelLoad(_ uuidString: String, stopTask: Bool) {
-        session.cancelLoad(withUUIDString: uuidString, stopTask: stopTask)
+    func cancelLoading(_ task: Task, shouldContinueDownloading: Bool) {
+        task.expire(shouldContinueDownloading: shouldContinueDownloading)
     }
 }

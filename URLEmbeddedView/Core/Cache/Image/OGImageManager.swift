@@ -10,58 +10,51 @@ import Foundation
 
 @objc public final class OGImageManager: NSObject {
 
-    private final class Task {
-        let innerTask: URLSessionTask
-        var shouldExecuteCompletion: Bool
-        
-        init(innerTask: URLSessionTask) {
-            self.innerTask = innerTask
-            self.shouldExecuteCompletion = true
-        }
-    }
-    
     //MARK: - Static constants
     @objc(sharedInstance)
     public static let shared = OGImageManager()
     
     //MARK: - Properties
     private let session = OGSession(configuration: .default)
+    private let cacheManager: OGImageCacheManager = .shared
     
     private override init() {
         super.init()
     }
 
-    @objc public func loadImage(urlString: String, completion: ((UIImage?, Error?) -> Void)? = nil) -> String? {
+    @objc public func loadImage(withURLString urlString: String, completion: ((UIImage?, Error?) -> Void)? = nil) -> Task? {
+        return loadImage(withURLString: urlString) { completion?($0.value, $0.error) }
+    }
+    
+    @nonobjc public func loadImage(withURLString urlString: String, completion: ((Result<UIImage>) -> Void)? = nil) -> Task? {
         guard let url = URL(string: urlString) else {
-            completion?(nil, NSError(domain: "can not create NSURL with \(urlString)", code: 9999, userInfo: nil))
+            completion?(.failure(URLEmbeddedViewError.invalidURLString(urlString)))
             return nil
         }
         if !urlString.isEmpty {
-            if let image = OGImageCacheManager.shared.cachedImage(urlString: urlString) {
-                completion?(image, nil)
+            if let image = cacheManager.cachedImage(urlString: urlString) {
+                completion?(.success(image))
                 return nil
             }
         }
         let request = ImageRequest(url: url)
-        let uuid = UUID()
-        session.send(request, uuid: uuid, success: { value, isExpired in
-            OGImageCacheManager.shared.storeImage(value.1, data: value.0, urlString: urlString)
-            if !isExpired { completion?(value.1, nil) }
+        return session.send(request, success: { [weak self] value, isExpired in
+            self?.cacheManager.storeImage(value.1, data: value.0, urlString: urlString)
+            if !isExpired { completion?(.success(value.1)) }
         }, failure: { error, isExpired in
-            if !isExpired { completion?(nil,  error) }
+            if !isExpired { completion?(.failure(error)) }
         })
-        return uuid.uuidString
     }
     
     @objc public func clearMemoryCache() {
-        OGImageCacheManager.shared.clearMemoryCache()
+        cacheManager.clearMemoryCache()
     }
     
     @objc public func clearAllCache() {
-        OGImageCacheManager.shared.clearAllCache()
+        cacheManager.clearAllCache()
     }
     
-    func cancelLoad(_ uuidString: String, stopTask: Bool) {
-       session.cancelLoad(withUUIDString: uuidString, stopTask: stopTask)
+    func cancelLoading(_ task: Task, shouldContinueDownloading: Bool) {
+        task.expire(shouldContinueDownloading: shouldContinueDownloading)
     }
 }

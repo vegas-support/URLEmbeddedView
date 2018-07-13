@@ -7,24 +7,50 @@
 
 import Foundation
 
-final class OGSession {
-    private final class Task {
-        private let task: URLSessionTask
-        private(set) var isExpired: Bool
-        
-        init(task: URLSessionTask) {
-            self.task = task
-            self.isExpired = false
-        }
-        
-        func expire(andCancel shouldCancel: Bool) {
-            isExpired = true
-            if shouldCancel {
-                task.cancel()
-            }
-        }
+public enum URLEmbeddedViewError: Error {
+    case invalidURLString(String)
+}
+
+public enum Result<T> {
+    case success(T)
+    case failure(Error)
+    
+    var value: T? {
+        if case .success(let value) = self { return value }
+        return nil
     }
     
+    var error: Error? {
+        if case .failure(let error) = self { return error }
+        return nil
+    }
+}
+
+@objc public final class Task: NSObject {
+    private var task: URLSessionTask?
+    private(set) var isExpired: Bool
+    let uuidString: String
+    
+    override init() {
+        self.task = nil
+        self.isExpired = false
+        self.uuidString = UUID().uuidString
+        super.init()
+    }
+    
+    fileprivate func setTask(_ task: URLSessionTask) {
+        self.task = task
+    }
+    
+    func expire(shouldContinueDownloading: Bool) {
+        isExpired = true
+        if !shouldContinueDownloading {
+            task?.cancel()
+        }
+    }
+}
+
+final class OGSession {
     enum Error: Swift.Error {
         case noData
         case castFaild
@@ -43,8 +69,9 @@ final class OGSession {
         self.session = URLSession(configuration: configuration)
     }
     
-    func send<T: OGRequest>(_ request: T, uuid: UUID, success: @escaping (T.Response, Bool) -> Void, failure: @escaping (OGSession.Error, Bool) -> Void) {
-        let uuidString = uuid.uuidString
+    @discardableResult
+    func send<T: OGRequest>(_ request: T, task: Task = .init(), success: @escaping (T.Response, Bool) -> Void, failure: @escaping (OGSession.Error, Bool) -> Void) -> Task {
+        let uuidString = task.uuidString
         let dataTask = session.dataTask(with: request.urlRequest) { [weak self] data, response, error in
             let isExpired = self?.taskCollection[uuidString]?.isExpired ?? true
             self?.taskCollection.removeValue(forKey: uuidString)
@@ -65,12 +92,9 @@ final class OGSession {
                 failure(.other(e), isExpired)
             }
         }
-        let task = Task(task: dataTask)
-        taskCollection[uuid.uuidString] = task
+        task.setTask(dataTask)
+        taskCollection[task.uuidString] = task
         dataTask.resume()
-    }
-    
-    func cancelLoad(withUUIDString uuidString: String, stopTask: Bool) {
-        taskCollection[uuidString]?.expire(andCancel: stopTask)
+        return task
     }
 }
