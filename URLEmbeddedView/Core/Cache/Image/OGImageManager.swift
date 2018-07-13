@@ -8,7 +8,8 @@
 
 import Foundation
 
-public final class OGImageManager: NSObject {
+@objc public final class OGImageManager: NSObject {
+
     private final class Task {
         let innerTask: URLSessionTask
         var shouldExecuteCompletion: Bool

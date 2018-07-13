@@ -30,7 +30,7 @@ extension UIView {
                 (.width, size.width),
                 (.height, size.height)
             ]
-            .flatMap { value in
+            .compactMap { (value: (NSLayoutAttribute, CGFloat?)) in
                 value.1.map {
                     .init(item: view,
                           attribute: value.0,
@@ -50,7 +50,7 @@ extension UIView {
                 (.centerX, center.x),
                 (.centerY, center.y)
             ]
-            .flatMap {
+            .compactMap {
                 .init(item: view,
                       attribute: $0,
                       relatedBy: .equal,
@@ -88,7 +88,7 @@ extension UIView {
                 (.right, edges.right),
                 (.bottom, edges.bottom)
             ]
-            .flatMap { value in
+            .compactMap { (value: (NSLayoutAttribute, CGFloat?)) in
                 value.1.map {
                     .init(item: view,
                           attribute: value.0,

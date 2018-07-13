@@ -25,10 +25,25 @@ extension OpenGraph {
         }
         
         struct Metadata {
+            enum Error: Swift.Error {
+                case faildToConvertData(String)
+            }
+
             let property: String
             let content: String
             fileprivate var isValid: Bool {
                 return !property.isEmpty && !content.isEmpty
+            }
+
+            func unescapedContent() throws -> String {
+                guard let data = content.data(using: .utf8) else {
+                    throw Error.faildToConvertData(content)
+                }
+                let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+                    .documentType : NSAttributedString.DocumentType.html,
+                    .characterEncoding: String.Encoding.utf8.rawValue
+                ]
+                return try NSAttributedString(data: data, options: options, documentAttributes: nil).string
             }
         }
         
@@ -38,7 +53,7 @@ extension OpenGraph {
             guard let regex = Const.regex else { return nil }
             let range = NSRange(htmlString.startIndex..<htmlString.endIndex, in: htmlString)
             let results = regex.matches(in: htmlString, options: [], range: range)
-            let metaList: [Metadata] = results.flatMap { result in
+            let metaList: [Metadata] = results.compactMap { result in
                 guard result.numberOfRanges > 2 else { return nil }
                 let initial = Metadata(property: "", content: "")
                 let metaData = (0..<result.numberOfRanges).reduce(initial) { metadata, index in
@@ -102,15 +117,15 @@ extension OpenGraph {
 }
 
 @objc public class OpenGraphData: NSObject {
-    public let createdAt: Date
-    public let imageUrl: URL?
-    public let pageDescription: String?
-    public let pageTitle: String?
-    public let pageType: String?
-    public let siteName: String?
-    public let sourceUrl: URL?
-    public let updatedAt: Date
-    public let url: URL?
+    @objc public let createdAt: Date
+    @objc public let imageUrl: URL?
+    @objc public let pageDescription: String?
+    @objc public let pageTitle: String?
+    @objc public let pageType: String?
+    @objc public let siteName: String?
+    @objc public let sourceUrl: URL?
+    @objc public let updatedAt: Date
+    @objc public let url: URL?
     
     fileprivate init(source: OpenGraph.Data) {
         self.createdAt = source.createdAt
