@@ -6,7 +6,7 @@
 //
 //
 
-import UIKit
+import Foundation
 import CoreData
 
 final class OGDataCacheManager: NSObject {
@@ -94,12 +94,18 @@ final class OGDataCacheManager: NSObject {
         super.init()
     }
 
-    func delete(_ object: NSManagedObject, completion: ((NSError?) -> Void)?) {
-        object.managedObjectContext?.delete(object)
-        saveContext(completion)
+    private func fetchOGData(url: String, completion: @escaping (OGData?) -> ()) {
+        updateManagedObjectContext.perform { [managedObjectContext = updateManagedObjectContext] in
+            let fetchRequest = NSFetchRequest<OGData>()
+            fetchRequest.entity = NSEntityDescription.entity(forEntityName: "OGData", in: managedObjectContext)
+            fetchRequest.fetchLimit = 1
+            fetchRequest.predicate = NSPredicate(format: "sourceUrl = %@", url)
+            let fetchedList = (try? managedObjectContext.fetch(fetchRequest))
+            completion(fetchedList?.first)
+        }
     }
     
-    func saveContext (_ completion: ((NSError?) -> Void)?) {
+    private func saveContext (_ completion: ((Error?) -> Void)?) {
         saveContext(updateManagedObjectContext, success: { [weak self] in
             guard let mainManagedObjectContext = self?.mainManagedObjectContext else {
                 completion?(NSError(domain: "mainManagedObjectContext is not avairable", code: 9999, userInfo: nil))
@@ -126,7 +132,7 @@ final class OGDataCacheManager: NSObject {
         })
     }
     
-    private func saveContext(_ context: NSManagedObjectContext, success: (() -> Void)?, failure: ((NSError) -> Void)?) {
+    private func saveContext(_ context: NSManagedObjectContext, success: (() -> Void)?, failure: ((Error) -> Void)?) {
         context.perform {
             if !context.hasChanges {
                 success?()
@@ -134,10 +140,80 @@ final class OGDataCacheManager: NSObject {
             do {
                 try context.save()
                 success?()
-            } catch let e as NSError {
+            } catch {
                 context.rollback()
-                failure?(e)
+                failure?(error)
             }
+        }
+    }
+}
+
+extension OGDataCacheManager: OGDataCacheManagerProtocol {
+    func fetchOrInsertOGCacheData(url: String, completion: @escaping (OGCacheData) -> ()) {
+        fetchOGCacheData(url: url) { [managedObjectContext = updateManagedObjectContext] cache in
+            if let cache = cache {
+                completion(cache)
+            } else {
+                let ogData = NSEntityDescription.insertNewObject(forEntityName: "OGData", into: managedObjectContext) as! OGData
+                ogData.sourceUrl = url
+                ogData.createDate = Date()
+                ogData.updateDate = Date(timeIntervalSince1970: 0)
+                let newCache = OGCacheData(ogData: OpenGraph.Data(ogData: ogData),
+                                           createDate: ogData.createDate,
+                                           updateDate: nil)
+                completion(newCache)
+            }
+        }
+    }
+
+    func fetchOGCacheData(url: String, completion: @escaping (OGCacheData?) -> ()) {
+        fetchOGData(url: url) { ogData in
+            let cache: OGCacheData? = ogData.map {
+                let updateDate: Date?
+                if $0.updateDate == Date(timeIntervalSince1970: 0) {
+                    updateDate = nil
+                } else {
+                    updateDate = $0.updateDate
+                }
+                return OGCacheData(ogData: OpenGraph.Data(ogData: $0),
+                                   createDate: $0.createDate,
+                                   updateDate: updateDate)
+            }
+            completion(cache)
+        }
+    }
+
+    func updateIfNeeded(cache: OGCacheData) {
+        guard let sourceUrl = cache.ogData.sourceUrl else {
+            return
+        }
+        fetchOGData(url: sourceUrl.absoluteString) { [weak self] ogData in
+            guard let ogData = ogData else {
+                return
+            }
+            guard let me = self else {
+                return
+            }
+            if ogData.update(with: cache) {
+                ogData.updateDate = Date()
+                me.saveContext(nil)
+            }
+        }
+    }
+
+    func deleteOGCacheDate(cache: OGCacheData, completion: ((Error?) -> Void)?) {
+        guard let sourceUrl = cache.ogData.sourceUrl else {
+            return
+        }
+        fetchOGData(url: sourceUrl.absoluteString) { [weak self] ogData in
+            guard let ogData = ogData else {
+                return
+            }
+            guard let me = self else {
+                return
+            }
+            ogData.managedObjectContext?.delete(ogData)
+            me.saveContext(completion)
         }
     }
 }

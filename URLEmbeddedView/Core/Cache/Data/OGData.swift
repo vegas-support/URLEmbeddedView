@@ -9,37 +9,11 @@
 import Foundation
 import CoreData
 
-@objc public final class OGData: NSManagedObject {
+final class OGData: NSManagedObject {
 
-    class func fetchOrInsertOGData(url: String,
-                                   managedObjectContext: NSManagedObjectContext = OGDataCacheManager.shared.updateManagedObjectContext,
-                                   completion: @escaping (OGData) -> ()) {
-        fetchOGData(url: url, managedObjectContext: managedObjectContext) { ogData in
-            if let ogData = ogData {
-                completion(ogData)
-            }
-            let newOGData = NSEntityDescription.insertNewObject(forEntityName: "OGData", into: managedObjectContext) as! OGData
-            let date = Date()
-            newOGData.createDate = date
-            newOGData.updateDate = date
-            completion(newOGData)
-        }
-    }
-    
-    class func fetchOGData(url: String,
-                           managedObjectContext: NSManagedObjectContext = OGDataCacheManager.shared.updateManagedObjectContext,
-                           completion: @escaping (OGData?) -> ()) {
-        managedObjectContext.perform {
-            let fetchRequest = NSFetchRequest<OGData>()
-            fetchRequest.entity = NSEntityDescription.entity(forEntityName: "OGData", in: managedObjectContext)
-            fetchRequest.fetchLimit = 1
-            fetchRequest.predicate = NSPredicate(format: "sourceUrl = %@", url)
-            let fetchedList = (try? managedObjectContext.fetch(fetchRequest))
-            completion(fetchedList?.first)
-        }
-    }
+    func update(with cache: OGCacheData) -> Bool {
+        let ogData = cache.ogData
 
-    func update(with ogData: OpenGraph.Data) -> Bool {
         var changed: Bool = false
         if let newValue = ogData.imageUrl?.absoluteString, newValue != imageUrl {
             self.imageUrl = newValue
@@ -69,11 +43,10 @@ import CoreData
             self.url = newValue
             changed = true
         }
+        if let newValue = cache.updateDate, newValue != updateDate {
+            self.updateDate = newValue
+            changed = true
+        }
         return changed
-    }
-    
-    func save() {
-        updateDate = Date()
-        OGDataCacheManager.shared.saveContext(nil)
     }
 }
