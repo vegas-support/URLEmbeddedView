@@ -1,6 +1,6 @@
 # URLEmbeddedView
 
-[![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat)](https://developer.apple.com/iphone/index.action)
+[![Platform](http://img.shields.io/badge/platform-iOS%20|%20tvOS-blue.svg?style=flat)](https://developer.apple.com/iphone/index.action)
 [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat)](https://developer.apple.com/swift)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Version](https://img.shields.io/cocoapods/v/URLEmbeddedView.svg?style=flat)](http://cocoapods.org/pods/URLEmbeddedView)
@@ -23,10 +23,12 @@
 - [x] Support Swift4
 - [x] Support Carthage since 0.11.1
 - [x] Supprot Swift4.1 since 0.15.0
+- [x] Support tvOS since 0.16.0
+- [x] Custom implementation of OGData cache
 
 ## Usage
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+To run the example project, clone the repo, and run `carthage update` from the Example directory first.
 
 ```swift
 let embeddedView = URLEmbeddedView()
@@ -63,7 +65,7 @@ You can get Open Graph Data with `OGDataProvider`.
 ```swift
 OGDataProvider.shared.fetchOGData(urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)? = nil) -> String?
 OGDataProvider.shared.deleteOGData(urlString: String, completion: ((Error?) -> Void)? = nil)
-OGDataProvider.shared.deleteOGData(ogData: OGData, completion: ((Error?) -> Void)? = nil)
+OGDataProvider.shared.deleteOGData(_ ogData: OpenGraph.Data, completion: ((Error?) -> Void)? = nil)
 ```
 
 You can configure time interval for next updating of OGData.
@@ -81,18 +83,63 @@ OGImageProvider.shared.clearMemoryCache()
 OGImageProvider.shared.clearAllCache()
 ```
 
+### Custom Data Cache implementation
+
+Default cache feature is using Core Data.
+If you want to use other cache features, please implement cache manager with `OGDataCacheManagerProtocol`.
+For example, URLEmbeddedView has `OGDataNoCacheManager` that feature is not using cache.
+If you want to use that feature, you can use like this.
+
+```swift
+OGDataProvider.shared.cacheManager = OGDataNoCacheManager()
+```
+
+You can implement custom cache feature and use it like this.
+
+```swift
+class MemoryCacheManager: OGDataCacheManagerProtocol {
+    // implementation of required methods
+}
+
+OGDataProvider.shared.cacheManager = MemoryCacheManager()
+```
+
 ## OpenGraph.Data Properties
 
 ```swift
-public let createdAt: Date
 public let imageUrl: URL?
 public let pageDescription: String?
 public let pageTitle: String?
 public let pageType: String?
 public let siteName: String?
 public let sourceUrl: URL?
-public let updatedAt: Data
 public let url: URL?
+```
+
+## OpenGraphDataDownloader
+
+You can only use download feature of OGData with `OpenGraphDataDownloader` like this.
+
+```swift
+let urlString = ...
+OpenGraphDataDownloader.shared.fetchOGData(urlString: urlString) { result in
+    switch result {
+    case let .success(data, isExpired):
+        // do something
+    case let .failure(error, isExpired):
+        // do something
+    }
+}
+```
+
+If you use `OGDataProvider` with `OGDataNoCacheManager`, it is almost same process.
+
+```swift
+OGDataProvider.shared.cacheManager = OGDataNoCacheManager()
+let urlString = ...
+OGDataProvider.shared.fetchOGData(urlString: urlString) { ogData, error in
+    // do something
+}
 ```
 
 ## Installation
@@ -158,6 +205,7 @@ github "marty-suzuki/URLEmbeddedView"
 
 - Xcode 9 or greater
 - iOS 8.0 or greater
+- tvOS 10.0 or greater
 - UIKit
 - CoreData
 - CoreGraphics
