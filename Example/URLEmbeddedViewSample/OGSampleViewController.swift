@@ -109,10 +109,11 @@ class OGSampleViewController: UIViewController {
 extension OGSampleViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let urlString = searchBar.text else { return }
-        embeddedView.loadURL(urlString) {
-            if let _ = $0 {
+        embeddedView.load(urlString: urlString) { result in
+            if result.error != nil {
                 return
             }
+
             OGDataProvider.shared.fetchOGData(withURLString: urlString) { [weak self] ogData, error in
                 if let _ = error {
                     return
@@ -124,8 +125,6 @@ extension OGSampleViewController: UISearchBarDelegate {
                     + "- pageType         = \(ogData.pageType as String?)\n"
                     + "- pageDescription  = \(ogData.pageDescription as String?)\n"
                     + "- imageUrl         = \(ogData.imageUrl as URL?)\n"
-                    + "- createdAt       = \(ogData.createdAt)\n"
-                    + "- updatedAt       = \(ogData.updatedAt)\n"
                 DispatchQueue.main.async {
                     self?.textView.text = text
                 }

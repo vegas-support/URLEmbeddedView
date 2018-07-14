@@ -373,10 +373,10 @@ protocol URLEmbeddedViewProtocol: class {
     
     //MARK: - Load
     @objc public func load(withURLString urlString: String, completion: ((Error?) -> Void)? = nil) {
-        load(withURLString: urlString) { completion?($0.error) }
+        load(urlString: urlString) { completion?($0.error) }
     }
     
-    @nonobjc public func load(withURLString urlString: String, completion: ((Result<Void>) -> Void)? = nil) {
+    @nonobjc public func load(urlString: String, completion: ((Result<Void>) -> Void)? = nil) {
         presenter.load(urlString: urlString, completion: completion)
     }
     

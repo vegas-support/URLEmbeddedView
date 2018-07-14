@@ -1,7 +1,7 @@
 PODS:
   - MisterFusion (3.0.0)
   - NoticeObserveKit (0.4.0)
-  - URLEmbeddedView (0.15.3)
+  - URLEmbeddedView (0.16.0)
 
 DEPENDENCIES:
   - MisterFusion (= 3.0.0)
@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   MisterFusion: fd53e97f219514fcab8bb82985fb1aefade337da
   NoticeObserveKit: c307acb50f77576ffa26a6808b58e9b7cfe42dc3
-  URLEmbeddedView: ae5a75c15455f71f6d9f12faec7a6716058d2ab8
+  URLEmbeddedView: 2c270db498d4f9031bd1e46d74fb23e4bd02e02d
 
 PODFILE CHECKSUM: bb667eb71e9f93132c4378383048348f9b7f63d4
 
