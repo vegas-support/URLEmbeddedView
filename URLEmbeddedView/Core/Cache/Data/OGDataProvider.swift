@@ -16,7 +16,7 @@ import Foundation
     //MARK: - Properties
     private let downloader: OpenGraphDataDownloader
 
-    @objc public var cacheManager: OGDataCacheManagerProtocol = OGDataCacheManager.shared
+    @objc public lazy var cacheManager: OGDataCacheManagerProtocol = OGDataCacheManager()
     
     init(downloader: OpenGraphDataDownloader = .init(session: OGSession(configuration: .default))) {
         self.downloader = downloader

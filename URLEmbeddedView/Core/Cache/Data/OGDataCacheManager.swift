@@ -10,8 +10,6 @@ import Foundation
 import CoreData
 
 final class OGDataCacheManager: NSObject {
-    @objc(sharedInstance)
-    static let shared = OGDataCacheManager()
     
     private struct CacheKey {
         static let timeOfExpirationForOGData = "TimeOfExpirationForOGDataCache"
@@ -90,7 +88,7 @@ final class OGDataCacheManager: NSObject {
         didSet { UserDefaults.standard.updateIntervalForOGData = updateInterval }
     }
     
-    private override init() {
+    override init() {
         super.init()
     }
 
