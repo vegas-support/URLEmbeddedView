@@ -43,6 +43,45 @@
 		3751D0881FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0721FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift */; };
 		3751D0891FBCA9840035E242 /* URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0731FBCA9840035E242 /* URLEmbeddedView.swift */; };
 		3751D08A1FBCA9840035E242 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0741FBCA9840035E242 /* URLImageView.swift */; };
+		37B8EDBF20FA6EE500C3FDE0 /* AttributedTextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D06E1FBCA9840035E242 /* AttributedTextProvider.swift */; };
+		37B8EDC020FA6EE500C3FDE0 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D06F1FBCA9840035E242 /* AttributeManager.swift */; };
+		37B8EDC120FA6EE500C3FDE0 /* AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0701FBCA9840035E242 /* AutoLayout.swift */; };
+		37B8EDC220FA6EE500C3FDE0 /* DataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA1F20FA5BEF00682191 /* DataProtocol.swift */; };
+		37B8EDC320FA6EE500C3FDE0 /* FileManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA1D20FA5A2300682191 /* FileManagerProtocol.swift */; };
+		37B8EDC420FA6EE500C3FDE0 /* Gap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744375F20F90CA2008ABA8D /* Gap.swift */; };
+		37B8EDC520FA6EE500C3FDE0 /* HtmlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05E1FBCA9840035E242 /* HtmlRequest.swift */; };
+		37B8EDC620FA6EE500C3FDE0 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05F1FBCA9840035E242 /* ImageRequest.swift */; };
+		37B8EDC720FA6EE500C3FDE0 /* LinkIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0711FBCA9840035E242 /* LinkIconView.swift */; };
+		37B8EDC820FA6EE500C3FDE0 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0591FBCA9840035E242 /* MD5.swift */; };
+		37B8EDC920FA6EE500C3FDE0 /* NSTimeInterval+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */; };
+		37B8EDCA20FA6EE500C3FDE0 /* NSUserDefaults+URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */; };
+		37B8EDCB20FA6EE500C3FDE0 /* OGCacheData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA1720FA520200682191 /* OGCacheData.swift */; };
+		37B8EDCC20FA6EE500C3FDE0 /* OGData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0661FBCA9840035E242 /* OGData+CoreDataProperties.swift */; };
+		37B8EDCD20FA6EE500C3FDE0 /* OGData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0671FBCA9840035E242 /* OGData.swift */; };
+		37B8EDCE20FA6EE500C3FDE0 /* OGDataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0681FBCA9840035E242 /* OGDataCacheManager.swift */; };
+		37B8EDCF20FA6EE500C3FDE0 /* OGDataCacheManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA1920FA526500682191 /* OGDataCacheManagerProtocol.swift */; };
+		37B8EDD020FA6EE500C3FDE0 /* OGDataNoCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA1B20FA532B00682191 /* OGDataNoCacheManager.swift */; };
+		37B8EDD120FA6EE500C3FDE0 /* OGDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0691FBCA9840035E242 /* OGDataProvider.swift */; };
+		37B8EDD220FA6EE500C3FDE0 /* OGImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D06B1FBCA9840035E242 /* OGImageCacheManager.swift */; };
+		37B8EDD320FA6EE500C3FDE0 /* OGImageCacheManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA2120FA5C4A00682191 /* OGImageCacheManagerProtocol.swift */; };
+		37B8EDD420FA6EE500C3FDE0 /* OGImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D06C1FBCA9840035E242 /* OGImageProvider.swift */; };
+		37B8EDD520FA6EE500C3FDE0 /* OGRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0601FBCA9840035E242 /* OGRequest.swift */; };
+		37B8EDD620FA6EE500C3FDE0 /* OGSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0611FBCA9840035E242 /* OGSession.swift */; };
+		37B8EDD720FA6EE500C3FDE0 /* OpenGraph.Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376820F90F76008ABA8D /* OpenGraph.Data.swift */; };
+		37B8EDD820FA6EE500C3FDE0 /* OpenGraph.HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376420F90F4F008ABA8D /* OpenGraph.HTML.swift */; };
+		37B8EDD920FA6EE500C3FDE0 /* OpenGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376220F90F37008ABA8D /* OpenGraph.swift */; };
+		37B8EDDA20FA6EE500C3FDE0 /* OpenGraph.Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376620F90F63008ABA8D /* OpenGraph.Youtube.swift */; };
+		37B8EDDB20FA6EE500C3FDE0 /* OpenGraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376A20F90FAE008ABA8D /* OpenGraphData.swift */; };
+		37B8EDDC20FA6EE500C3FDE0 /* OpenGraphDataDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376F20F91859008ABA8D /* OpenGraphDataDownloader.swift */; };
+		37B8EDDD20FA6EE500C3FDE0 /* URLEmbeddedView+Inspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0721FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift */; };
+		37B8EDDE20FA6EE500C3FDE0 /* URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0731FBCA9840035E242 /* URLEmbeddedView.swift */; };
+		37B8EDDF20FA6EE500C3FDE0 /* URLEmbeddedViewOGData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37F9EA811F8A0CFB00858317 /* URLEmbeddedViewOGData.xcdatamodeld */; };
+		37B8EDE020FA6EE500C3FDE0 /* URLEmbeddedViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744377320F9D24B008ABA8D /* URLEmbeddedViewPresenter.swift */; };
+		37B8EDE120FA6EE500C3FDE0 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0741FBCA9840035E242 /* URLImageView.swift */; };
+		37B8EDE220FA6EE500C3FDE0 /* URLImageViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744377120F9CD19008ABA8D /* URLImageViewPresenter.swift */; };
+		37B8EDE320FA6EE500C3FDE0 /* YoutubeEmbedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0631FBCA9840035E242 /* YoutubeEmbedRequest.swift */; };
+		37B8EDE620FA6EE500C3FDE0 /* URLEmbeddedView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		37B8EDE820FA6EE500C3FDE0 /* LinkIcon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 37F9EA801F8A0CFB00858317 /* LinkIcon.pdf */; };
 		37F9EA841F8A0CFB00858317 /* LinkIcon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 37F9EA801F8A0CFB00858317 /* LinkIcon.pdf */; };
 		37F9EA851F8A0CFB00858317 /* URLEmbeddedViewOGData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37F9EA811F8A0CFB00858317 /* URLEmbeddedViewOGData.xcdatamodeld */; };
 		ED602B6E1F42D4EB00A45816 /* URLEmbeddedView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -85,15 +124,24 @@
 		3751D0721FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLEmbeddedView+Inspectable.swift"; sourceTree = "<group>"; };
 		3751D0731FBCA9840035E242 /* URLEmbeddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLEmbeddedView.swift; sourceTree = "<group>"; };
 		3751D0741FBCA9840035E242 /* URLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
+		37B8EDEC20FA6EE500C3FDE0 /* URLEmbeddedView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLEmbeddedView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		37B8EDEE20FA6F8400C3FDE0 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
+		37B8EDEF20FA6F8500C3FDE0 /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
 		37F9EA801F8A0CFB00858317 /* LinkIcon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = LinkIcon.pdf; sourceTree = "<group>"; };
 		37F9EA821F8A0CFB00858317 /* URLEmbeddedViewOGData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = URLEmbeddedViewOGData.xcdatamodel; sourceTree = "<group>"; };
 		37F9EA831F8A0CFB00858317 /* URLEmbeddedViewOGData2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = URLEmbeddedViewOGData2.xcdatamodel; sourceTree = "<group>"; };
 		ED602B691F42D4EB00A45816 /* URLEmbeddedView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLEmbeddedView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLEmbeddedView.h; sourceTree = "<group>"; };
-		ED602B6D1F42D4EB00A45816 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		37B8EDE420FA6EE500C3FDE0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ED602B651F42D4EB00A45816 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -212,6 +260,8 @@
 		37F9EA7F1F8A0CFB00858317 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				37B8EDEE20FA6F8400C3FDE0 /* Info-iOS.plist */,
+				37B8EDEF20FA6F8500C3FDE0 /* Info-tvOS.plist */,
 				37F9EA801F8A0CFB00858317 /* LinkIcon.pdf */,
 				37F9EA811F8A0CFB00858317 /* URLEmbeddedViewOGData.xcdatamodeld */,
 			);
@@ -231,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				ED602B691F42D4EB00A45816 /* URLEmbeddedView.framework */,
+				37B8EDEC20FA6EE500C3FDE0 /* URLEmbeddedView.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -241,7 +292,6 @@
 				3751D05C1FBCA9840035E242 /* Core */,
 				3751D0581FBCA9840035E242 /* Extension */,
 				3751D06D1FBCA9840035E242 /* UI */,
-				ED602B6D1F42D4EB00A45816 /* Info.plist */,
 				ED602B6C1F42D4EB00A45816 /* URLEmbeddedView.h */,
 			);
 			path = URLEmbeddedView;
@@ -250,6 +300,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		37B8EDE520FA6EE500C3FDE0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37B8EDE620FA6EE500C3FDE0 /* URLEmbeddedView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ED602B661F42D4EB00A45816 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -261,9 +319,27 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		ED602B681F42D4EB00A45816 /* URLEmbeddedView */ = {
+		37B8EDBD20FA6EE500C3FDE0 /* URLEmbeddedView-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ED602B711F42D4EB00A45816 /* Build configuration list for PBXNativeTarget "URLEmbeddedView" */;
+			buildConfigurationList = 37B8EDE920FA6EE500C3FDE0 /* Build configuration list for PBXNativeTarget "URLEmbeddedView-tvOS" */;
+			buildPhases = (
+				37B8EDBE20FA6EE500C3FDE0 /* Sources */,
+				37B8EDE420FA6EE500C3FDE0 /* Frameworks */,
+				37B8EDE520FA6EE500C3FDE0 /* Headers */,
+				37B8EDE720FA6EE500C3FDE0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "URLEmbeddedView-tvOS";
+			productName = URLEmbeddedView;
+			productReference = 37B8EDEC20FA6EE500C3FDE0 /* URLEmbeddedView.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		ED602B681F42D4EB00A45816 /* URLEmbeddedView-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED602B711F42D4EB00A45816 /* Build configuration list for PBXNativeTarget "URLEmbeddedView-iOS" */;
 			buildPhases = (
 				ED602B641F42D4EB00A45816 /* Sources */,
 				ED602B651F42D4EB00A45816 /* Frameworks */,
@@ -274,7 +350,7 @@
 			);
 			dependencies = (
 			);
-			name = URLEmbeddedView;
+			name = "URLEmbeddedView-iOS";
 			productName = URLEmbeddedView;
 			productReference = ED602B691F42D4EB00A45816 /* URLEmbeddedView.framework */;
 			productType = "com.apple.product-type.framework";
@@ -288,6 +364,9 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "marty-suzuki";
 				TargetAttributes = {
+					37B8EDBD20FA6EE500C3FDE0 = {
+						ProvisioningStyle = Manual;
+					};
 					ED602B681F42D4EB00A45816 = {
 						CreatedOnToolsVersion = 8.3.3;
 						LastSwiftMigration = 0900;
@@ -307,12 +386,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				ED602B681F42D4EB00A45816 /* URLEmbeddedView */,
+				ED602B681F42D4EB00A45816 /* URLEmbeddedView-iOS */,
+				37B8EDBD20FA6EE500C3FDE0 /* URLEmbeddedView-tvOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		37B8EDE720FA6EE500C3FDE0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37B8EDE820FA6EE500C3FDE0 /* LinkIcon.pdf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ED602B671F42D4EB00A45816 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -324,6 +412,50 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		37B8EDBE20FA6EE500C3FDE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37B8EDBF20FA6EE500C3FDE0 /* AttributedTextProvider.swift in Sources */,
+				37B8EDC020FA6EE500C3FDE0 /* AttributeManager.swift in Sources */,
+				37B8EDC120FA6EE500C3FDE0 /* AutoLayout.swift in Sources */,
+				37B8EDC220FA6EE500C3FDE0 /* DataProtocol.swift in Sources */,
+				37B8EDC320FA6EE500C3FDE0 /* FileManagerProtocol.swift in Sources */,
+				37B8EDC420FA6EE500C3FDE0 /* Gap.swift in Sources */,
+				37B8EDC520FA6EE500C3FDE0 /* HtmlRequest.swift in Sources */,
+				37B8EDC620FA6EE500C3FDE0 /* ImageRequest.swift in Sources */,
+				37B8EDC720FA6EE500C3FDE0 /* LinkIconView.swift in Sources */,
+				37B8EDC820FA6EE500C3FDE0 /* MD5.swift in Sources */,
+				37B8EDC920FA6EE500C3FDE0 /* NSTimeInterval+Util.swift in Sources */,
+				37B8EDCA20FA6EE500C3FDE0 /* NSUserDefaults+URLEmbeddedView.swift in Sources */,
+				37B8EDCB20FA6EE500C3FDE0 /* OGCacheData.swift in Sources */,
+				37B8EDCC20FA6EE500C3FDE0 /* OGData+CoreDataProperties.swift in Sources */,
+				37B8EDCD20FA6EE500C3FDE0 /* OGData.swift in Sources */,
+				37B8EDCE20FA6EE500C3FDE0 /* OGDataCacheManager.swift in Sources */,
+				37B8EDCF20FA6EE500C3FDE0 /* OGDataCacheManagerProtocol.swift in Sources */,
+				37B8EDD020FA6EE500C3FDE0 /* OGDataNoCacheManager.swift in Sources */,
+				37B8EDD120FA6EE500C3FDE0 /* OGDataProvider.swift in Sources */,
+				37B8EDD220FA6EE500C3FDE0 /* OGImageCacheManager.swift in Sources */,
+				37B8EDD320FA6EE500C3FDE0 /* OGImageCacheManagerProtocol.swift in Sources */,
+				37B8EDD420FA6EE500C3FDE0 /* OGImageProvider.swift in Sources */,
+				37B8EDD520FA6EE500C3FDE0 /* OGRequest.swift in Sources */,
+				37B8EDD620FA6EE500C3FDE0 /* OGSession.swift in Sources */,
+				37B8EDD720FA6EE500C3FDE0 /* OpenGraph.Data.swift in Sources */,
+				37B8EDD820FA6EE500C3FDE0 /* OpenGraph.HTML.swift in Sources */,
+				37B8EDD920FA6EE500C3FDE0 /* OpenGraph.swift in Sources */,
+				37B8EDDA20FA6EE500C3FDE0 /* OpenGraph.Youtube.swift in Sources */,
+				37B8EDDB20FA6EE500C3FDE0 /* OpenGraphData.swift in Sources */,
+				37B8EDDC20FA6EE500C3FDE0 /* OpenGraphDataDownloader.swift in Sources */,
+				37B8EDDD20FA6EE500C3FDE0 /* URLEmbeddedView+Inspectable.swift in Sources */,
+				37B8EDDE20FA6EE500C3FDE0 /* URLEmbeddedView.swift in Sources */,
+				37B8EDDF20FA6EE500C3FDE0 /* URLEmbeddedViewOGData.xcdatamodeld in Sources */,
+				37B8EDE020FA6EE500C3FDE0 /* URLEmbeddedViewPresenter.swift in Sources */,
+				37B8EDE120FA6EE500C3FDE0 /* URLImageView.swift in Sources */,
+				37B8EDE220FA6EE500C3FDE0 /* URLImageViewPresenter.swift in Sources */,
+				37B8EDE320FA6EE500C3FDE0 /* YoutubeEmbedRequest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ED602B641F42D4EB00A45816 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -371,6 +503,63 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		37B8EDEA20FA6EE500C3FDE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info-tvOS.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.marty-suzuki.URLEmbeddedView";
+				PRODUCT_NAME = URLEmbeddedView;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		37B8EDEB20FA6EE500C3FDE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info-tvOS.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.marty-suzuki.URLEmbeddedView";
+				PRODUCT_NAME = URLEmbeddedView;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 		ED602B6F1F42D4EB00A45816 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -502,12 +691,12 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = URLEmbeddedView/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.marty-suzuki.URLEmbeddedView";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = URLEmbeddedView;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -528,12 +717,12 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = URLEmbeddedView/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.marty-suzuki.URLEmbeddedView";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = URLEmbeddedView;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -544,6 +733,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		37B8EDE920FA6EE500C3FDE0 /* Build configuration list for PBXNativeTarget "URLEmbeddedView-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37B8EDEA20FA6EE500C3FDE0 /* Debug */,
+				37B8EDEB20FA6EE500C3FDE0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		ED602B631F42D4EB00A45816 /* Build configuration list for PBXProject "URLEmbeddedView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -553,7 +751,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ED602B711F42D4EB00A45816 /* Build configuration list for PBXNativeTarget "URLEmbeddedView" */ = {
+		ED602B711F42D4EB00A45816 /* Build configuration list for PBXNativeTarget "URLEmbeddedView-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ED602B721F42D4EB00A45816 /* Debug */,

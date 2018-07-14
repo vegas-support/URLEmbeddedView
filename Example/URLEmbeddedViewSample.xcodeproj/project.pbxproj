@@ -72,9 +72,9 @@
 		37AA37AA20FA68D800F59320 = {
 			isa = PBXGroup;
 			children = (
-				37AA37B520FA68D800F59320 /* URLEmbeddedViewSample */,
-				37AA37B420FA68D800F59320 /* Products */,
 				37AA37D520FA696C00F59320 /* Frameworks */,
+				37AA37B420FA68D800F59320 /* Products */,
+				37AA37B520FA68D800F59320 /* URLEmbeddedViewSample */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,6 +89,11 @@
 		37AA37B520FA68D800F59320 /* URLEmbeddedViewSample */ = {
 			isa = PBXGroup;
 			children = (
+				37AA37B620FA68D800F59320 /* AppDelegate.swift */,
+				37AA37BD20FA68D800F59320 /* Assets.xcassets */,
+				37AA37C220FA68D800F59320 /* Info.plist */,
+				37AA37BF20FA68D800F59320 /* LaunchScreen.storyboard */,
+				37AA37BA20FA68D800F59320 /* Main.storyboard */,
 				37AA37C920FA690C00F59320 /* OGListCell.swift */,
 				37AA37CE20FA690C00F59320 /* OGListCell.xib */,
 				37AA37CC20FA690C00F59320 /* OGListViewController.swift */,
@@ -96,11 +101,6 @@
 				37AA37CD20FA690C00F59320 /* OGObjcSampleViewController.m */,
 				37AA37CA20FA690C00F59320 /* OGSampleViewController.swift */,
 				37AA37CF20FA690C00F59320 /* URLEmbeddedViewSample-Bridging-Header.h */,
-				37AA37B620FA68D800F59320 /* AppDelegate.swift */,
-				37AA37BA20FA68D800F59320 /* Main.storyboard */,
-				37AA37BD20FA68D800F59320 /* Assets.xcassets */,
-				37AA37BF20FA68D800F59320 /* LaunchScreen.storyboard */,
-				37AA37C220FA68D800F59320 /* Info.plist */,
 			);
 			path = URLEmbeddedViewSample;
 			sourceTree = "<group>";
@@ -144,7 +144,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "marty-suzuki";
 				TargetAttributes = {
 					37AA37B220FA68D800F59320 = {
@@ -177,10 +177,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37AA37C120FA68D800F59320 /* LaunchScreen.storyboard in Resources */,
-				37AA37D420FA690C00F59320 /* OGListCell.xib in Resources */,
 				37AA37BE20FA68D800F59320 /* Assets.xcassets in Resources */,
+				37AA37C120FA68D800F59320 /* LaunchScreen.storyboard in Resources */,
 				37AA37BC20FA68D800F59320 /* Main.storyboard in Resources */,
+				37AA37D420FA690C00F59320 /* OGListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,8 +193,8 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/NoticeObserveKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MisterFusion.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/NoticeObserveKit.framework",
 			);
 			outputPaths = (
 			);
@@ -209,11 +209,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37AA37D320FA690C00F59320 /* OGObjcSampleViewController.m in Sources */,
-				37AA37D020FA690C00F59320 /* OGListCell.swift in Sources */,
-				37AA37D120FA690C00F59320 /* OGSampleViewController.swift in Sources */,
-				37AA37D220FA690C00F59320 /* OGListViewController.swift in Sources */,
 				37AA37B720FA68D800F59320 /* AppDelegate.swift in Sources */,
+				37AA37D020FA690C00F59320 /* OGListCell.swift in Sources */,
+				37AA37D220FA690C00F59320 /* OGListViewController.swift in Sources */,
+				37AA37D320FA690C00F59320 /* OGObjcSampleViewController.m in Sources */,
+				37AA37D120FA690C00F59320 /* OGSampleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +253,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -260,6 +261,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -310,6 +312,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -317,6 +320,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

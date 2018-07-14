@@ -39,8 +39,12 @@ protocol URLEmbeddedViewProtocol: class {
     private let domainImageView = URLImageView()
     private var domainImageViewToDomainLabelConstraint: NSLayoutConstraint?
     private var domainImageViewWidthConstraint: NSLayoutConstraint?
-    
+
+    #if os(iOS)
     private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    #elseif os(tvOS)
+    private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    #endif
     private lazy var linkIconView = LinkIconView(frame: self.bounds)
 
     private lazy var presenter: URLEmbeddedViewPresenterProtocol = URLEmbeddedViewPresenter(view: self)

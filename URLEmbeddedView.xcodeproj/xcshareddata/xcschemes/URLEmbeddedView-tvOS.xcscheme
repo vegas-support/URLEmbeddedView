@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ED602B681F42D4EB00A45816"
+               BlueprintIdentifier = "37B8EDBD20FA6EE500C3FDE0"
                BuildableName = "URLEmbeddedView.framework"
-               BlueprintName = "URLEmbeddedView"
+               BlueprintName = "URLEmbeddedView-tvOS"
                ReferencedContainer = "container:URLEmbeddedView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED602B681F42D4EB00A45816"
+            BlueprintIdentifier = "37B8EDBD20FA6EE500C3FDE0"
             BuildableName = "URLEmbeddedView.framework"
-            BlueprintName = "URLEmbeddedView"
+            BlueprintName = "URLEmbeddedView-tvOS"
             ReferencedContainer = "container:URLEmbeddedView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED602B681F42D4EB00A45816"
+            BlueprintIdentifier = "37B8EDBD20FA6EE500C3FDE0"
             BuildableName = "URLEmbeddedView.framework"
-            BlueprintName = "URLEmbeddedView"
+            BlueprintName = "URLEmbeddedView-tvOS"
             ReferencedContainer = "container:URLEmbeddedView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

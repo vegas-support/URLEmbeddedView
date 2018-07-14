@@ -15,7 +15,11 @@ protocol URLImageViewProtocol: class {
 
 final class URLImageView: UIImageView {
 
+    #if os(iOS)
     private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    #elseif os(tvOS)
+    private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    #endif
     private lazy var presenter: URLImageViewPresenterProtocol = URLImageViewPresenter(view: self)
 
     var activityViewHidden: Bool = false
