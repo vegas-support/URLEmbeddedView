@@ -55,7 +55,7 @@ extension OGListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OGListCell") as! OGListCell
         let url = urlList[(indexPath as NSIndexPath).row]
-        cell.embeddedView.loadURL(url)
+        cell.embeddedView.load(urlString: url)
         cell.label.text = url
         cell.selectionStyle = .none
         cell.embeddedView.didTapHandler = { [weak self] embeddedView, URL in
