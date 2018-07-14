@@ -16,7 +16,7 @@ struct ImageRequest: OGRequest {
         self.url = url
     }
     
-    static func response(data: Data) throws -> (Data, UIImage) {
+    static func response(data: Data) throws -> (DataProtocol, UIImage) {
         return try (data, UIImage(data: data) ?? { throw OGSession.Error.imageGenerateFaild }())
     }
 }

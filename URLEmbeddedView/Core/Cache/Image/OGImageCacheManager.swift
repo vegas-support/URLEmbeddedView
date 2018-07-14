@@ -8,13 +8,14 @@
 
 import UIKit
 
-final class OGImageCacheManager: NSObject {
+final class OGImageCacheManager: NSObject, OGImageCacheManagerProtocol {
     
-    private struct CacheKey {
-        static let timeOfExpirationForOGImage = "TimeOfExpirationForOGImageCache"
-    }
-        
-    private let fileManager = FileManager()
+//    private struct CacheKey {
+//        static let timeOfExpirationForOGImage = "TimeOfExpirationForOGImageCache"
+//    }
+
+    private let notificationCenter: NotificationCenter
+    private let fileManager: FileManagerProtocol
     private let memoryCache: NSCache<NSString, UIImage> = {
         let cache = NSCache<NSString, UIImage>()
         cache.countLimit = 30
@@ -37,14 +38,22 @@ final class OGImageCacheManager: NSObject {
 //        }
 //    }
     
-    override init() {
+    init(fileManager: FileManagerProtocol = FileManager(),
+         notificationCenter: NotificationCenter = .default) {
+        self.fileManager = fileManager
+        self.notificationCenter = notificationCenter
         super.init()
         createDirectoriesIfNeeded()
-        NotificationCenter.default.addObserver(self, selector: #selector(type(of: self).didReceiveMemoryWarning(_:)), name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning , object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(type(of: self).didReceiveMemoryWarning(_:)),
+                                       name: .UIApplicationDidReceiveMemoryWarning,
+                                       object: nil)
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil)
+        notificationCenter.removeObserver(self,
+                                          name: .UIApplicationDidReceiveMemoryWarning,
+                                          object: nil)
     }
     
     @objc dynamic func didReceiveMemoryWarning(_ notification: Notification) {
@@ -101,7 +110,7 @@ final class OGImageCacheManager: NSObject {
         return nil
     }
     
-    func storeImage(_ image: UIImage, data: Data, urlString: String) {
+    func storeImage(_ image: UIImage, data: DataProtocol, urlString: String) {
         memoryCache.setObject(image, forKey: urlString as NSString)
         try? data.write(to: URL(fileURLWithPath: pathForURLString(urlString)), options: [])
     }

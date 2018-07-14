@@ -6,22 +6,30 @@
 //  Copyright © 2018年 marty-suzuki. All rights reserved.
 //
 
-final class URLImageViewPresenter {
+protocol URLImageViewPresenterProtocol: class {
+    var shouldContinueDownloadingWhenCancel: Bool { get set }
+    func loadImage(urlString: String, completion: ((Result<UIImage>) -> Void)?)
+    func cancelLoadingImage()
+}
 
-    private let imageProvider = OGImageProvider.shared
+final class URLImageViewPresenter: URLImageViewPresenterProtocol {
+
+    private let imageProvider: OGImageProviderProtocol
     private var task: Task?
     private weak var view: URLImageViewProtocol?
 
     var shouldContinueDownloadingWhenCancel = true
 
-    init(view: URLImageViewProtocol) {
+    init(view: URLImageViewProtocol,
+         imageProvider: OGImageProviderProtocol = OGImageProvider.shared) {
         self.view = view
+        self.imageProvider = imageProvider
     }
 
     func loadImage(urlString: String, completion: ((Result<UIImage>) -> Void)?) {
         cancelLoadingImage()
         view?.updateActivityView(isHidden: false)
-        task = imageProvider.loadImage(withURLString: urlString) { [weak view] result in
+        task = imageProvider.loadImage(urlString: urlString) { [weak view] result in
             DispatchQueue.main.async {
                 view?.updateActivityView(isHidden: true)
                 view?.updateImage(result.value)

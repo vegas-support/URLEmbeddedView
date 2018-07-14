@@ -47,7 +47,7 @@ extension OGListViewController {
     }
     
     @IBAction func didTapClearButton(_ sender: AnyObject) {
-        OGImageManager.shared.clearMemoryCache()
+        OGImageProvider.shared.clearMemoryCache()
     }
 }
 

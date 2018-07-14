@@ -8,17 +8,26 @@
 
 import Foundation
 
-@objc public final class OGDataProvider: NSObject {
+protocol OGDataProviderProtocol: class {
+    var cacheManager: OGDataCacheManagerProtocol { get set }
+    var updateInterval: TimeInterval { get set }
+    func fetchOGData(urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)?) -> Task
+    func deleteOGData(urlString: String, completion: ((Error?) -> Void)?)
+    func deleteOGData(_ ogData: OpenGraphData, completion: ((Error?) -> Void)?)
+    func cancelLoading(_ task: Task, shouldContinueDownloading: Bool)
+}
+
+@objc public final class OGDataProvider: NSObject, OGDataProviderProtocol {
     //MARK: Static constants
     @objc(sharedInstance)
     public static let shared = OGDataProvider()
         
     //MARK: - Properties
-    private let downloader: OpenGraphDataDownloader
+    private let downloader: OpenGraphDataDownloaderProtocol
 
     @objc public lazy var cacheManager: OGDataCacheManagerProtocol = OGDataCacheManager()
     
-    init(downloader: OpenGraphDataDownloader = .init(session: OGSession(configuration: .default))) {
+    init(downloader: OpenGraphDataDownloaderProtocol = OpenGraphDataDownloader(session: OGSession(configuration: .default))) {
         self.downloader = downloader
         super.init()
     }
@@ -29,12 +38,12 @@ import Foundation
     }
     
     @discardableResult
-    @objc public func fetchOGDataWithURLString(_ urlString: String, completion: ((OpenGraphData, Error?) -> Void)? = nil) -> Task {
-        return fetchOGData(withURLString: urlString) { completion?($0 as OpenGraphData, $1) }
+    @objc public func fetchOGData(withURLString urlString: String, completion: ((OpenGraphData, Error?) -> Void)? = nil) -> Task {
+        return fetchOGData(urlString: urlString) { completion?($0 as OpenGraphData, $1) }
     }
     
     @discardableResult
-    @nonobjc public func fetchOGData(withURLString urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)? = nil) -> Task {
+    @nonobjc public func fetchOGData(urlString: String, completion: ((OpenGraph.Data, Error?) -> Void)? = nil) -> Task {
         let task = Task()
 
         cacheManager.fetchOrInsertOGCacheData(url: urlString) { [weak self] cache in
@@ -47,7 +56,7 @@ import Foundation
                 }
             }
 
-            me.downloader.fetchOGData(urlString: urlString, task: task) { [weak self] result in
+            _ = me.downloader.fetchOGData(urlString: urlString, task: task) { [weak self] result in
                 switch result {
                 case let .success(data, isExpired):
                     if let me = self {
@@ -96,7 +105,7 @@ import Foundation
         cacheManager.deleteOGCacheDate(cache: cache, completion: completion)
     }
     
-    func cancelLoading(_ task: Task, shouldContinueDownloading: Bool) {
+    @objc public func cancelLoading(_ task: Task, shouldContinueDownloading: Bool) {
         task.expire(shouldContinueDownloading: shouldContinueDownloading)
     }
 }

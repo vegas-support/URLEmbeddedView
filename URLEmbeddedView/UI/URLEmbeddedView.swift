@@ -43,7 +43,7 @@ protocol URLEmbeddedViewProtocol: class {
     private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     private lazy var linkIconView = LinkIconView(frame: self.bounds)
 
-    private lazy var presenter = URLEmbeddedViewPresenter(view: self)
+    private lazy var presenter: URLEmbeddedViewPresenterProtocol = URLEmbeddedViewPresenter(view: self)
 
     @objc open let textProvider: AttributedTextProvider = .shared
     
@@ -54,6 +54,13 @@ protocol URLEmbeddedViewProtocol: class {
             presenter.shouldContinueDownloadingWhenCancel = newValue
             domainImageView.shouldContinueDownloadingWhenCancel = newValue
             imageView.shouldContinueDownloadingWhenCancel = newValue
+        }
+    }
+
+    convenience init(presenter: URLEmbeddedViewPresenterProtocol?) {
+        self.init(frame: .zero)
+        if let presenter = presenter {
+            self.presenter = presenter
         }
     }
     

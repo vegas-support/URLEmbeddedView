@@ -50,11 +50,11 @@ public enum Result<T> {
     }
 }
 
-protocol OGSessionType: class {
+protocol OGSessionProtocol: class {
     func send<T: OGRequest>(_ request: T, task: Task, success: @escaping (T.Response, Bool) -> Void, failure: @escaping (OGSession.Error, Bool) -> Void) -> Task
 }
 
-final class OGSession: OGSessionType {
+final class OGSession: OGSessionProtocol {
     enum Error: Swift.Error {
         case noData
         case castFaild

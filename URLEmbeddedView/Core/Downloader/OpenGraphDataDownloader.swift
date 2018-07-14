@@ -8,20 +8,26 @@
 
 import Foundation
 
-@objc public final class OpenGraphDataDownloader: NSObject {
+protocol OpenGraphDataDownloaderProtocol: class {
+    func fetchOGData(urlString: String, completion: ((OpenGraphDataDownloader.Result) -> Void)?) -> Task
+    func fetchOGData(urlString: String, task: Task, completion: ((OpenGraphDataDownloader.Result) -> Void)?) -> Task
+    func cancelLoading(_ task: Task, shouldContinueDownloading: Bool)
+}
+
+@objc public final class OpenGraphDataDownloader: NSObject, OpenGraphDataDownloaderProtocol {
 
     @objc(sharedInstance)
     public static let shared = OpenGraphDataDownloader()
 
-    private let session: OGSessionType
+    private let session: OGSessionProtocol
 
-    init(session: OGSessionType = OGSession(configuration: .default)) {
+    init(session: OGSessionProtocol = OGSession(configuration: .default)) {
         self.session = session
         super.init()
     }
 
     @discardableResult
-    @objc public func fetchOGDataWithURLString(_ urlString: String, completion: ((OpenGraphData?, Swift.Error?) -> Void)? = nil) -> Task {
+    @objc public func fetchOGData(withURLString urlString: String, completion: ((OpenGraphData?, Swift.Error?) -> Void)? = nil) -> Task {
         return fetchOGData(urlString: urlString) { completion?($0.data as OpenGraphData?, $0.error) }
     }
 
@@ -56,6 +62,10 @@ import Foundation
                 completion?(.success(data: data, isExpired: isExpired))
             }, failure: failure)
         }
+    }
+
+    @objc public func cancelLoading(_ task: Task, shouldContinueDownloading: Bool) {
+        task.expire(shouldContinueDownloading: shouldContinueDownloading)
     }
 }
 

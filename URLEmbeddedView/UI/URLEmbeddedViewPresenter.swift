@@ -8,21 +8,32 @@
 
 import Foundation
 
-final class URLEmbeddedViewPresenter {
+protocol URLEmbeddedViewPresenterProtocol: class {
+    var shouldContinueDownloadingWhenCancel: Bool { get set }
+    var url: URL? { get }
+    func setURLString(_ urlString: String)
+    func load(urlString: String, completion: ((Result<Void>) -> Void)?)
+    func load(_ completion: ((Result<Void>) -> Void)?)
+    func cancelLoading()
+}
+
+final class URLEmbeddedViewPresenter: URLEmbeddedViewPresenterProtocol {
 
     private struct Const {
         static let faviconURL = "http://www.google.com/s2/favicons?domain="
     }
 
     private weak var view: URLEmbeddedViewProtocol?
-    private let dataProvider = OGDataProvider.shared
+    private let dataProvider: OGDataProviderProtocol
     private var task: Task?
 
     private(set) var url: URL?
     var shouldContinueDownloadingWhenCancel = true
 
-    init(view: URLEmbeddedViewProtocol) {
+    init(view: URLEmbeddedViewProtocol,
+         dataProvider: OGDataProviderProtocol = OGDataProvider.shared) {
         self.view = view
+        self.dataProvider = dataProvider
     }
 
     func setURLString(_ urlString: String) {
@@ -46,7 +57,7 @@ final class URLEmbeddedViewPresenter {
         view?.prepareViewsForReuse()
         view?.updateActivityView(isHidden: false)
 
-        task = dataProvider.fetchOGData(withURLString: url.absoluteString) { [weak view, url] ogData, error in
+        task = dataProvider.fetchOGData(urlString: url.absoluteString) { [weak view, url] ogData, error in
             DispatchQueue.main.async {
                 view?.updateActivityView(isHidden: true)
                 view?.layoutIfNeeded()

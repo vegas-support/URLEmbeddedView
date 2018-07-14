@@ -16,7 +16,7 @@ protocol URLImageViewProtocol: class {
 final class URLImageView: UIImageView {
 
     private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    private lazy var presenter = URLImageViewPresenter(view: self)
+    private lazy var presenter: URLImageViewPresenterProtocol = URLImageViewPresenter(view: self)
 
     var activityViewHidden: Bool = false
     var shouldContinueDownloadingWhenCancel: Bool {
@@ -24,8 +24,11 @@ final class URLImageView: UIImageView {
         get { return presenter.shouldContinueDownloadingWhenCancel }
     }
 
-    init() {
+    init(presenter: URLImageViewPresenterProtocol? = nil) {
         super.init(frame: .zero)
+        if let presenter = presenter {
+            self.presenter = presenter
+        }
         initialize()
     }
 

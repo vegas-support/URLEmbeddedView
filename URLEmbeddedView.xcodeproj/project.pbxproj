@@ -19,6 +19,9 @@
 		374CCA1820FA520200682191 /* OGCacheData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA1720FA520200682191 /* OGCacheData.swift */; };
 		374CCA1A20FA526500682191 /* OGDataCacheManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA1920FA526500682191 /* OGDataCacheManagerProtocol.swift */; };
 		374CCA1C20FA532B00682191 /* OGDataNoCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA1B20FA532B00682191 /* OGDataNoCacheManager.swift */; };
+		374CCA1E20FA5A2300682191 /* FileManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA1D20FA5A2300682191 /* FileManagerProtocol.swift */; };
+		374CCA2020FA5BEF00682191 /* DataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA1F20FA5BEF00682191 /* DataProtocol.swift */; };
+		374CCA2220FA5C4A00682191 /* OGImageCacheManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CCA2120FA5C4A00682191 /* OGImageCacheManagerProtocol.swift */; };
 		3751D0751FBCA9840035E242 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0591FBCA9840035E242 /* MD5.swift */; };
 		3751D0761FBCA9840035E242 /* NSTimeInterval+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */; };
 		3751D0771FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */; };
@@ -58,6 +61,9 @@
 		374CCA1720FA520200682191 /* OGCacheData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGCacheData.swift; sourceTree = "<group>"; };
 		374CCA1920FA526500682191 /* OGDataCacheManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGDataCacheManagerProtocol.swift; sourceTree = "<group>"; };
 		374CCA1B20FA532B00682191 /* OGDataNoCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGDataNoCacheManager.swift; sourceTree = "<group>"; };
+		374CCA1D20FA5A2300682191 /* FileManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerProtocol.swift; sourceTree = "<group>"; };
+		374CCA1F20FA5BEF00682191 /* DataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProtocol.swift; sourceTree = "<group>"; };
+		374CCA2120FA5C4A00682191 /* OGImageCacheManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGImageCacheManagerProtocol.swift; sourceTree = "<group>"; };
 		3751D0591FBCA9840035E242 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimeInterval+Util.swift"; sourceTree = "<group>"; };
 		3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+URLEmbeddedView.swift"; sourceTree = "<group>"; };
@@ -110,12 +116,12 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		3744376E20F917F2008ABA8D /* Model */ = {
+		3744376E20F917F2008ABA8D /* Downloader */ = {
 			isa = PBXGroup;
 			children = (
 				3744376F20F91859008ABA8D /* OpenGraphDataDownloader.swift */,
 			);
-			path = Model;
+			path = Downloader;
 			sourceTree = "<group>";
 		};
 		3751D0581FBCA9840035E242 /* Extension */ = {
@@ -134,8 +140,8 @@
 			children = (
 				3751D05D1FBCA9840035E242 /* API */,
 				3751D0641FBCA9840035E242 /* Cache */,
+				3744376E20F917F2008ABA8D /* Downloader */,
 				3744376120F90F19008ABA8D /* Entity */,
-				3744376E20F917F2008ABA8D /* Model */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -157,6 +163,8 @@
 			children = (
 				3751D0651FBCA9840035E242 /* Data */,
 				3751D06A1FBCA9840035E242 /* Image */,
+				374CCA1F20FA5BEF00682191 /* DataProtocol.swift */,
+				374CCA1D20FA5A2300682191 /* FileManagerProtocol.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -179,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				3751D06B1FBCA9840035E242 /* OGImageCacheManager.swift */,
+				374CCA2120FA5C4A00682191 /* OGImageCacheManagerProtocol.swift */,
 				3751D06C1FBCA9840035E242 /* OGImageProvider.swift */,
 			);
 			path = Image;
@@ -322,6 +331,8 @@
 				3751D0841FBCA9840035E242 /* AttributedTextProvider.swift in Sources */,
 				3751D0851FBCA9840035E242 /* AttributeManager.swift in Sources */,
 				3751D0861FBCA9840035E242 /* AutoLayout.swift in Sources */,
+				374CCA2020FA5BEF00682191 /* DataProtocol.swift in Sources */,
+				374CCA1E20FA5A2300682191 /* FileManagerProtocol.swift in Sources */,
 				3744376020F90CA2008ABA8D /* Gap.swift in Sources */,
 				3751D0781FBCA9840035E242 /* HtmlRequest.swift in Sources */,
 				3751D0791FBCA9840035E242 /* ImageRequest.swift in Sources */,
@@ -337,6 +348,7 @@
 				374CCA1C20FA532B00682191 /* OGDataNoCacheManager.swift in Sources */,
 				3751D0811FBCA9840035E242 /* OGDataProvider.swift in Sources */,
 				3751D0821FBCA9840035E242 /* OGImageCacheManager.swift in Sources */,
+				374CCA2220FA5C4A00682191 /* OGImageCacheManagerProtocol.swift in Sources */,
 				3751D0831FBCA9840035E242 /* OGImageProvider.swift in Sources */,
 				3751D07A1FBCA9840035E242 /* OGRequest.swift in Sources */,
 				3751D07B1FBCA9840035E242 /* OGSession.swift in Sources */,
