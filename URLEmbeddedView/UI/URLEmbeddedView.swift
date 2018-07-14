@@ -8,12 +8,20 @@
 
 import UIKit
 
+protocol URLEmbeddedViewProtocol: class {
+    func layoutIfNeeded()
+    func prepareViewsForReuse()
+    func updateActivityView(isHidden: Bool)
+    func updateViewAsEmpty(with url: URL)
+    func updateLinkIconView(isHidden: Bool)
+    func updateTitleLabel(pageTitle: String)
+    func updateDescriptionLabel(pageDescription: String?)
+    func updateImageView(urlString: String?)
+    func updateDomainLabel(host: String)
+    func updateDomainImageView(urlString: String)
+}
+
 @objc open class URLEmbeddedView: UIView {
-    private typealias ATP = AttributedTextProvider
-    //MARK: - Static constants
-    private struct Const {
-        static let faviconURL = "http://www.google.com/s2/favicons?domain="
-    }
     
     //MARK: - Properties
     private let alphaView = UIView()
@@ -36,20 +44,20 @@ import UIKit
     private lazy var linkIconView: LinkIconView = {
         return .init(frame: self.bounds)
     }()
-    
-    private var url: URL?
-    private var task: Task?
+
+    private lazy var presenter = URLEmbeddedViewPresenter(view: self)
+
     @objc open let textProvider: AttributedTextProvider = .shared
     
     @objc open var didTapHandler: ((URLEmbeddedView, URL?) -> Void)?
-    @objc open var shouldContinueDownloadingWhenCancel = true {
-        didSet {
-            domainImageView.shouldContinueDownloadingWhenCancel = shouldContinueDownloadingWhenCancel
-            imageView.shouldContinueDownloadingWhenCancel = shouldContinueDownloadingWhenCancel
+    @objc open var shouldContinueDownloadingWhenCancel: Bool {
+        get { return presenter.shouldContinueDownloadingWhenCancel }
+        set {
+            presenter.shouldContinueDownloadingWhenCancel = newValue
+            domainImageView.shouldContinueDownloadingWhenCancel = newValue
+            imageView.shouldContinueDownloadingWhenCancel = newValue
         }
     }
-    
-    private let dataProvider: OGDataProvider = .shared
     
     @objc public convenience init() {
         self.init(frame: .zero)
@@ -67,7 +75,7 @@ import UIKit
     
     @objc public init(url: String, frame: CGRect) {
         super.init(frame: frame)
-        self.url = URL(string: url)
+        presenter.setURLString(url)
         setInitialiValues()
         configureViews()
     }
@@ -214,7 +222,7 @@ import UIKit
     
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         alphaView.alpha = 0
-        didTapHandler?(self, url)
+        didTapHandler?(self, presenter.url)
     }
 
     //MARK: - Image layout
@@ -369,12 +377,7 @@ import UIKit
     }
     
     @nonobjc public func load(withURLString urlString: String, completion: ((Result<Void>) -> Void)? = nil) {
-        guard let url = URL(string: urlString) else {
-            completion?(.failure(URLEmbeddedViewError.invalidURLString(urlString)))
-            return
-        }
-        self.url = url
-        load(completion)
+        presenter.load(urlString: urlString, completion: completion)
     }
     
     @objc public func load(_ completion: ((Error?) -> Void)? = nil) {
@@ -382,77 +385,85 @@ import UIKit
     }
     
     @nonobjc public func load(_ completion: ((Result<Void>) -> Void)? = nil) {
-        guard let url = url else { return }
-        prepareViewsForReuse()
-        activityView.startAnimating()
-        task = dataProvider.fetchOGData(withURLString: url.absoluteString) { [weak self] ogData, error in
-            DispatchQueue.main.async {
-                self?.activityView.stopAnimating()
-                if let error = error {
-                    self?.imageView.image = nil
-                    self?.titleLabel.attributedText = self?.textProvider[.noDataTitle].attributedText(url.absoluteString)
-                    self?.descriptionLabel.attributedText = nil
-                    self?.domainLabel.attributedText = self?.textProvider[.domain].attributedText(url.host ?? "")
-                    self?.changeDomainImageViewWidthConstraint(0)
-                    self?.changeDomainImageViewToDomainLabelConstraint(0)
-                    self?.changeImageViewWidthConstrain(nil)
-                    self?.linkIconView.isHidden = false
-                    self?.layoutIfNeeded()
-                    completion?(.failure(error))
-                    return
-                }
-                
-                self?.linkIconView.isHidden = true
-                if let pageTitle = ogData.pageTitle {
-                    self?.titleLabel.attributedText = self?.textProvider[.title].attributedText(pageTitle)
-                } else {
-                    self?.titleLabel.attributedText = self?.textProvider[.noDataTitle].attributedText(url.absoluteString)
-                }
-                if let pageDescription = ogData.pageDescription {
-                    self?.descriptionLabel.attributedText = self?.textProvider[.description].attributedText(pageDescription)
-                } else {
-                    self?.descriptionLabel.attributedText = nil
-                }
-                if let imageUrl = ogData.imageUrl {
-                    self?.imageView.loadImage(urlString: imageUrl.absoluteString) {
-                        switch $0 {
-                        case .success:
-                            self?.changeImageViewWidthConstrain(nil)
-                        case .failure:
-                            self?.changeImageViewWidthConstrain(0)
-                        }
-                        self?.layoutIfNeeded()
-                    }
-                } else {
-                    self?.changeImageViewWidthConstrain(0)
-                    self?.imageView.image = nil
-                }
-                let host = url.host ?? ""
-                self?.domainLabel.attributedText = self?.textProvider[.domain].attributedText(host)
-                let faciconURL = Const.faviconURL + host
-                self?.domainImageView.loadImage(urlString: faciconURL) {
-                    switch $0 {
-                    case .success:
-                        self?.changeDomainImageViewWidthConstraint(nil)
-                        self?.changeDomainImageViewToDomainLabelConstraint(nil)
-                    case .failure:
-                        self?.changeDomainImageViewWidthConstraint(0)
-                        self?.changeDomainImageViewToDomainLabelConstraint(0)
-                    }
-                    self?.layoutIfNeeded()
-                }
-                self?.layoutIfNeeded()
-                completion?(.success(()))
-            }
-        }
+        presenter.load(completion)
     }
     
     @objc public func cancelLoading() {
         domainImageView.cancelLoadingImage()
         imageView.cancelLoadingImage()
-        activityView.stopAnimating()
-        if let task = task {
-            dataProvider.cancelLoading(task, shouldContinueDownloading: shouldContinueDownloadingWhenCancel)
+        presenter.cancelLoading()
+    }
+}
+
+extension URLEmbeddedView: URLEmbeddedViewProtocol {
+    func updateActivityView(isHidden: Bool) {
+        activityView.isHidden = isHidden
+        if isHidden {
+            activityView.stopAnimating()
+        } else {
+            activityView.startAnimating()
+        }
+    }
+
+    func updateViewAsEmpty(with url: URL) {
+        imageView.image = nil
+        titleLabel.attributedText = textProvider[.noDataTitle].attributedText(url.absoluteString)
+        descriptionLabel.attributedText = nil
+        domainLabel.attributedText = textProvider[.domain].attributedText(url.host ?? "")
+        changeDomainImageViewWidthConstraint(0)
+        changeDomainImageViewToDomainLabelConstraint(0)
+        changeImageViewWidthConstrain(nil)
+        linkIconView.isHidden = false
+    }
+
+    func updateLinkIconView(isHidden: Bool) {
+        linkIconView.isHidden = isHidden
+    }
+
+    func updateTitleLabel(pageTitle: String) {
+        titleLabel.attributedText = textProvider[.title].attributedText(pageTitle)
+    }
+
+    func updateDescriptionLabel(pageDescription: String?) {
+        if let pageDescription = pageDescription {
+            descriptionLabel.attributedText = textProvider[.description].attributedText(pageDescription)
+        } else {
+            descriptionLabel.attributedText = nil
+        }
+    }
+
+    func updateImageView(urlString: String?) {
+        if let urlString = urlString {
+            imageView.loadImage(urlString: urlString) { [weak self] in
+                switch $0 {
+                case .success:
+                    self?.changeImageViewWidthConstrain(nil)
+                case .failure:
+                    self?.changeImageViewWidthConstrain(0)
+                }
+                self?.layoutIfNeeded()
+            }
+        } else {
+            changeImageViewWidthConstrain(0)
+            imageView.image = nil
+        }
+    }
+
+    func updateDomainLabel(host: String) {
+        domainLabel.attributedText = textProvider[.domain].attributedText(host)
+    }
+
+    func updateDomainImageView(urlString: String) {
+        domainImageView.loadImage(urlString: urlString) { [weak self] in
+            switch $0 {
+            case .success:
+                self?.changeDomainImageViewWidthConstraint(nil)
+                self?.changeDomainImageViewToDomainLabelConstraint(nil)
+            case .failure:
+                self?.changeDomainImageViewWidthConstraint(0)
+                self?.changeDomainImageViewToDomainLabelConstraint(0)
+            }
+            self?.layoutIfNeeded()
         }
     }
 }

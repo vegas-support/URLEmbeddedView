@@ -15,6 +15,7 @@
 		3744376B20F90FAE008ABA8D /* OpenGraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376A20F90FAE008ABA8D /* OpenGraphData.swift */; };
 		3744377020F91859008ABA8D /* OpenGraphDataDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376F20F91859008ABA8D /* OpenGraphDataDownloader.swift */; };
 		3744377220F9CD19008ABA8D /* URLImageViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744377120F9CD19008ABA8D /* URLImageViewPresenter.swift */; };
+		3744377420F9D24B008ABA8D /* URLEmbeddedViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744377320F9D24B008ABA8D /* URLEmbeddedViewPresenter.swift */; };
 		3751D0751FBCA9840035E242 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0591FBCA9840035E242 /* MD5.swift */; };
 		3751D0761FBCA9840035E242 /* NSTimeInterval+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */; };
 		3751D0771FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */; };
@@ -50,6 +51,7 @@
 		3744376A20F90FAE008ABA8D /* OpenGraphData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphData.swift; sourceTree = "<group>"; };
 		3744376F20F91859008ABA8D /* OpenGraphDataDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphDataDownloader.swift; sourceTree = "<group>"; };
 		3744377120F9CD19008ABA8D /* URLImageViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageViewPresenter.swift; sourceTree = "<group>"; };
+		3744377320F9D24B008ABA8D /* URLEmbeddedViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLEmbeddedViewPresenter.swift; sourceTree = "<group>"; };
 		3751D0591FBCA9840035E242 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimeInterval+Util.swift"; sourceTree = "<group>"; };
 		3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+URLEmbeddedView.swift"; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				3751D0711FBCA9840035E242 /* LinkIconView.swift */,
 				3751D0721FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift */,
 				3751D0731FBCA9840035E242 /* URLEmbeddedView.swift */,
+				3744377320F9D24B008ABA8D /* URLEmbeddedViewPresenter.swift */,
 				3751D0741FBCA9840035E242 /* URLImageView.swift */,
 				3744377120F9CD19008ABA8D /* URLImageViewPresenter.swift */,
 			);
@@ -324,6 +327,7 @@
 				3751D0801FBCA9840035E242 /* OGDataCacheManager.swift in Sources */,
 				3751D0811FBCA9840035E242 /* OGDataProvider.swift in Sources */,
 				3751D0821FBCA9840035E242 /* OGImageCacheManager.swift in Sources */,
+				3744377420F9D24B008ABA8D /* URLEmbeddedViewPresenter.swift in Sources */,
 				3751D0831FBCA9840035E242 /* OGImageManager.swift in Sources */,
 				3751D07A1FBCA9840035E242 /* OGRequest.swift in Sources */,
 				3751D07B1FBCA9840035E242 /* OGSession.swift in Sources */,
