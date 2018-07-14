@@ -1,5 +1,5 @@
 //
-//  OGImageManager.swift
+//  OGImageProvider.swift
 //  URLEmbeddedView
 //
 //  Created by Taiki Suzuki on 2016/03/07.
@@ -8,17 +8,17 @@
 
 import Foundation
 
-@objc public final class OGImageManager: NSObject {
+@objc public final class OGImageProvider: NSObject {
 
     //MARK: - Static constants
     @objc(sharedInstance)
-    public static let shared = OGImageManager()
+    public static let shared = OGImageProvider()
     
     //MARK: - Properties
     private let session = OGSession(configuration: .default)
-    private let cacheManager: OGImageCacheManager = .shared
+    private let cacheManager = OGImageCacheManager()
     
-    private override init() {
+    override init() {
         super.init()
     }
 

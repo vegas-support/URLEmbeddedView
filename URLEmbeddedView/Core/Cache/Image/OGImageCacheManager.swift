@@ -9,8 +9,6 @@
 import UIKit
 
 final class OGImageCacheManager: NSObject {
-    @objc(sharedInstance)
-    static let shared = OGImageCacheManager()
     
     private struct CacheKey {
         static let timeOfExpirationForOGImage = "TimeOfExpirationForOGImageCache"
@@ -39,7 +37,7 @@ final class OGImageCacheManager: NSObject {
 //        }
 //    }
     
-    private override init() {
+    override init() {
         super.init()
         createDirectoriesIfNeeded()
         NotificationCenter.default.addObserver(self, selector: #selector(type(of: self).didReceiveMemoryWarning(_:)), name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning , object: nil)

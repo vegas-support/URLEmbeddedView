@@ -32,7 +32,7 @@
 		3751D0801FBCA9840035E242 /* OGDataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0681FBCA9840035E242 /* OGDataCacheManager.swift */; };
 		3751D0811FBCA9840035E242 /* OGDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0691FBCA9840035E242 /* OGDataProvider.swift */; };
 		3751D0821FBCA9840035E242 /* OGImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D06B1FBCA9840035E242 /* OGImageCacheManager.swift */; };
-		3751D0831FBCA9840035E242 /* OGImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D06C1FBCA9840035E242 /* OGImageManager.swift */; };
+		3751D0831FBCA9840035E242 /* OGImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D06C1FBCA9840035E242 /* OGImageProvider.swift */; };
 		3751D0841FBCA9840035E242 /* AttributedTextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D06E1FBCA9840035E242 /* AttributedTextProvider.swift */; };
 		3751D0851FBCA9840035E242 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D06F1FBCA9840035E242 /* AttributeManager.swift */; };
 		3751D0861FBCA9840035E242 /* AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0701FBCA9840035E242 /* AutoLayout.swift */; };
@@ -71,7 +71,7 @@
 		3751D0681FBCA9840035E242 /* OGDataCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGDataCacheManager.swift; sourceTree = "<group>"; };
 		3751D0691FBCA9840035E242 /* OGDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGDataProvider.swift; sourceTree = "<group>"; };
 		3751D06B1FBCA9840035E242 /* OGImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGImageCacheManager.swift; sourceTree = "<group>"; };
-		3751D06C1FBCA9840035E242 /* OGImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGImageManager.swift; sourceTree = "<group>"; };
+		3751D06C1FBCA9840035E242 /* OGImageProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGImageProvider.swift; sourceTree = "<group>"; };
 		3751D06E1FBCA9840035E242 /* AttributedTextProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextProvider.swift; sourceTree = "<group>"; };
 		3751D06F1FBCA9840035E242 /* AttributeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeManager.swift; sourceTree = "<group>"; };
 		3751D0701FBCA9840035E242 /* AutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayout.swift; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				3751D06B1FBCA9840035E242 /* OGImageCacheManager.swift */,
-				3751D06C1FBCA9840035E242 /* OGImageManager.swift */,
+				3751D06C1FBCA9840035E242 /* OGImageProvider.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -337,7 +337,7 @@
 				374CCA1C20FA532B00682191 /* OGDataNoCacheManager.swift in Sources */,
 				3751D0811FBCA9840035E242 /* OGDataProvider.swift in Sources */,
 				3751D0821FBCA9840035E242 /* OGImageCacheManager.swift in Sources */,
-				3751D0831FBCA9840035E242 /* OGImageManager.swift in Sources */,
+				3751D0831FBCA9840035E242 /* OGImageProvider.swift in Sources */,
 				3751D07A1FBCA9840035E242 /* OGRequest.swift in Sources */,
 				3751D07B1FBCA9840035E242 /* OGSession.swift in Sources */,
 				3744376920F90F76008ABA8D /* OpenGraph.Data.swift in Sources */,

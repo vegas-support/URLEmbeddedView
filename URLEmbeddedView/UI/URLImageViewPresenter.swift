@@ -8,8 +8,8 @@
 
 final class URLImageViewPresenter {
 
-    private let imageManager = OGImageManager.shared
-    private var currentTask: Task?
+    private let imageProvider = OGImageProvider.shared
+    private var task: Task?
     private weak var view: URLImageViewProtocol?
 
     var shouldContinueDownloadingWhenCancel = true
@@ -21,7 +21,7 @@ final class URLImageViewPresenter {
     func loadImage(urlString: String, completion: ((Result<UIImage>) -> Void)?) {
         cancelLoadingImage()
         view?.updateActivityView(isHidden: false)
-        currentTask = imageManager.loadImage(withURLString: urlString) { [weak view] result in
+        task = imageProvider.loadImage(withURLString: urlString) { [weak view] result in
             DispatchQueue.main.async {
                 view?.updateActivityView(isHidden: true)
                 view?.updateImage(result.value)
@@ -33,10 +33,10 @@ final class URLImageViewPresenter {
     func cancelLoadingImage() {
         view?.updateActivityView(isHidden: true)
 
-        guard let task = currentTask else {
+        guard let task = task else {
             return
         }
-        imageManager.cancelLoading(task,
-                                   shouldContinueDownloading: shouldContinueDownloadingWhenCancel)
+        imageProvider.cancelLoading(task,
+                                    shouldContinueDownloading: shouldContinueDownloadingWhenCancel)
     }
 }
