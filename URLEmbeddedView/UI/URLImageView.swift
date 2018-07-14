@@ -8,14 +8,22 @@
 
 import UIKit
 
+protocol URLImageViewProtocol: class {
+    func updateActivityView(isHidden: Bool)
+    func updateImage(_ image: UIImage?)
+}
+
 final class URLImageView: UIImageView {
+
     private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    private var currentTask: Task?
+    private lazy var presenter = URLImageViewPresenter(view: self)
+
     var activityViewHidden: Bool = false
-    var shouldContinueDownloadingWhenCancel = true
-    
-    private var imageManger: OGImageManager = .shared
-    
+    var shouldContinueDownloadingWhenCancel: Bool {
+        set { presenter.shouldContinueDownloadingWhenCancel = newValue }
+        get { return presenter.shouldContinueDownloadingWhenCancel }
+    }
+
     init() {
         super.init(frame: .zero)
         initialize()
@@ -26,6 +34,7 @@ final class URLImageView: UIImageView {
     }
     
     private func initialize() {
+        _ = presenter
         activityView.hidesWhenStopped = true
         addSubview(activityView)
         addConstraints(with: activityView, size: .init(width: 30, height: 30))
@@ -33,28 +42,26 @@ final class URLImageView: UIImageView {
     }
     
     func loadImage(urlString: String, completion: ((Result<UIImage>) -> Void)? = nil) {
-        cancelLoadingImage()
-        if !activityViewHidden {
+        presenter.loadImage(urlString: urlString, completion: completion)
+    }
+
+    func cancelLoadingImage() {
+        presenter.cancelLoadingImage()
+    }
+}
+
+extension URLImageView: URLImageViewProtocol {
+    func updateActivityView(isHidden: Bool) {
+        activityView.isHidden = isHidden
+        if isHidden {
+            activityView.stopAnimating()
+        } else {
             activityView.startAnimating()
         }
-        currentTask = imageManger.loadImage(withURLString: urlString) { [weak self] result in
-            DispatchQueue.main.async {
-                if self?.activityViewHidden == false {
-                    self?.activityView.stopAnimating()
-                }
-                self?.image = result.value
-                completion?(result)
-            }
-        }
     }
-    
-    func cancelLoadingImage() {
-        if !activityViewHidden {
-            activityView.stopAnimating()
-        }
-        if let task = currentTask {
-            imageManger.cancelLoading(task, shouldContinueDownloading: shouldContinueDownloadingWhenCancel)
-        }
+
+    func updateImage(_ image: UIImage?) {
+        self.image = image
     }
 }
 

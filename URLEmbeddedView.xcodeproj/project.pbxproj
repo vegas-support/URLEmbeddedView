@@ -14,6 +14,7 @@
 		3744376920F90F76008ABA8D /* OpenGraph.Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376820F90F76008ABA8D /* OpenGraph.Data.swift */; };
 		3744376B20F90FAE008ABA8D /* OpenGraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376A20F90FAE008ABA8D /* OpenGraphData.swift */; };
 		3744377020F91859008ABA8D /* OpenGraphDataDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744376F20F91859008ABA8D /* OpenGraphDataDownloader.swift */; };
+		3744377220F9CD19008ABA8D /* URLImageViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744377120F9CD19008ABA8D /* URLImageViewPresenter.swift */; };
 		3751D0751FBCA9840035E242 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0591FBCA9840035E242 /* MD5.swift */; };
 		3751D0761FBCA9840035E242 /* NSTimeInterval+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */; };
 		3751D0771FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */; };
@@ -48,6 +49,7 @@
 		3744376820F90F76008ABA8D /* OpenGraph.Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraph.Data.swift; sourceTree = "<group>"; };
 		3744376A20F90FAE008ABA8D /* OpenGraphData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphData.swift; sourceTree = "<group>"; };
 		3744376F20F91859008ABA8D /* OpenGraphDataDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphDataDownloader.swift; sourceTree = "<group>"; };
+		3744377120F9CD19008ABA8D /* URLImageViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageViewPresenter.swift; sourceTree = "<group>"; };
 		3751D0591FBCA9840035E242 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimeInterval+Util.swift"; sourceTree = "<group>"; };
 		3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+URLEmbeddedView.swift"; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				3751D0721FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift */,
 				3751D0731FBCA9840035E242 /* URLEmbeddedView.swift */,
 				3751D0741FBCA9840035E242 /* URLImageView.swift */,
+				3744377120F9CD19008ABA8D /* URLImageViewPresenter.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				3751D0861FBCA9840035E242 /* AutoLayout.swift in Sources */,
 				3744376020F90CA2008ABA8D /* Gap.swift in Sources */,
 				3751D0781FBCA9840035E242 /* HtmlRequest.swift in Sources */,
+				3744377220F9CD19008ABA8D /* URLImageViewPresenter.swift in Sources */,
 				3751D0791FBCA9840035E242 /* ImageRequest.swift in Sources */,
 				3751D0871FBCA9840035E242 /* LinkIconView.swift in Sources */,
 				3751D0751FBCA9840035E242 /* MD5.swift in Sources */,
