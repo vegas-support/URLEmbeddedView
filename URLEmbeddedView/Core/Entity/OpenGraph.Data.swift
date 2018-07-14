@@ -45,6 +45,16 @@ extension OpenGraph.Data {
         self.sourceUrl = url
         self.url = url
     }
+
+    init() {
+        self.imageUrl = nil
+        self.pageDescription = nil
+        self.pageTitle = nil
+        self.pageType = nil
+        self.siteName = nil
+        self.sourceUrl = nil
+        self.url = nil
+    }
 }
 
 extension OpenGraph.Data {
@@ -164,16 +174,6 @@ extension OpenGraph.Data: _ObjectiveCBridgeable {
         self.siteName = source.siteName
         self.sourceUrl = source.sourceUrl
         self.url = source.url
-    }
-
-    private init() {
-        self.imageUrl = nil
-        self.pageDescription = nil
-        self.pageTitle = nil
-        self.pageType = nil
-        self.siteName = nil
-        self.sourceUrl = nil
-        self.url = nil
     }
 
     public func _bridgeToObjectiveC() -> OpenGraphData {
