@@ -10,34 +10,6 @@ import Foundation
 import CoreData
 
 @objc public final class OGData: NSManagedObject {
-    private enum PropertyName {
-        case description
-        case image
-        case siteName
-        case title
-        case type
-        case url
-
-        init?(_ meta: OpenGraph.HTML.Metadata) {
-            let property = meta.property
-            let content = meta.content
-            if property.contains("og:description") {
-                self = .description
-            } else if property.contains("og:image") && content.contains("http") {
-                self = .image
-            } else if property.contains("og:site_name") {
-                self = .siteName
-            } else if property.contains("og:title") {
-                self = .title
-            } else if property.contains("og:type") {
-                self = .type
-            } else if property.contains("og:url") {
-                self = .url
-            } else {
-                return nil
-            }
-        }
-    }
 
     class func fetchOrInsertOGData(url: String,
                                    managedObjectContext: NSManagedObjectContext = OGDataCacheManager.shared.updateManagedObjectContext,
@@ -67,25 +39,37 @@ import CoreData
         }
     }
 
-    func setValue(_ html: OpenGraph.HTML) {
-        html.metaList.forEach {
-            guard let propertyName = PropertyName($0) else { return }
-            switch propertyName  {
-            case .siteName    : siteName        = $0.content
-            case .type        : pageType        = $0.content
-            case .title       : pageTitle       = (try? $0.unescapedContent()) ?? ""
-            case .image       : imageUrl        = $0.content
-            case .url         : url             = $0.content
-            case .description : pageDescription = $0.content.replacingOccurrences(of: "\n", with: " ")
-            }
+    func update(with ogData: OpenGraph.Data) -> Bool {
+        var changed: Bool = false
+        if let newValue = ogData.imageUrl?.absoluteString, newValue != imageUrl {
+            self.imageUrl = newValue
+            changed = true
         }
-    }
-    
-    func setValue(_ youtube: OpenGraph.Youtube) {
-        self.pageTitle = youtube.title
-        self.pageType = youtube.type
-        self.siteName = youtube.providerName
-        self.imageUrl = youtube.thumbnailUrl
+        if let newValue = ogData.pageDescription, newValue != pageDescription {
+            self.pageDescription = newValue
+            changed = true
+        }
+        if let newValue = ogData.pageTitle, newValue != pageTitle {
+            self.pageTitle = newValue
+            changed = true
+        }
+        if let newValue = ogData.pageType, newValue != pageType {
+            self.pageType = newValue
+            changed = true
+        }
+        if let newValue = ogData.siteName, newValue != siteName {
+            self.siteName = newValue
+            changed = true
+        }
+        if let newValue = ogData.sourceUrl?.absoluteString, newValue != sourceUrl {
+            self.sourceUrl = newValue
+            changed = true
+        }
+        if let newValue = ogData.url?.absoluteString, newValue != url {
+            self.url = newValue
+            changed = true
+        }
+        return changed
     }
     
     func save() {

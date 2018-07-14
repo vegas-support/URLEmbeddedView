@@ -22,13 +22,16 @@ import Foundation
 
     @discardableResult
     @objc public func fetchOGDataWithURLString(_ urlString: String, completion: ((OpenGraphData?, Swift.Error?) -> Void)? = nil) -> Task {
-        return fetchOGData(withURLString: urlString) { completion?($0.data as OpenGraphData?, $0.error) }
+        return fetchOGData(urlString: urlString) { completion?($0.data as OpenGraphData?, $0.error) }
     }
 
     @discardableResult
-    @nonobjc public func fetchOGData(withURLString urlString: String, completion: ((Result) -> Void)? = nil) -> Task {
-        let task = Task()
+    @nonobjc public func fetchOGData(urlString: String, completion: ((Result) -> Void)? = nil) -> Task {
+        return fetchOGData(urlString: urlString, task: .init(), completion: completion)
+    }
 
+    @discardableResult
+    func fetchOGData(urlString: String, task: Task, completion: ((Result) -> Void)? = nil) -> Task {
         guard let url = URL(string: urlString) else {
             completion?(.failure(error: Error.createURLFailed(urlString), isExpired: false))
             return task

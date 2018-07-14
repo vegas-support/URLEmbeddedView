@@ -41,9 +41,7 @@ protocol URLEmbeddedViewProtocol: class {
     private var domainImageViewWidthConstraint: NSLayoutConstraint?
     
     private let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    private lazy var linkIconView: LinkIconView = {
-        return .init(frame: self.bounds)
-    }()
+    private lazy var linkIconView = LinkIconView(frame: self.bounds)
 
     private lazy var presenter = URLEmbeddedViewPresenter(view: self)
 

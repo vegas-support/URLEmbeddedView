@@ -10,28 +10,24 @@ import Foundation
 
 extension OpenGraph {
     public struct Data {
-        //public let createdAt: Date
         public let imageUrl: URL?
         public let pageDescription: String?
         public let pageTitle: String?
         public let pageType: String?
         public let siteName: String?
         public let sourceUrl: URL?
-        //public let updatedAt: Date
         public let url: URL?
     }
 }
 
 extension OpenGraph.Data {
     init(ogData: OGData) {
-        //createdAt = ogData.createDate
         imageUrl = URL(string: ogData.imageUrl)
         pageDescription = ogData.pageDescription.isEmpty ? nil : ogData.pageDescription
         pageTitle = ogData.pageTitle.isEmpty ? nil : ogData.pageTitle
         pageType = ogData.pageType.isEmpty ? nil : ogData.pageType
         siteName = ogData.siteName.isEmpty ? nil : ogData.siteName
         sourceUrl = URL(string: ogData.sourceUrl)
-        //updatedAt = ogData.updateDate
         url = URL(string: ogData.url)
     }
 

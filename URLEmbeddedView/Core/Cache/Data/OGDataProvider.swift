@@ -14,9 +14,10 @@ import Foundation
     public static let shared = OGDataProvider()
         
     //MARK: - Properties
-    private let session = OGSession(configuration: .default)
+    private let downloader: OpenGraphDataDownloader
     
-    private override init() {
+    init(downloader: OpenGraphDataDownloader = .init(session: OGSession(configuration: .default))) {
+        self.downloader = downloader
         super.init()
     }
     
@@ -42,37 +43,19 @@ import Foundation
                 }
             }
             ogData.sourceUrl = urlString
-            guard let url = URL(string: urlString) else {
-                completion?(.init(ogData: ogData), NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
-                return
-            }
 
-            let failure: (OGSession.Error, Bool) -> Void = { error, isExpired in
+            me.downloader.fetchOGData(urlString: urlString, task: task) { result in
                 ogData.managedObjectContext?.perform {
-                    if !isExpired { completion?(.init(ogData: ogData), nil) }
-                }
-            }
-            if url.host?.contains("youtube.com") == true {
-                guard let request = YoutubeEmbedRequest(url: url) else {
-                    completion?(.init(ogData: ogData), NSError(domain: "can not create NSURL with \"\(urlString)\"", code: 9999, userInfo: nil))
-                    return
-                }
-                me.session.send(request, task: task, success: { youtube, isExpired in
-                    ogData.managedObjectContext?.perform {
-                        ogData.setValue(youtube)
-                        ogData.save()
+                    switch result {
+                    case let .success(data, isExpired):
+                        if ogData.update(with: data) {
+                            ogData.save()
+                        }
+                        if !isExpired { completion?(data, nil) }
+                    case let .failure(_, isExpired):
                         if !isExpired { completion?(.init(ogData: ogData), nil) }
                     }
-                }, failure: failure)
-            } else {
-                let request = HtmlRequest(url: url)
-                me.session.send(request, task: task, success: { html, isExpired in
-                    ogData.managedObjectContext?.perform {
-                        ogData.setValue(html)
-                        ogData.save()
-                        if !isExpired { completion?(.init(ogData: ogData), nil) }
-                    }
-                }, failure: failure)
+                }
             }
         }
         return task
