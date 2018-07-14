@@ -8,6 +8,9 @@
 
 import Foundation
 
+/// Protocol of OGP cache manager
+///
+/// If define OGP Cahce manage class with this protocol, be able to set OGDataProvider.cacheManager.
 @objc public protocol OGDataCacheManagerProtocol: NSObjectProtocol {
     var updateInterval: TimeInterval { get set }
     func fetchOrInsertOGCacheData(url: String, completion: @escaping (OGCacheData) -> ())

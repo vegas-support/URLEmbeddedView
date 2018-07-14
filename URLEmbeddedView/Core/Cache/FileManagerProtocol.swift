@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Use for Test
 protocol FileManagerProtocol: class {
     func fileExists(atPath path: String) -> Bool
     func fileExists(atPath path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool

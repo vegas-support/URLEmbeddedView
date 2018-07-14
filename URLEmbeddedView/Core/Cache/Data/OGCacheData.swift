@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// OGP cache object
 @objc public final class OGCacheData: NSObject {
     @objc var openGraphData: OpenGraphData {
         return ogData as OpenGraphData

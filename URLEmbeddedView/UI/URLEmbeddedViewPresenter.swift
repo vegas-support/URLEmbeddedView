@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Use for Test
 protocol URLEmbeddedViewPresenterProtocol: class {
     var shouldContinueDownloadingWhenCancel: Bool { get set }
     var url: URL? { get }

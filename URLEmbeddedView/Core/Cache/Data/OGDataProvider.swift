@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Use for Test
 protocol OGDataProviderProtocol: class {
     var cacheManager: OGDataCacheManagerProtocol { get set }
     var updateInterval: TimeInterval { get set }
@@ -17,6 +18,7 @@ protocol OGDataProviderProtocol: class {
     func cancelLoading(_ task: Task, shouldContinueDownloading: Bool)
 }
 
+/// Provides OGP object from cache or API
 @objc public final class OGDataProvider: NSObject, OGDataProviderProtocol {
     //MARK: Static constants
     @objc(sharedInstance)
@@ -25,6 +27,11 @@ protocol OGDataProviderProtocol: class {
     //MARK: - Properties
     private let downloader: OpenGraphDataDownloaderProtocol
 
+    /// Represents cache feature
+    ///
+    /// Default cache feature is using Core Data
+    ///
+    /// - seealso: OGDataCacheManagerProtocol
     @objc public lazy var cacheManager: OGDataCacheManagerProtocol = OGDataCacheManager()
     
     init(downloader: OpenGraphDataDownloaderProtocol = OpenGraphDataDownloader(session: OGSession(configuration: .default))) {

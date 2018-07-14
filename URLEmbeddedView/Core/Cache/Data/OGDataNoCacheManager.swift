@@ -8,6 +8,9 @@
 
 import Foundation
 
+/// Non cached feature class
+///
+/// Has no OGP cache
 @objc public final class OGDataNoCacheManager: NSObject, OGDataCacheManagerProtocol {
 
     public var updateInterval: TimeInterval

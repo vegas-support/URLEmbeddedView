@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Use for test
 protocol OGImageProviderProtocol: class {
     func loadImage(urlString: String, completion: ((Result<UIImage>) -> Void)?) -> Task?
     func clearMemoryCache()
@@ -15,6 +16,7 @@ protocol OGImageProviderProtocol: class {
     func cancelLoading(_ task: Task, shouldContinueDownloading: Bool)
 }
 
+/// Provides Image from cache or API
 @objc public final class OGImageProvider: NSObject, OGImageProviderProtocol {
 
     //MARK: - Static constants

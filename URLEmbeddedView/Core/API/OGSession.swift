@@ -50,6 +50,7 @@ public enum Result<T> {
     }
 }
 
+/// Use for Test
 protocol OGSessionProtocol: class {
     func send<T: OGRequest>(_ request: T, task: Task, success: @escaping (T.Response, Bool) -> Void, failure: @escaping (OGSession.Error, Bool) -> Void) -> Task
 }

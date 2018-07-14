@@ -8,12 +8,14 @@
 
 import Foundation
 
+/// Use for Test
 protocol OpenGraphDataDownloaderProtocol: class {
     func fetchOGData(urlString: String, completion: ((OpenGraphDataDownloader.Result) -> Void)?) -> Task
     func fetchOGData(urlString: String, task: Task, completion: ((OpenGraphDataDownloader.Result) -> Void)?) -> Task
     func cancelLoading(_ task: Task, shouldContinueDownloading: Bool)
 }
 
+/// OGP object downloader
 @objc public final class OpenGraphDataDownloader: NSObject, OpenGraphDataDownloaderProtocol {
 
     @objc(sharedInstance)
@@ -70,12 +72,13 @@ protocol OpenGraphDataDownloaderProtocol: class {
 }
 
 extension OpenGraphDataDownloader {
+    /// Represents error
     public enum Error: Swift.Error {
         case createURLFailed(String)
         case createYoutubeRequestFailed(String)
-        case expired
     }
 
+    /// Represents download result
     public enum Result {
         case success(data: OpenGraph.Data, isExpired: Bool)
         case failure(error: Swift.Error, isExpired: Bool)

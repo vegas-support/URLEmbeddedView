@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Use for Test
 protocol DataProtocol {
     func write(to url: URL, options: Data.WritingOptions) throws
 }

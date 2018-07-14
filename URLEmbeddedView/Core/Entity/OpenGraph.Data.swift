@@ -9,6 +9,8 @@
 import Foundation
 
 extension OpenGraph {
+
+    /// OGP object for Swift
     public struct Data {
         public let imageUrl: URL?
         public let pageDescription: String?
