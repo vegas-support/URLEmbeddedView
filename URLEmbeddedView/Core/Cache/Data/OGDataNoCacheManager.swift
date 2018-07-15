@@ -21,13 +21,7 @@ import Foundation
     }
 
     public func fetchOrInsertOGCacheData(url: String, completion: @escaping (OGCacheData) -> ()) {
-        let ogData = OpenGraph.Data(imageUrl: nil,
-                                    pageDescription: nil,
-                                    pageTitle: nil,
-                                    pageType: nil,
-                                    siteName: nil,
-                                    sourceUrl: URL(string: url),
-                                    url: nil)
+        let ogData = OpenGraph.Data(sourceUrl: url)
         let cache = OGCacheData(ogData: ogData, createDate: Date(), updateDate: nil)
         completion(cache)
     }

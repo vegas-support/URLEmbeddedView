@@ -12,7 +12,7 @@ protocol URLEmbeddedViewProtocol: class {
     func layoutIfNeeded()
     func prepareViewsForReuse()
     func updateActivityView(isHidden: Bool)
-    func updateViewAsEmpty(with url: URL)
+    func updateViewAsEmpty(with url: URL, faciconURLString: String)
     func updateLinkIconView(isHidden: Bool)
     func updateTitleLabel(pageTitle: String)
     func updateDescriptionLabel(pageDescription: String?)
@@ -414,14 +414,13 @@ extension URLEmbeddedView: URLEmbeddedViewProtocol {
         }
     }
 
-    func updateViewAsEmpty(with url: URL) {
+    func updateViewAsEmpty(with url: URL, faciconURLString: String) {
         imageView.image = nil
         titleLabel.attributedText = textProvider[.noDataTitle].attributedText(url.absoluteString)
         descriptionLabel.attributedText = nil
         domainLabel.attributedText = textProvider[.domain].attributedText(url.host ?? "")
         changeDomainImageViewWidthConstraint(0)
-        changeDomainImageViewToDomainLabelConstraint(0)
-        changeImageViewWidthConstrain(nil)
+        updateDomainImageView(urlString: faciconURLString)
         linkIconView.isHidden = false
     }
 

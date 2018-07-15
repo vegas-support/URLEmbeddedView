@@ -23,6 +23,28 @@ extension OpenGraph {
 }
 
 extension OpenGraph.Data {
+    var isEmpty: Bool {
+        if let value = imageUrl?.absoluteString, !value.isEmpty {
+            return false
+        }
+        if let value = pageDescription, !value.isEmpty {
+            return false
+        }
+        if let value = pageTitle, !value.isEmpty {
+            return false
+        }
+        if let value = pageType, !value.isEmpty {
+            return false
+        }
+        if let value = siteName, !value.isEmpty {
+            return false
+        }
+        if let value = url?.absoluteString, !value.isEmpty {
+            return false
+        }
+        return true
+    }
+
     init(ogData: OGData) {
         imageUrl = URL(string: ogData.imageUrl)
         pageDescription = ogData.pageDescription.isEmpty ? nil : ogData.pageDescription
@@ -38,20 +60,20 @@ extension OpenGraph.Data {
         self.pageType = youtube.type
         self.siteName = youtube.providerName
         self.imageUrl = URL(string: youtube.thumbnailUrl)
-        self.pageDescription = nil
+        self.pageDescription = youtube.authorName
         let url = URL(string: sourceUrl)
         self.sourceUrl = url
         self.url = url
     }
 
-    init() {
-        self.imageUrl = nil
-        self.pageDescription = nil
-        self.pageTitle = nil
-        self.pageType = nil
-        self.siteName = nil
-        self.sourceUrl = nil
-        self.url = nil
+    static func empty() -> OpenGraph.Data {
+        return .init(imageUrl: nil,
+                     pageDescription: nil,
+                     pageTitle: nil,
+                     pageType: nil,
+                     siteName: nil,
+                     sourceUrl: nil,
+                     url: nil)
     }
 }
 
@@ -85,7 +107,7 @@ extension OpenGraph.Data {
         }
     }
 
-    private init(sourceUrl: String) {
+    init(sourceUrl: String) {
         self.imageUrl = nil
         self.pageDescription = nil
         self.pageTitle = nil
@@ -188,6 +210,6 @@ extension OpenGraph.Data: _ObjectiveCBridgeable {
     }
 
     public static func _unconditionallyBridgeFromObjectiveC(_ source: OpenGraphData?) -> OpenGraph.Data {
-        return .init()
+        return .empty()
     }
 }
