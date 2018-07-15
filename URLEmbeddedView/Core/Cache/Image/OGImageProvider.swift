@@ -26,6 +26,7 @@ protocol OGImageProviderProtocol: class {
     //MARK: - Properties
     private let session: OGSessionProtocol
     private let cacheManager: OGImageCacheManagerProtocol
+    private let queue = DispatchQueue(label: "com.OGImageProvider.URLEmbeddedView", attributes: .concurrent)
     
     init(cacheManager: OGImageCacheManagerProtocol = OGImageCacheManager(),
          session: OGSessionProtocol = OGSession(configuration: .default)) {
@@ -43,27 +44,38 @@ protocol OGImageProviderProtocol: class {
             completion?(.failure(URLEmbeddedViewError.invalidURLString(urlString)))
             return nil
         }
-        if !urlString.isEmpty {
-            if let image = cacheManager.cachedImage(urlString: urlString) {
-                completion?(.success(image))
-                return nil
+
+        let task = Task()
+
+        queue.async { [weak self] in
+            if !urlString.isEmpty {
+                if let image = self?.cacheManager.cachedImage(urlString: urlString) {
+                    completion?(.success(image))
+                    return
+                }
             }
+            let request = ImageRequest(url: url)
+            _ = self?.session.send(request, task: .init(), success: { value, isExpired in
+                self?.cacheManager.storeImage(value.1, data: value.0, urlString: urlString)
+                if !isExpired { completion?(.success(value.1)) }
+            }, failure: { error, isExpired in
+                if !isExpired { completion?(.failure(error)) }
+            })
         }
-        let request = ImageRequest(url: url)
-        return session.send(request, task: .init(), success: { [weak self] value, isExpired in
-            self?.cacheManager.storeImage(value.1, data: value.0, urlString: urlString)
-            if !isExpired { completion?(.success(value.1)) }
-        }, failure: { error, isExpired in
-            if !isExpired { completion?(.failure(error)) }
-        })
+
+        return task
     }
     
     @objc public func clearMemoryCache() {
-        cacheManager.clearMemoryCache()
+        queue.async { [weak self] in
+            self?.cacheManager.clearMemoryCache()
+        }
     }
     
     @objc public func clearAllCache() {
-        cacheManager.clearAllCache()
+        queue.async { [weak self] in
+            self?.cacheManager.clearAllCache()
+        }
     }
     
     @objc public func cancelLoading(_ task: Task, shouldContinueDownloading: Bool) {

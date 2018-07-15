@@ -67,6 +67,7 @@ final class OGSession: OGSessionProtocol {
     
     private let session: URLSession
     private var taskCollection: [String : Task] = [:]
+    private let lock = Lock()
     
     init(configuration: URLSessionConfiguration = .default) {
         configuration.timeoutIntervalForRequest = 30
@@ -77,9 +78,16 @@ final class OGSession: OGSessionProtocol {
     @discardableResult
     func send<T: OGRequest>(_ request: T, task: Task = .init(), success: @escaping (T.Response, Bool) -> Void, failure: @escaping (OGSession.Error, Bool) -> Void) -> Task {
         let uuidString = task.uuidString
-        let dataTask = session.dataTask(with: request.urlRequest) { [weak self] data, response, error in
-            let isExpired = self?.taskCollection[uuidString]?.isExpired ?? true
-            self?.taskCollection.removeValue(forKey: uuidString)
+        let dataTask = session.dataTask(with: request.urlRequest) { [weak self, uuidString] data, response, error in
+            guard let me = self else {
+                return
+            }
+
+            me.lock.lock()
+            let isExpired = me.taskCollection[uuidString]?.isExpired ?? false
+            me.taskCollection.removeValue(forKey: uuidString)
+            me.lock.unlock()
+
             if let error = error {
                 failure((error as? Error) ?? .other(error), isExpired)
                 return
@@ -98,7 +106,11 @@ final class OGSession: OGSessionProtocol {
             }
         }
         task.setTask(dataTask)
-        taskCollection[task.uuidString] = task
+
+        lock.synchronized {
+            taskCollection[uuidString] = task
+        }
+        
         dataTask.resume()
         return task
     }

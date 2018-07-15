@@ -43,6 +43,8 @@
 		3751D0881FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0721FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift */; };
 		3751D0891FBCA9840035E242 /* URLEmbeddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0731FBCA9840035E242 /* URLEmbeddedView.swift */; };
 		3751D08A1FBCA9840035E242 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0741FBCA9840035E242 /* URLImageView.swift */; };
+		37B1938320FB08E200D2698C /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B1938220FB08E200D2698C /* Lock.swift */; };
+		37B1938420FB08E200D2698C /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B1938220FB08E200D2698C /* Lock.swift */; };
 		37B8EDBF20FA6EE500C3FDE0 /* AttributedTextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D06E1FBCA9840035E242 /* AttributedTextProvider.swift */; };
 		37B8EDC020FA6EE500C3FDE0 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D06F1FBCA9840035E242 /* AttributeManager.swift */; };
 		37B8EDC120FA6EE500C3FDE0 /* AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751D0701FBCA9840035E242 /* AutoLayout.swift */; };
@@ -124,6 +126,7 @@
 		3751D0721FBCA9840035E242 /* URLEmbeddedView+Inspectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLEmbeddedView+Inspectable.swift"; sourceTree = "<group>"; };
 		3751D0731FBCA9840035E242 /* URLEmbeddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLEmbeddedView.swift; sourceTree = "<group>"; };
 		3751D0741FBCA9840035E242 /* URLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
+		37B1938220FB08E200D2698C /* Lock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
 		37B8EDEC20FA6EE500C3FDE0 /* URLEmbeddedView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLEmbeddedView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B8EDEE20FA6F8400C3FDE0 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		37B8EDEF20FA6F8500C3FDE0 /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
@@ -176,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				3744375F20F90CA2008ABA8D /* Gap.swift */,
+				37B1938220FB08E200D2698C /* Lock.swift */,
 				3751D0591FBCA9840035E242 /* MD5.swift */,
 				3751D05A1FBCA9840035E242 /* NSTimeInterval+Util.swift */,
 				3751D05B1FBCA9840035E242 /* NSUserDefaults+URLEmbeddedView.swift */,
@@ -418,6 +422,7 @@
 			files = (
 				37B8EDBF20FA6EE500C3FDE0 /* AttributedTextProvider.swift in Sources */,
 				37B8EDC020FA6EE500C3FDE0 /* AttributeManager.swift in Sources */,
+				37B1938420FB08E200D2698C /* Lock.swift in Sources */,
 				37B8EDC120FA6EE500C3FDE0 /* AutoLayout.swift in Sources */,
 				37B8EDC220FA6EE500C3FDE0 /* DataProtocol.swift in Sources */,
 				37B8EDC320FA6EE500C3FDE0 /* FileManagerProtocol.swift in Sources */,
@@ -462,6 +467,7 @@
 			files = (
 				3751D0841FBCA9840035E242 /* AttributedTextProvider.swift in Sources */,
 				3751D0851FBCA9840035E242 /* AttributeManager.swift in Sources */,
+				37B1938320FB08E200D2698C /* Lock.swift in Sources */,
 				3751D0861FBCA9840035E242 /* AutoLayout.swift in Sources */,
 				374CCA2020FA5BEF00682191 /* DataProtocol.swift in Sources */,
 				374CCA1E20FA5A2300682191 /* FileManagerProtocol.swift in Sources */,
