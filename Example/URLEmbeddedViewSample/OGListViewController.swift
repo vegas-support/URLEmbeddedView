@@ -60,7 +60,11 @@ extension OGListViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         cell.embeddedView.didTapHandler = { [weak self] embeddedView, URL in
             guard let URL = URL else { return }
-            self?.present(SFSafariViewController(url: URL), animated: true, completion: nil)
+            if #available(iOS 9.0, *) {
+                self?.present(SFSafariViewController(url: URL), animated: true, completion: nil)
+            } else {
+                // Fallback on earlier versions
+            }
         }
         return cell
     }

@@ -204,7 +204,7 @@ github "marty-suzuki/URLEmbeddedView"
 ## Requirements
 
 - Xcode 9 or greater
-- iOS 9.0 or greater
+- iOS 8.0 or greater
 - tvOS 10.0 or greater
 - UIKit
 - CoreData
