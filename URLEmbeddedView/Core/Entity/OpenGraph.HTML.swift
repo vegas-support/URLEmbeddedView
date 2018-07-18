@@ -16,7 +16,21 @@ extension OpenGraph {
             static let contentKey = "content"
             static let propertyPrefix = "og:"
             static let regex: NSRegularExpression? = {
-                let pattern = "meta\\s*(?:content\\s*=\\s*\"([^>]*)\"\\s*property\\s*=\\s*\"([^>]*)\")|(?:property\\s*=\\s*\"([^>]*)\"\\s*content\\s*=\\s*\"([^>]*)\")\\s*/?>"
+                let patterns = [
+                    // "" & ""
+                    "(?:content\\s*=\\s*\"([^>]*)\"\\s*property\\s*=\\s*\"([^>]*)\")",
+                    "(?:property\\s*=\\s*\"([^>]*)\"\\s*content\\s*=\\s*\"([^>]*)\")",
+                    // '' & ''
+                    "(?:content\\s*=\\s*'([^>]*)'\\s*property\\s*=\\s*'([^>]*)')",
+                    "(?:property\\s*=\\s*'([^>]*)'\\s*content\\s*=\\s*'([^>]*)')",
+                    // "" & ''
+                    "(?:content\\s*=\\s*\"([^>]*)\"\\s*property\\s*=\\s*'([^>]*)')",
+                    "(?:property\\s*=\\s*\"([^>]*)\"\\s*content\\s*=\\s*'([^>]*)')",
+                    // '' & ""
+                    "(?:content\\s*=\\s*'([^>]*)'\\s*property\\s*=\\s*\"([^>]*)\")",
+                    "(?:property\\s*=\\s*'([^>]*)'\\s*content\\s*=\\s*\"([^>]*)\")"
+                ]
+                let pattern = "meta\\s*\(patterns.joined(separator: "|"))\\s*/?>"
                 return try? NSRegularExpression(pattern: pattern, options: [])
             }()
         }
@@ -33,12 +47,15 @@ extension OpenGraph {
             }
 
             func unescapedContent() throws -> String {
+                guard #available(iOS 11, tvOS 11, macOS 10.13, *) else {
+                    return content
+                }
                 guard let data = content.data(using: .utf8) else {
                     throw Error.faildToConvertData(content)
                 }
                 let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
                     .documentType : NSAttributedString.DocumentType.html,
-                    .characterEncoding: String.Encoding.utf8.rawValue
+                    NSAttributedString.DocumentReadingOptionKey("CharacterEncoding"): String.Encoding.utf8.rawValue
                 ]
                 return try NSAttributedString(data: data, options: options, documentAttributes: nil).string
             }

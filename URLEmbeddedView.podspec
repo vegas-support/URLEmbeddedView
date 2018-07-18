@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "URLEmbeddedView"
-  s.version          = "0.16.1"
+  s.version          = "0.16.2"
   s.summary          = "URLEmbeddedView is a view that automatically cache the Open Graph Protocol."
 
 # This description is used to generate tags and improve search results.
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/marty-suzuki/URLEmbeddedView.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/marty_suzuki'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '10.0'
   s.requires_arc = true
 
