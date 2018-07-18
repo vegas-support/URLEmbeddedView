@@ -16,7 +16,21 @@ extension OpenGraph {
             static let contentKey = "content"
             static let propertyPrefix = "og:"
             static let regex: NSRegularExpression? = {
-                let pattern = "meta\\s*(?:content\\s*=\\s*\"([^>]*)\"\\s*property\\s*=\\s*\"([^>]*)\")|(?:property\\s*=\\s*\"([^>]*)\"\\s*content\\s*=\\s*\"([^>]*)\")\\s*/?>"
+                let patterns = [
+                    // "" & ""
+                    "(?:content\\s*=\\s*\"([^>]*)\"\\s*property\\s*=\\s*\"([^>]*)\")",
+                    "(?:property\\s*=\\s*\"([^>]*)\"\\s*content\\s*=\\s*\"([^>]*)\")",
+                    // '' & ''
+                    "(?:content\\s*=\\s*'([^>]*)'\\s*property\\s*=\\s*'([^>]*)')",
+                    "(?:property\\s*=\\s*'([^>]*)'\\s*content\\s*=\\s*'([^>]*)')",
+                    // "" & ''
+                    "(?:content\\s*=\\s*\"([^>]*)\"\\s*property\\s*=\\s*'([^>]*)')",
+                    "(?:property\\s*=\\s*\"([^>]*)\"\\s*content\\s*=\\s*'([^>]*)')",
+                    // '' & ""
+                    "(?:content\\s*=\\s*'([^>]*)'\\s*property\\s*=\\s*\"([^>]*)\")",
+                    "(?:property\\s*=\\s*'([^>]*)'\\s*content\\s*=\\s*\"([^>]*)\")"
+                ]
+                let pattern = "meta\\s*\(patterns.joined(separator: "|"))\\s*/?>"
                 return try? NSRegularExpression(pattern: pattern, options: [])
             }()
         }
