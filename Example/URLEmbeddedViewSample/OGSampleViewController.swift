@@ -47,24 +47,43 @@ class OGSampleViewController: UIViewController {
     }
     
     private struct KeyboardInfo: NoticeUserInfoDecodable {
+        #if swift(>=4.2)
+        typealias UIViewAnimationOptions = UIView.AnimationOptions
+        #endif
+
         let animationDuration: TimeInterval
         let animationOptions: UIViewAnimationOptions
         let frame: CGRect
+
         init?(info: [AnyHashable: Any]) {
+            #if swift(>=4.2)
+            animationDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0
+            animationOptions = UIView.AnimationOptions(rawValue:info[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt ?? 0)
+            frame = (info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
+            #else
             animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0
             animationOptions = UIViewAnimationOptions(rawValue:info[UIKeyboardAnimationCurveUserInfoKey] as? UInt ?? 0)
             frame = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
+            #endif
         }
     }
     
     private struct UIKeyboardWillShow: NoticeType {
         typealias InfoType = KeyboardInfo
+        #if swift(>=4.2)
+        static let name: Notification.Name = UIResponder.keyboardWillShowNotification
+        #else
         static let name: Notification.Name = .UIKeyboardWillShow
+        #endif
     }
     
     private struct UIKeyboardWillHide: NoticeType {
         typealias InfoType = KeyboardInfo
+        #if swift(>=4.2)
+        static let name: Notification.Name = UIResponder.keyboardWillHideNotification
+        #else
         static let name: Notification.Name = .UIKeyboardWillHide
+        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {
