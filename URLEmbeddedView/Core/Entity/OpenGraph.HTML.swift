@@ -20,6 +20,9 @@ extension OpenGraph {
                     // "" & ""
                     "(?:content\\s*=\\s*\"([^>]*)\"\\s*property\\s*=\\s*\"([^>]*)\")",
                     "(?:property\\s*=\\s*\"([^>]*)\"\\s*content\\s*=\\s*\"([^>]*)\")",
+                    // name instead of property
+                    "(?:content\\s*=\\s*\"([^>]*)\"\\s*name\\s*=\\s*\"([^>]*)\")",
+                    "(?:name\\s*=\\s*\"([^>]*)\"\\s*content\\s*=\\s*\"([^>]*)\")",
                     // '' & ''
                     "(?:content\\s*=\\s*'([^>]*)'\\s*property\\s*=\\s*'([^>]*)')",
                     "(?:property\\s*=\\s*'([^>]*)'\\s*content\\s*=\\s*'([^>]*)')",
@@ -30,8 +33,8 @@ extension OpenGraph {
                     "(?:content\\s*=\\s*'([^>]*)'\\s*property\\s*=\\s*\"([^>]*)\")",
                     "(?:property\\s*=\\s*'([^>]*)'\\s*content\\s*=\\s*\"([^>]*)\")"
                 ]
-                let pattern = "meta\\s*\(patterns.joined(separator: "|"))\\s*/?>"
-                return try? NSRegularExpression(pattern: pattern, options: [])
+                let pattern = "meta\\s*\(patterns.joined(separator: "|"))\\s*>?"
+                return try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive])
             }()
         }
 
