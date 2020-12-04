@@ -6,7 +6,7 @@
 //  Copyright © 2018年 marty-suzuki. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol OGImageCacheManagerProtocol: class {
     func cachedImage(urlString: String) -> UIImage?

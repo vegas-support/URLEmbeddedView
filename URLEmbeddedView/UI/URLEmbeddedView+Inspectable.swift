@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+import UIKit
 
 extension URLEmbeddedView {
     @IBInspectable public var cornerRaidus: CGFloat {

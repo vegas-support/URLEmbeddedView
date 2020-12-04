@@ -6,6 +6,8 @@
 //  Copyright © 2018年 marty-suzuki. All rights reserved.
 //
 
+import UIKit
+
 /// Use for Test
 protocol URLImageViewPresenterProtocol: class {
     var shouldContinueDownloadingWhenCancel: Bool { get set }
