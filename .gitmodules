@@ -1,6 +1,6 @@
 [submodule "Example/Carthage/Checkouts/NoticeObserveKit"]
 	path = Example/Carthage/Checkouts/NoticeObserveKit
-	url = git@github.com:marty-suzuki/NoticeObserveKit.git
+	url = https://github.com/marty-suzuki/NoticeObserveKit.git
 [submodule "Example/Carthage/Checkouts/MisterFusion"]
 	path = Example/Carthage/Checkouts/MisterFusion
 	url = https://github.com/marty-suzuki/MisterFusion
